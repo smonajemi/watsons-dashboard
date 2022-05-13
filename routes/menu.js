@@ -7,14 +7,14 @@ router.get('/', function(req, res, next) {
   res.send('You are on menu');
 });
 router.post('/', upload.single('file'), (req, res) => {
-  let newMenu = new Menu({
-    name: req.body.name,
-    description: req.body.description,
+  const newMenu = new Menu({
+    name: req.file.filename,
+    description: req.file.fieldname,
     file: req.file.path
   })
 
   newMenu.save().then(data => {
-    res.json(data)
+    res.redirect('/')
   }).catch(e => {
     res.json({message: e})
   })

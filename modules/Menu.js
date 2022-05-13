@@ -3,7 +3,7 @@ const mongoose  = require('mongoose')
 const fileSchema = new mongoose.Schema({
     id: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref : 'Image'
+        ref : 'Menu'
     },
     name: {
         type: String,
@@ -28,4 +28,4 @@ const fileSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('Image', fileSchema)
+module.exports = mongoose.model('Menu', fileSchema)
