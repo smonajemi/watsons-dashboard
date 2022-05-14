@@ -13,7 +13,7 @@ router.get('/reservations', function(req, res, next) {
 })
 router.get('/qr', function(req, res, next) {
   // const urlAddress = req.protocol + '://' + req.get('host');
-  const urlAddress = req.headers.host.includes('localhost') ? process.env.HOST_LOCAL : process.env.HOST_TEST 
+  const urlAddress = req.headers.host.includes('localhost') ? process.env.HOST_LOCAL : process.env.HOST_DEV 
   res.render('menu', { title:"Watson's Toronto", url: urlAddress})
 })
 
