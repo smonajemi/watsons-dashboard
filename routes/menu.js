@@ -15,7 +15,6 @@ router.post('/', upload.single('file'), (req, res) => {
 
   try {
     newMenu.save()
-    res.redirect('/dashboard')
   } catch (error) {
     res.json(error)
   }
