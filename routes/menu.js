@@ -13,11 +13,12 @@ router.post('/', upload.single('file'), (req, res) => {
     file: req.file.path
   })
 
-  newMenu.save().then(data => {
+  try {
+    newMenu.save()
     res.redirect('/')
-  }).catch(e => {
-    res.send({error: e})
-  })
+  } catch (error) {
+    res.json(error)
+  }
 });
 // router.post('/', upload.single('file'), (req, res) => {
 //   console.log(req.file)
