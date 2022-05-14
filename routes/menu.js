@@ -4,7 +4,7 @@ const Menu = require('../modules/Menu')
 const upload = require('../middlewares/upload')
 /* GET menu */
 router.get('/', function(req, res, next) {
-  res.render('index', { title:" Watson's Toronto", isHome: true})
+  res.render('dashboard', { title:"Dashboard", isDash: true})
 });
 router.post('/', upload.single('file'), (req, res) => {
   const newMenu = new Menu({
@@ -20,9 +20,5 @@ router.post('/', upload.single('file'), (req, res) => {
     res.json(error)
   }
 });
-// router.post('/', upload.single('file'), (req, res) => {
-//   console.log(req.file)
-//   res.send('uploaded')
-// })
 
 module.exports = router;

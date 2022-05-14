@@ -14,8 +14,8 @@ const app = express();
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
 app.engine('.hbs', expbs.engine({ extname: '.hbs',
-defaultLayout: 'layout',
-layoutsDir: path.join(__dirname, 'views/layout'),
+defaultLayout: 'main',
+layoutsDir: path.join(__dirname, 'views/layouts'),
 partialsDir: __dirname + '/views/partials'
  }));
 app.set('view engine', 'hbs');

@@ -1,0 +1,1192 @@
+/* NAVBAR EFFECT SLIDEIN */
+.dropdown .dropdown-menu {
+    transition: all 0.5s;
+    overflow: hidden;
+    transform: scale(1, 0);
+    /* display:block; */
+    background: none;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+}
+
+.slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+}
+.dropdown:hover .dropdown-menu {
+    transform: scale(1);
+}
+.dropdown-item{
+    color: #fff;
+    text-align: center;
+}
+.dropdown-item:hover {
+    color: #998307
+}
+/* ---------------------- */
+/* - BOOTSTRAP 4 - SOUS-MENU - */
+.dropdown-submenu {
+    position: relative;
+  }
+  .dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-left: .1rem;
+    margin-right: .1rem;
+  }
+  /* SPECIAL : ROTATION des flèches */
+  .dropdown-submenu a::after {
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 6px;
+    top: .8em;
+  }
+  
+  /* --------------------- */
+  /* SPECIAL : ROTATION des flèches */
+  /* Niveau 1 */
+  li .dropdown-toggle:after {
+    transition: all 0.5s;
+  }
+  li.show > .dropdown-toggle:after {
+    transform: rotate(180deg);
+  }
+  /* sous-Niveaux suivants */
+  li li.show > .dropdown-toggle:after {
+    transform: rotate(90deg);
+  }
+  /* --------------------- */
+  .dropdown-menu {
+    border: none;
+  }
+
+/* IMAGES */
+/* .carouselCustom-inner img{
+    float: none;
+    width:  100%;
+    height: 100%;
+    object-fit: cover;
+} */
+.carouselContainer {
+    width: 210px;
+    height: 140px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-perspective: 1100px;
+    -moz-perspective: 1100px;
+    -ms-perspective: 1100px;
+    perspective: 1100px;
+}
+#carouselCustom {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    -ms-transition: -ms-transform 1s;
+    transition: transform 1s;
+    -webkit-animation: rotating 20s linear infinite;
+    -moz-animation: rotating 20s linear infinite;
+    -o-animation: rotating 20s linear infinite;
+    -ms-animation: rotating 20s linear infinite;
+    animation: rotating 20s linear infinite;
+}
+#carouselCustom:hover {
+    animation-play-state: paused;
+    -o-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -webkit-animation-play-state: paused;
+}
+#carouselCustom div {
+    display: block;
+    position: absolute;
+    width: 180px;
+    height: 120px;
+    border: 2px solid #000;
+}
+#carouselCustom div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#carouselCustom div:nth-child(1) {
+    -webkit-transform: rotateY(0deg) translateZ(288px);
+    -moz-transform: rotateY(0deg) translateZ(288px);
+    -ms-transform: rotateY(0deg) translateZ(288px);
+    -o-transform: rotateY(0deg) translateZ(288px);
+    transform: rotateY(0deg) translateZ(288px);
+}
+#carouselCustom div:nth-child(2) {
+    -webkit-transform: rotateY(40deg) translateZ(288px);
+    -moz-transform: rotateY(40deg) translateZ(288px);
+    -ms-transform: rotateY(40deg) translateZ(288px);
+    -o-transform: rotateY(40deg) translateZ(288px);
+    transform: rotateY(40deg) translateZ(288px);
+}
+#carouselCustom div:nth-child(3) {
+    -webkit-transform: rotateY(80deg) translateZ(288px);
+    -moz-transform: rotateY(80deg) translateZ(288px);
+    -ms-transform: rotateY(80deg) translateZ(288px);
+    -o-transform: rotateY(80deg) translateZ(288px);
+    transform: rotateY(80deg) translateZ(288px);
+}
+#carouselCustom div:nth-child(4) {
+    -webkit-transform: rotateY(120deg) translateZ(288px);
+    -moz-transform: rotateY(120deg) translateZ(288px);
+    -ms-transform: rotateY(120deg) translateZ(288px);
+    -o-transform: rotateY(120deg) translateZ(288px);
+    transform: rotateY(120deg) translateZ(288px);
+}
+#carouselCustom div:nth-child(5) {
+    -webkit-transform: rotateY(160deg) translateZ(288px);
+    -moz-transform: rotateY(160deg) translateZ(288px);
+    -ms-transform: rotateY(160deg) translateZ(288px);
+    -o-transform: rotateY(160deg) translateZ(288px);
+    transform: rotateY(160deg) translateZ(288px);
+}
+#carouselCustom div:nth-child(6) {
+    -webkit-transform: rotateY(200deg) translateZ(288px);
+    -moz-transform: rotateY(200deg) translateZ(288px);
+    -ms-transform: rotateY(200deg) translateZ(288px);
+    -o-transform: rotateY(200deg) translateZ(288px);
+    transform: rotateY(200deg) translateZ(288px);
+}
+#carouselCustom div:nth-child(7) {
+    -webkit-transform: rotateY(240deg) translateZ(288px);
+    -moz-transform: rotateY(240deg) translateZ(288px);
+    -ms-transform: rotateY(240deg) translateZ(288px);
+    -o-transform: rotateY(240deg) translateZ(288px);
+    transform: rotateY(240deg) translateZ(288px);
+}
+#carouselCustom div:nth-child(8) {
+    -webkit-transform: rotateY(280deg) translateZ(288px);
+    -moz-transform: rotateY(280deg) translateZ(288px);
+    -ms-transform: rotateY(280deg) translateZ(288px);
+    -o-transform: rotateY(280deg) translateZ(288px);
+    transform: rotateY(280deg) translateZ(288px);
+}
+#carouselCustom div:nth-child(9) {
+    -webkit-transform: rotateY(320deg) translateZ(288px);
+    -moz-transform: rotateY(320deg) translateZ(288px);
+    -ms-transform: rotateY(320deg) translateZ(288px);
+    -o-transform: rotateY(320deg) translateZ(288px);
+    transform: rotateY(320deg) translateZ(288px);
+}
+@-moz-keyframes rotating {
+    from {
+        -webkit-transform-origin: 60% 50%;
+        -moz-transform-origin: 60% 50%;
+        -o-transform-origin: 60% 50%;
+        -ms-transform-origin: 60% 50%;
+        transform-origin: 60% 50%;
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+   }
+    to {
+        -webkit-transform-origin: 60% 50%;
+        -moz-transform-origin: 60% 50%;
+        -o-transform-origin: 60% 50%;
+        -ms-transform-origin: 60% 50%;
+        transform-origin: 60% 50%;
+        -webkit-transform: rotateY(-360deg);
+        -moz-transform: rotateY(-360deg);
+        -o-transform: rotateY(-360deg);
+        -ms-transform: rotateY(-360deg);
+        transform: rotateY(-360deg);
+   }
+}
+@-webkit-keyframes rotating {
+    from {
+        -webkit-transform-origin: 60% 50%;
+        -moz-transform-origin: 60% 50%;
+        -o-transform-origin: 60% 50%;
+        -ms-transform-origin: 60% 50%;
+        transform-origin: 60% 50%;
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+   }
+    to {
+        -webkit-transform-origin: 60% 50%;
+        -moz-transform-origin: 60% 50%;
+        -o-transform-origin: 60% 50%;
+        -ms-transform-origin: 60% 50%;
+        transform-origin: 60% 50%;
+        -webkit-transform: rotateY(-360deg);
+        -moz-transform: rotateY(-360deg);
+        -o-transform: rotateY(-360deg);
+        -ms-transform: rotateY(-360deg);
+        transform: rotateY(-360deg);
+   }
+}
+@-o-keyframes rotating {
+    from {
+        -webkit-transform-origin: 60% 50%;
+        -moz-transform-origin: 60% 50%;
+        -o-transform-origin: 60% 50%;
+        -ms-transform-origin: 60% 50%;
+        transform-origin: 60% 50%;
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+   }
+    to {
+        -webkit-transform-origin: 60% 50%;
+        -moz-transform-origin: 60% 50%;
+        -o-transform-origin: 60% 50%;
+        -ms-transform-origin: 60% 50%;
+        transform-origin: 60% 50%;
+        -webkit-transform: rotateY(-360deg);
+        -moz-transform: rotateY(-360deg);
+        -o-transform: rotateY(-360deg);
+        -ms-transform: rotateY(-360deg);
+        transform: rotateY(-360deg);
+   }
+}
+@keyframes rotating {
+    from {
+        -webkit-transform-origin: 60% 50%;
+        -moz-transform-origin: 60% 50%;
+        -o-transform-origin: 60% 50%;
+        -ms-transform-origin: 60% 50%;
+        transform-origin: 60% 50%;
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+   }
+    to {
+        -webkit-transform-origin: 60% 50%;
+        -moz-transform-origin: 60% 50%;
+        -o-transform-origin: 60% 50%;
+        -ms-transform-origin: 60% 50%;
+        transform-origin: 60% 50%;
+        -webkit-transform: rotateY(-360deg);
+        -moz-transform: rotateY(-360deg);
+        -o-transform: rotateY(-360deg);
+        -ms-transform: rotateY(-360deg);
+        transform: rotateY(-360deg);
+   }
+}
+
+
+
+
+
+
+  .slick-slide {
+    margin: 0 5px;
+  }
+  .slick-list {
+    margin: 0px -5px 0px -5px;
+  }
+  button.slick-next, button.slick-next:hover {
+    position: absolute;
+    top: 41%;
+    right: 54px;
+    width: 47px;
+    height: 75px;
+    background-image: url("http://maggiesadler.com/wp-content/uploads/2015/10/left-right-arrow.png");
+    background-size: 95px;
+  }
+  button.slick-prev, button.slick-prev:hover {
+    position: absolute;
+    top: 41%;
+    left: 15px;
+    z-index: 1;
+    width: 47px;
+    height: 75px;
+    background-image: url("http://maggiesadler.com/wp-content/uploads/2015/10/left-right-arrow.png");
+    background-size: 95px;
+        background-position-x: right;
+  }
+  .slick-prev:before, .slick-next:before {
+    font-size: 70px;
+    color: #EA8496;
+    line-height: inherit;
+    font-weight: bold;
+  }
+
+  .slider img {
+    height: 80%;
+    border-radius: 15px;
+  
+  }
+  .wLogo{
+    overflow: hidden;
+    transform: translatey(0px);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translatey(0px);
+    }
+    50% {
+      transform: translatey(-20px);
+    }
+    100% {
+      transform: translatey(0px);
+    }
+  }
+    
+
+  .slick-slider
+  {
+      position: relative;
+  
+      display: block;
+  
+      -moz-box-sizing: border-box;
+           box-sizing: border-box;
+  
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+  
+      -webkit-touch-callout: none;
+      -khtml-user-select: none;
+      -ms-touch-action: pan-y;
+          touch-action: pan-y;
+      -webkit-tap-highlight-color: transparent;
+  }
+  
+  .slick-list
+  {
+      position: relative;
+  
+      display: block;
+      overflow: hidden;
+  
+      margin: 0;
+      padding: 0;
+  }
+  .slick-list:focus
+  {
+      outline: none;
+  }
+  .slick-list.dragging
+  {
+      cursor: pointer;
+      cursor: hand;
+  }
+  
+  .slick-slider .slick-track,
+  .slick-slider .slick-list
+  {
+      -webkit-transform: translate3d(0, 0, 0);
+         -moz-transform: translate3d(0, 0, 0);
+          -ms-transform: translate3d(0, 0, 0);
+           -o-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+  }
+  
+  .slick-track
+  {
+      position: relative;
+      top: 0;
+      left: 0;
+  
+      display: block;
+  }
+  .slick-track:before,
+  .slick-track:after
+  {
+      display: table;
+  
+      content: '';
+  }
+  .slick-track:after
+  {
+      clear: both;
+  }
+  .slick-loading .slick-track
+  {
+      visibility: hidden;
+  }
+  
+  .slick-slide
+  {
+      display: none;
+      float: left;
+  
+      height: 100%;
+      min-height: 1px;
+  }
+  [dir='rtl'] .slick-slide
+  {
+      float: right;
+  }
+  .slick-slide img
+  {
+      display: block;
+  }
+  .slick-slide.slick-loading img
+  {
+      display: none;
+  }
+  .slick-slide.dragging img
+  {
+      pointer-events: none;
+  }
+  .slick-initialized .slick-slide
+  {
+      display: block;
+  }
+  .slick-loading .slick-slide
+  {
+      visibility: hidden;
+  }
+  .slick-vertical .slick-slide
+  {
+      display: block;
+  
+      height: auto;
+  
+      border: 1px solid transparent;
+  }
+  .slick-arrow.slick-hidden {
+      display: none;
+  }
+
+  /* Slider */
+  .slick-loading .slick-list
+  {
+      background: #fff url('http://maggiesadler.com/wp-content/uploads/2015/10/ajax-loader.gif') center center no-repeat;
+  }
+  
+  /* Icons */
+  @font-face
+  {
+      font-family: "Poppins", sans-serif;
+      font-weight: normal;
+      font-style: normal;
+  
+      src: url('file:///C:/Users/msadler/Desktop/slick-1.5.7/slick/fonts/slick.eot');
+      src: url('file:///C:/Users/msadler/Desktop/slick-1.5.7/slick/fonts/slick.eot?#iefix') format('embedded-opentype'), url('file:///C:/Users/msadler/Desktop/slick-1.5.7/slick/fonts/slick.woff') format('woff'), url('file:///C:/Users/msadler/Desktop/slick-1.5.7/slick/fonts/slick.ttf') format('truetype'), url('file:///C:/Users/msadler/Desktop/slick-1.5.7/slick/fonts/slick.svg#slick') format('svg');
+  }
+  /* Arrows */
+  .slick-prev,
+  .slick-next
+  {
+      font-size: 0;
+      line-height: 0;
+  
+      position: absolute;
+      top: 50%;
+  
+      display: block;
+  
+      width: 20px;
+      height: 20px;
+      margin-top: -10px;
+      padding: 0;
+  
+      cursor: pointer;
+  
+      color: transparent;
+      border: none;
+      outline: none;
+      background: transparent;
+  }
+  .slick-prev:hover,
+  .slick-prev:focus,
+  .slick-next:hover,
+  .slick-next:focus
+  {
+      color: transparent;
+      outline: none;
+      background: transparent;
+  }
+  .slick-prev:hover:before,
+  .slick-prev:focus:before,
+  .slick-next:hover:before,
+  .slick-next:focus:before
+  {
+      opacity: 1;
+  }
+  .slick-prev.slick-disabled:before,
+  .slick-next.slick-disabled:before
+  {
+      opacity: .25;
+  }
+  
+  .slick-prev:before,
+  .slick-next:before
+  {
+      font-family: "Poppins", sans-serif;
+      font-size: 20px;
+      line-height: 1;
+  
+      opacity: .75;
+      color: white;
+  
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .slick-prev
+  {
+      left: -25px;
+  }
+  [dir='rtl'] .slick-prev
+  {
+      right: -25px;
+      left: auto;
+  }
+  .slick-prev:before
+  {
+      content: '';
+  }
+  [dir='rtl'] .slick-prev:before
+  {
+      content: '';
+      font-weight: bold;
+      font-size: 20px;
+  }
+  
+  .slick-next
+  {
+      right: -25px;
+  }
+  [dir='rtl'] .slick-next
+  {
+      right: auto;
+      left: -25px;
+  }
+  .slick-next:before
+  {
+      content: '';
+  }
+  [dir='rtl'] .slick-next:before
+  {
+      content: '';
+  }
+  
+  .slick-dots
+  {
+      position: absolute;
+      bottom: -45px;
+  
+      display: block;
+  
+      width: 100%;
+      padding: 0;
+  
+      list-style: none;
+  
+      text-align: center;
+  }
+  .slick-dots li
+  {
+      position: relative;
+  
+      display: inline-block;
+  
+      width: 20px;
+      height: 20px;
+      margin: 0 5px;
+      padding: 0;
+  
+      cursor: pointer;
+  }
+  .slick-dots li button
+  {
+      font-size: 0;
+      line-height: 0;
+  
+      display: block;
+  
+      width: 20px;
+      height: 20px;
+      padding: 5px;
+  
+      cursor: pointer;
+  
+      color: transparent;
+      border: 0;
+      outline: none;
+      background: transparent;
+  }
+  .slick-dots li button:hover,
+  .slick-dots li button:focus
+  {
+      outline: none;
+  }
+  .slick-dots li button:hover:before,
+  .slick-dots li button:focus:before
+  {
+      opacity: 1;
+  }
+  .slick-dots li button:before
+  {
+      font-family: "Poppins", sans-serif;
+      font-size: 6px;
+      line-height: 20px;
+  
+      position: absolute;
+      top: 0;
+      left: 0;
+  
+      width: 20px;
+      height: 20px;
+  
+      content: '•';
+      text-align: center;
+  
+      opacity: .25;
+      color: black;
+  
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+  }
+  .slick-dots li.slick-active button:before
+  {
+      opacity: .75;
+      color: black;
+  }
+
+  .slider{
+    margin-top: 3em;
+}
+
+  
+/* RESPONSIVENESS */
+/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+        background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+    .hero {
+        background-image: url('../images/hero3.jpeg') !important;
+       background-size: cover;
+       background-position: top;
+       background-repeat: no-repeat;
+       vertical-align: middle;
+       min-height: 100vh;
+       width: 100%;
+       position: relative;
+     }
+     
+}
+
+/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+    .hero {
+        background-image: url('../images/hero3.jpeg') !important;
+       background-size: cover;
+       background-position: top;
+       background-repeat: no-repeat;
+       vertical-align: middle;
+       min-height: 100vh;
+       width: 100%;
+       position: relative;
+     }
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+    .hero {
+        background-image: url('../images/hero3.jpeg') !important;
+       background-size: cover;
+       background-position: top;
+       background-repeat: no-repeat;
+       vertical-align: middle;
+       min-height: 100vh;
+       width: 100%;
+       position: relative;
+     }
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+    .hero {
+        background-image: url('../images/hero3.jpeg') !important;
+       background-size: cover;
+       background-position: top;
+       background-repeat: no-repeat;
+       vertical-align: middle;
+       min-height: 100vh;
+       width: 100%;
+       position: relative;
+     }
+}
+
+/* ----------- iPhone X ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+    .slider{
+        margin: 0em;
+    }
+    .hero {
+         background-image: url('../images/hero2.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+      }
+      .class {
+        background-image: url('../images/hero4.jpeg') !important;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        min-height: 100vh;
+        position: relative;
+      }
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+    .hero {
+        background-image: url('../images/hero3.jpeg') !important;
+       background-size: cover;
+       background-position: top;
+       background-repeat: no-repeat;
+       vertical-align: middle;
+       min-height: 100vh;
+       width: 100%;
+       position: relative;
+     }
+}
+
+/* // mouseICON */
+  .icon-scroll,
+  .icon-scroll:before {
+    position: absolute;
+    left: 50%;
+  }
+  .icon-scroll {
+    cursor: pointer;
+    width: 40px;
+    height: 50px;
+    
+    margin-left: -20px;
+    top: 60%;
+    margin-top: 200px;
+    box-shadow: inset 0 0 0 1px #909090;
+    border-radius: 25px;
+  }
+  .icon-scroll:before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #998307;
+    margin-left: -4px;
+    top: 50px;
+    border-radius: 4px;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-name: scroll;
+  }
+  @-moz-keyframes scroll {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+  }
+  @-webkit-keyframes scroll {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+  }
+  @-o-keyframes scroll {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+  }
+  @keyframes scroll {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+  }
+  
+
+  
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #1a1814;
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #1a1814;
+  border-top-color: #cda45e;
+  border-bottom-color: #cda45e;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
+}
+
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
