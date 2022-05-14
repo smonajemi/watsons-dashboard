@@ -6,12 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title:" Watson's Toronto", isHome: true})
 })
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title:" Watson's Toronto", isHome: true})
-})
 // app.use('/uploads', express.static('uploads'))
-router.get('*', function(req,res,next) {
-  res.redirect('/')
-})
+// router.get('*', function(req,res,next) {
+//   res.redirect('/')
+// })
 
 module.exports = router;
