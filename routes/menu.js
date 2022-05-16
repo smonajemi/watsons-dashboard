@@ -29,7 +29,7 @@ if (req.file) {
                 exit = true
             const dataReceived = "Your submission was received"
             console.log(req.file)
-            res.render('success', { title:"Menu", dataName: newMenu.name, dataCreatedAt: newMenu.createAt})
+            res.send('success', { title:"Menu",layout: 'dashboard' , dataName: newMenu.name, dataCreatedAt: newMenu.createAt})
   };
 });
 } 
