@@ -21,4 +21,6 @@ router.get('/qr', function(req, res, next) {
 
 
 
+
+
 module.exports = router;

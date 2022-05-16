@@ -7,8 +7,21 @@ let exit = Boolean(false);
 
 /* GET menu */
 router.get('/', function(req, res, next) {
-  res.redirect('/dashboard')
+  // res.sendFile(path.join(__dirname, "/views/registerUser.html"));
+
+const options = {
+    root: path.join(__dirname.replace('routes', 'uploads'))
+};
+const fileName = 'watsonsToronto.pdf';
+res.sendFile(fileName, options, function (err) {
+    if (err) {
+        next(err);
+    } else {
+        console.log('Sent:', fileName);
+    }
+});
 })
+
 router.post("/", upload.single('file'), (req, res, next) => {
   //test new post
 if (req.file) {
@@ -23,6 +36,7 @@ if (req.file) {
           return res.status(404).json(err)
     }
 });
+req.body = req.file
 const formFile = req.file;
 const dataReceived = "Your submission was received:<br/><br/>" +
 "Your File data was:" + JSON.stringify(formFile.filename) + ' <br/> created at: ' + newMenu.createAt;
