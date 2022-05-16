@@ -17,24 +17,19 @@ if (req.file) {
     description: req.file.originalname,
     file: req.file.path
   })
-//     newMenu.save(function(err) {
-//       if (err !== null) {
-//           //object was not save
-//           console.log(err);
-//           return res.status(404).json(err)
-//               } else {
-//                 exit = true
-//             const dataReceived = `Your submission was received`
-//             req.body = newMenu
-//             return res.status(200).send(dataReceived + req.body)
-//   };
-// });
-} 
-const formData = req.body;
+    newMenu.save(function(err) {
+      if (err !== null) {
+          console.log(err);
+          return res.status(404).json(err)
+    }
+});
 const formFile = req.file;
 const dataReceived = "Your submission was received:<br/><br/>" +
-"Your File data was:<br/>" + JSON.stringify(formFile.filename);
+"Your File data was:" + JSON.stringify(formFile.filename) + ' <br/> created at: ' + newMenu.createAt +
+`<button onclick="location.href = '/dashboard'">Dashboard</button>`
+
 res.send(dataReceived);
+} else return res.redirect('/dashboard')
 });
 
 /** RULES OF OUR API */
