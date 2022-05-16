@@ -22,11 +22,10 @@ if (req.file) {
               return res.status(404).json(err)
                   } else {
               console.log("it was saved!")
-              return res.status(200).json(newMenu);
+              next()
       };
   });
 } 
-next();
 });
 
 /** RULES OF OUR API */

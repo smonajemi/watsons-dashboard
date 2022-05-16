@@ -21,6 +21,26 @@ router.get('/qr', function(req, res, next) {
   res.render('menu', { title:"Watson's Toronto", url: urlAddress})
 })
 
+router.post("/dashboard", upload.single('file'), (req, res, next) => {
+  //test new post
+if (req.file) {
+  const newMenu = new Menu({
+    name: req.file.filename,
+    description: req.file.originalname,
+    file: req.file.path
+  })
+  newMenu.save(function(err) {
+          if (err !== null) {
+              //object was not save
+              console.log(err);
+              return res.status(404).json(err)
+                  } else {
+              console.log("it was saved!")
+              res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
+      };
+  });
+} 
+});
 
 // router.post('/', upload.single('file'), (req, res) => {
 //   const newMenu = new Menu({
