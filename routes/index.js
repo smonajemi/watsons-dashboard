@@ -10,7 +10,7 @@ router.get('/dashboard', function(req, res, next) {
   res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
 })
 router.get('/menu', function(req, res, next) {
-  res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
+  res.redirect('/dashboard')
 })
 router.get('/reservations', function(req, res, next) {
   res.render('partials/reservations', { title:"Watson's Reservation",layout: 'main',  isReservation: true})
