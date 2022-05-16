@@ -9,7 +9,11 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const menuRouter = require('./routes/menu')
 const app = express();
+const http = require("http");
+require('dotenv').config()
+const HTTP_PORT = process.env.PORT || 3000;
 
+http.createServer(app).listen(HTTP_PORT, onHttpStart);
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
@@ -46,7 +50,11 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('dashboard');
+  res.render('error');
 });
+
+function onHttpStart() {
+  console.log("Express http server listening on: " + HTTP_PORT);
+}
 
 module.exports = app;
