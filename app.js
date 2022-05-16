@@ -20,7 +20,7 @@ http.createServer(app).listen(HTTP_PORT, onHttpStart);
 app.engine('.hbs', expbs.engine({ extname: '.hbs',
 defaultLayout: 'main',
 layoutsDir: path.join(__dirname, 'views/layouts'),
-partialsDir: __dirname + 'views/partials'
+partialsDir: __dirname + '/views/partials'
  }));
 app.set('view engine', 'hbs');
 
