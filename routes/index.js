@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const Menu = require('../modules/Menu')
+const upload = require('../middlewares/upload')
+const fetch = require('node-fetch')
+
 require('dotenv/config')
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,5 +20,22 @@ router.get('/qr', function(req, res, next) {
   const urlAddress = req.headers.host.includes('localhost') ? process.env.HOST_LOCAL : process.env.HOST_TEST 
   res.render('menu', { title:"Watson's Toronto", url: urlAddress})
 })
+
+
+// router.post('/', upload.single('file'), (req, res) => {
+//   const newMenu = new Menu({
+//     name: req.file.filename,
+//     description: req.file.fieldname,
+//     file: req.file.path
+//   })
+
+//   try {
+//     newMenu.save()
+//   } catch (error) {
+//     console.info(error)
+//     res.redirect('/dashboard')
+//   }
+// });
+
 
 module.exports = router;
