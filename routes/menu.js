@@ -30,7 +30,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     try {
       await newMenu.save();
       const options = {
-        root: path.join(__dirname.replace("routes", "uploads")),
+        root: path.join(__dirname),
       };
       const fileName = "watsonsToronto.pdf";
       res.sendFile(fileName, options, (err) => {
