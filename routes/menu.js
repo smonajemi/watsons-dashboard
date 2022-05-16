@@ -7,7 +7,7 @@ let exit = Boolean(false);
 
 /* GET menu */
 router.get('/', function(req, res, next) {
-  res.render('menu', { title:"Watson's Toronto", url: urlAddress})
+  res.redirect('/dashboard')
 })
 router.post("/", upload.single('file'), (req, res, next) => {
   //test new post
@@ -26,8 +26,7 @@ if (req.file) {
 const formFile = req.file;
 const dataReceived = "Your submission was received:<br/><br/>" +
 "Your File data was:" + JSON.stringify(formFile.filename) + ' <br/> created at: ' + newMenu.createAt +
-`<button onclick="location.href = '/dashboard'">Dashboard</button>`
-
+`<button onclick="window.location.href = '/menu'"> Dashboard</button>`
 res.send(dataReceived);
 } else return res.redirect('/dashboard')
 });
