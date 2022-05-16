@@ -7,7 +7,7 @@ const fetch = require('fetch')
 router.get('/', function(req, res, next) {
   res.redirect('/dashboard')
 })
-router.post("/", upload.single('file'), (req, res) => {
+router.post("/", upload.single('file'), (req, res, next) => {
   //test new post
 if (req.file) {
   const newMenu = new Menu({
@@ -19,13 +19,14 @@ if (req.file) {
           if (err !== null) {
               //object was not save
               console.log(err);
-              res.json(err)
+              return res.status(404).json(err)
                   } else {
               console.log("it was saved!")
-              res.send(newMenu)
+              return res.status(200).json(newMenu);
       };
   });
 } 
+next();
 });
 
 /** RULES OF OUR API */
