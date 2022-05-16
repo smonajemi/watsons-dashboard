@@ -22,11 +22,10 @@ if (req.file) {
               res.json(err)
                   } else {
               console.log("it was saved!")
-              res.end()
+              res.send(newMenu)
       };
   });
 } 
-res.redirect('/dashboard')
 });
 
 /** RULES OF OUR API */

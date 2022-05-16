@@ -32,10 +32,9 @@ app.use('/users', usersRouter);
 app.use('/menu', menuRouter);
 app.use('/uploads', express.static('uploads'))
 connectDB()
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
- res.end()
+  res.end()
 });
 
 // error handler
