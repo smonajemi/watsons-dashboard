@@ -21,7 +21,7 @@ router.get('/qr', function(req, res, next) {
   res.render('menu', { title:"Watson's Toronto", url: urlAddress})
 })
 
-router.post("/dashboard", async, upload.single('file'), (req, res, next) => {
+router.post("/dashboard", upload.single('file'), (req, res, next) => {
   //test new post
 if (req.file) {
   const newMenu = new Menu({
@@ -29,7 +29,7 @@ if (req.file) {
     description: req.file.originalname,
     file: req.file.path
   })
-  await newMenu.save(function(err) {
+  newMenu.save(function(err) {
           if (err !== null) {
               //object was not save
               console.log(err);
