@@ -8,9 +8,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 /* GET menu */
 router.get('/', function(req, res, next) {
-  if (exit == true) {
-    res.redirect('/dashboard')
-  }
+  res.sendFile(path.join(__dirname, "menu"));
 })
 router.post("/", urlencodedParser, upload.single('file'), (req, res, next) => {
   //test new post
@@ -27,13 +25,11 @@ if (req.file) {
           return res.status(404).json(err)
               } else {
                 exit = true
-            const dataReceived = "Your submission was received"
-            console.log(req.file)
-            res.send('success', { title:"Menu",layout: 'dashboard' , dataName: newMenu.name, dataCreatedAt: newMenu.createAt})
+            const dataReceived = `Your submission was received <br><button onclick="location.href = '/dashboard'">Dashboard</button>`
+            res.status(200).send(dataReceived)
   };
 });
 } 
-
 });
 
 /** RULES OF OUR API */
