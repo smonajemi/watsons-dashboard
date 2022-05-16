@@ -17,7 +17,7 @@ res.sendFile(fileName, options, function (err) {
     if (err) {
         next(err);
     } else {
-        console.log('Sent:', fileName);
+        res.redirect('/dashboard')
     }
 });
 })
