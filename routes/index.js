@@ -36,7 +36,7 @@ if (req.file) {
               return res.status(404).json(err)
                   } else {
               console.log("it was saved!")
-              res.status(200).render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true, data: JSON.stringify(newMenu) })
+              return res.status(200).json(newMenu)
       };   
 
   });
