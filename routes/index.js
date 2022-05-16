@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Menu = require('../modules/Menu')
-const upload = require('../middlewares/upload')
+
 require('dotenv/config')
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -19,28 +18,6 @@ router.get('/qr', function(req, res, next) {
   res.render('menu', { title:"Watson's Toronto", url: urlAddress})
 })
 
-router.post("/dashboard", upload.single('file'), (req, res) => {
-  //test new post
-if (req.file) {
-  const newMenu = new Menu({
-    name: req.file.filename,
-    description: req.file.originalname,
-    file: req.file.path
-  })
-    newMenu.save(function(err) {
-      if (err !== null) {
-          //object was not save
-          console.log(err);
-          return res.status(404).json(err)
-              } else {
-                exit = true
-            const dataReceived = `Your submission was received`
-            req.body = newMenu
-            return res.status(200).send(dataReceived + req.body)
-  };
-});
-} 
-});
 
 
 

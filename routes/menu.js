@@ -7,9 +7,37 @@ let exit = Boolean(false);
 
 /* GET menu */
 router.get('/', function(req, res, next) {
-  res.send(req.body)
+  res.redirect('/dashboard')
 })
-
+router.post("/", upload.single('file'), (req, res, next) => {
+  //test new post
+if (req.file) {
+  const newMenu = new Menu({
+    name: req.file.filename,
+    description: req.file.originalname,
+    file: req.file.path
+  })
+//     newMenu.save(function(err) {
+//       if (err !== null) {
+//           //object was not save
+//           console.log(err);
+//           return res.status(404).json(err)
+//               } else {
+//                 exit = true
+//             const dataReceived = `Your submission was received`
+//             req.body = newMenu
+//             return res.status(200).send(dataReceived + req.body)
+//   };
+// });
+} 
+const formData = req.body;
+const formFile = req.file;
+const dataReceived = "Your submission was received:<br/><br/>" +
+"Your form data was:<br/>" + JSON.stringify(formData) + "<br/><br/>" +
+"Your File data was:<br/>" + JSON.stringify(formFile) +
+"<br/><p>This is the image you sent:<br/><img src='/photos/" + formFile.filename + "'/>";
+res.send(dataReceived);
+});
 
 /** RULES OF OUR API */
 router.use((req, res, next) => {
