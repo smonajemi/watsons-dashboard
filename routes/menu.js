@@ -6,7 +6,9 @@ const path = require('path');
 let exit = Boolean(false);
 
 /* GET menu */
-
+router.get('/', function(req, res, next) {
+  res.render('menu', { title:"Watson's Toronto", url: urlAddress})
+})
 router.post("/", upload.single('file'), (req, res, next) => {
   //test new post
 if (req.file) {
