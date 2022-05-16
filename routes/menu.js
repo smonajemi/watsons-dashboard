@@ -9,28 +9,7 @@ let exit = Boolean(false);
 router.get('/', function(req, res, next) {
   res.send(req.body)
 })
-router.post("/", upload.single('file'), (req, res, next) => {
-  //test new post
-if (req.file) {
-  const newMenu = new Menu({
-    name: req.file.filename,
-    description: req.file.originalname,
-    file: req.file.path
-  })
-    newMenu.save(function(err) {
-      if (err !== null) {
-          //object was not save
-          console.log(err);
-          return res.status(404).json(err)
-              } else {
-                exit = true
-            const dataReceived = `Your submission was received`
-            req.body = newMenu
-            return res.status(200).send(dataReceived + req.body)
-  };
-});
-} 
-});
+
 
 /** RULES OF OUR API */
 router.use((req, res, next) => {
