@@ -34,7 +34,8 @@ app.use('/uploads', express.static('uploads'))
 connectDB()
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  res.end()
+  var reqType = req.headers["x-forwarded-proto"];
+  reqType == 'https' ? next() : res.redirect("https://" + req.headers.host + req.url);
 });
 
 // error handler
