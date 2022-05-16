@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
+const Menu = require('../modules/Menu')
+const upload = require('../middlewares/upload')
 require('dotenv/config')
 /* GET home page. */
 router.get('/', function(req, res, next) {
