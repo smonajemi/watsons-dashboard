@@ -9,6 +9,9 @@ router.get('/', function(req, res, next) {
 router.get('/dashboard', function(req, res, next) {
   res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
 })
+router.get('/menu', function(req, res, next) {
+  res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
+})
 router.get('/reservations', function(req, res, next) {
   res.render('partials/reservations', { title:"Watson's Reservation",layout: 'main',  isReservation: true})
 })

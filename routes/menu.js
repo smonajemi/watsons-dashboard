@@ -24,8 +24,8 @@ if (req.file) {
           return res.status(404).json(err)
               } else {
                 exit = true
-            const dataReceived = `Your submission was received <br><button onclick="location.href = '/dashboard'">Dashboard</button>`
-            res.status(200).send(dataReceived)
+            const dataReceived = `Your submission was received`
+            return res.status(200).send(dataReceived)
   };
 });
 } 
