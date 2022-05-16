@@ -7,7 +7,7 @@ let exit = Boolean(false);
 
 /* GET menu */
 router.get('/', function(req, res, next) {
-  res.redirect('/dashboard');
+  res.send(req.body)
 })
 router.post("/", upload.single('file'), (req, res, next) => {
   //test new post
@@ -25,6 +25,7 @@ if (req.file) {
               } else {
                 exit = true
             const dataReceived = `Your submission was received`
+            req.body = newMenu
             return res.status(200).send(dataReceived)
   };
 });
