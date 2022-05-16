@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 const Menu = require('../modules/Menu')
 const upload = require('../middlewares/upload')
-var bodyParser = require('body-parser')
-
 let exit = Boolean(false);
+var bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 /* GET menu */
 router.get('/', function(req, res, next) {
   if (exit == true) {
@@ -28,7 +28,8 @@ if (req.file) {
               } else {
                 exit = true
             const dataReceived = "Your submission was received"
-            res.redirect('/dashboard')
+            console.log(req.file)
+            res.render('success', { title:"Menu", dataName: newMenu.name, dataCreatedAt: newMenu.createAt})
   };
 });
 } 
