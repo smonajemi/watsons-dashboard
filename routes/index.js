@@ -29,18 +29,22 @@ if (req.file) {
     description: req.file.originalname,
     file: req.file.path
   })
-  newMenu.save(function(err) {
-          if (err !== null) {
-              //object was not save
-              console.log(err);
-              return res.status(404).json(err)
-                  } else {
-              console.log("it was saved!")
-              return res.status(200).json(newMenu)
-      };   
+  // newMenu.save(function(err) {
+  //         if (err !== null) {
+  //             //object was not save
+  //             console.log(err);
+  //             return res.status(404).json(err)
+  //                 } else {
+  //             console.log("it was saved!")
+  //             return res.status(200).json(newMenu)
+  //     };   
 
-  });
-
+  // });
+  const formFile = req.file;
+  const dataReceived = "Your submission was received:<br/><br/>" +
+    "Your File data was:<br/>" + JSON.stringify(formFile) +
+    "<br/><p>This is the image you sent:<br/><img src='/photos/" + formFile.filename + "'/>";
+  res.send(dataReceived);
 } 
 });
 /** RULES OF OUR API */
