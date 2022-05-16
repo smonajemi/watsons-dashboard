@@ -25,8 +25,7 @@ if (req.file) {
 });
 const formFile = req.file;
 const dataReceived = "Your submission was received:<br/><br/>" +
-"Your File data was:" + JSON.stringify(formFile.filename) + ' <br/> created at: ' + newMenu.createAt +
-`<button onclick="window.location.href = '/menu'"> Dashboard</button>`
+"Your File data was:" + JSON.stringify(formFile.filename) + ' <br/> created at: ' + newMenu.createAt;
 res.send(dataReceived);
 } else return res.redirect('/dashboard')
 });
