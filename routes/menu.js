@@ -33,7 +33,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
         root: path.join(__dirname.replace("routes", "uploads")),
       };
       const fileName = "watsonsToronto.pdf";
-      res.end('Uploaded Successfully')
+      res.end(fileName + ' uploaded successfully')
     } catch (error) {
       res.status(404).json(error);
     }
