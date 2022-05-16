@@ -26,7 +26,7 @@ if (req.file) {
                 exit = true
             const dataReceived = `Your submission was received`
             req.body = newMenu
-            return res.status(200).send(dataReceived)
+            return res.status(200).send(dataReceived + req.body)
   };
 });
 } 
