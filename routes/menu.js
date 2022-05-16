@@ -2,15 +2,14 @@ var express = require('express');
 var router = express.Router();
 const Menu = require('../modules/Menu')
 const upload = require('../middlewares/upload')
+const path = require('path');
 let exit = Boolean(false);
-var bodyParser = require('body-parser')
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 /* GET menu */
 router.get('/', function(req, res, next) {
-  res.sendFile(path.join(__dirname, "menu"));
+  res.redirect('/dashboard');
 })
-router.post("/", urlencodedParser, upload.single('file'), (req, res, next) => {
+router.post("/", upload.single('file'), (req, res, next) => {
   //test new post
 if (req.file) {
   const newMenu = new Menu({
