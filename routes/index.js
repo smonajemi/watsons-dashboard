@@ -12,11 +12,11 @@ router.get('/dashboard', function(req, res, next) {
 router.get('/reservations', function(req, res, next) {
   res.render('partials/reservations', { title:"Watson's Reservation",layout: 'main',  isReservation: true})
 })
-router.get('/menu', function(req, res, next) {
-  // const urlAddress = req.protocol + '://' + req.get('host');
-  const urlAddress = req.headers.host.includes('localhost') ? process.env.HOST_LOCAL : process.env.HOST_TEST 
-  res.render('menu', { title:"Watson's Toronto", url: urlAddress})
-})
+// router.get('/menu', function(req, res, next) {
+//   // const urlAddress = req.protocol + '://' + req.get('host');
+//   const urlAddress = req.headers.host.includes('localhost') ? process.env.HOST_LOCAL : process.env.HOST_TEST 
+//   res.render('menu', { title:"Watson's Toronto", url: urlAddress})
+// })
 
 
 
