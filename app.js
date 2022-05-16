@@ -20,7 +20,7 @@ http.createServer(app).listen(HTTP_PORT, onHttpStart);
 app.engine('.hbs', expbs.engine({ extname: '.hbs',
 defaultLayout: 'main',
 layoutsDir: path.join(__dirname, 'views/layouts'),
-partialsDir: __dirname + '/views/partials'
+partialsDir: __dirname + 'views/partials'
  }));
 app.set('view engine', 'hbs');
 
@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/menu', menuRouter);
+app.use('/dashboard', indexRouter);
 app.use('/uploads', express.static('uploads'))
 connectDB()
 // catch 404 and forward to error handler

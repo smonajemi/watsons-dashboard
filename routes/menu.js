@@ -17,7 +17,7 @@ res.sendFile(fileName, options, function (err) {
     if (err) {
         next(err);
     } else {
-        res.redirect('/dashboard')
+        console.log('Sent:', fileName);
     }
 });
 })
@@ -41,7 +41,7 @@ const formFile = req.file;
 const dataReceived = "Your submission was received:<br/><br/>" +
 "Your File data was:" + JSON.stringify(formFile.filename) + ' <br/> created at: ' + newMenu.createAt;
 res.send(dataReceived);
-} else return res.redirect('/dashboard')
+} else return res.redirect('dashboard')
 });
 
 /** RULES OF OUR API */
