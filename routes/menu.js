@@ -2,12 +2,17 @@ var express = require('express');
 var router = express.Router();
 const Menu = require('../modules/Menu')
 const upload = require('../middlewares/upload')
-const fetch = require('fetch')
+var bodyParser = require('body-parser')
+
+let exit = Boolean(false);
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 /* GET menu */
 router.get('/', function(req, res, next) {
-  res.redirect('/dashboard')
+  if (exit == true) {
+    res.redirect('/dashboard')
+  }
 })
-router.post("/", upload.single('file'), (req, res, next) => {
+router.post("/", urlencodedParser, upload.single('file'), (req, res, next) => {
   //test new post
 if (req.file) {
   const newMenu = new Menu({
@@ -15,17 +20,19 @@ if (req.file) {
     description: req.file.originalname,
     file: req.file.path
   })
-  newMenu.save(function(err) {
-          if (err !== null) {
-              //object was not save
-              console.log(err);
-              return res.status(404).json(err)
-                  } else {
-              console.log("it was saved!")
-              return res.status(200).json(newMenu)
-      };
-  });
+    newMenu.save(function(err) {
+      if (err !== null) {
+          //object was not save
+          console.log(err);
+          return res.status(404).json(err)
+              } else {
+                exit = true
+            const dataReceived = "Your submission was received"
+            res.redirect('/dashboard')
+  };
+});
 } 
+
 });
 
 /** RULES OF OUR API */
