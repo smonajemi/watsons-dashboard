@@ -18,7 +18,7 @@ http.createServer(app).listen(HTTP_PORT, onHttpStart);
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
 app.engine('.hbs', expbs.engine({ extname: '.hbs',
-defaultLayout: 'main',
+defaultLayout: 'dashboard',
 layoutsDir: path.join(__dirname, 'views/layouts'),
 partialsDir: __dirname + '/views/partials'
  }));
