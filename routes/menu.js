@@ -7,17 +7,7 @@ let exit = Boolean(false);
 
 /* GET menu */
 router.get("/", (req, res, next) => {
-  const options = {
-    root: path.join(__dirname.replace("routes", "uploads")),
-  };
-  const fileName = "watsonsToronto.pdf";
-  res.sendFile(fileName, options, (err) => {
-    if (err) {
-      next(err);
-    } else {
-      console.log("Sent:", fileName);
-    }
-  });
+  next()
 });
 
 router.post("/", upload.single("file"), async (req, res, next) => {
@@ -28,18 +18,8 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       file: req.file.path,
     });
     try {
-      newMenu.save();
-      const options = {
-        root: path.join(__dirname.replace("routes", "uploads")),
-      };
-      const fileName = "watsonsToronto.pdf";
-      res.sendFile(fileName, options, (err) => {
-        if (err) {
-          next(err);
-        } else {
-          console.log("Sent:", fileName);
-        }
-      });
+      await newMenu.save();
+      res.status(200).redirect('http://localhost:3000/menu')
     } catch (error) {
       res.status(404).json(error);
     }
