@@ -7,7 +7,6 @@ const fileSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        required: true,
         lowercase: true
     },
     description: {
@@ -15,7 +14,8 @@ const fileSchema = new mongoose.Schema({
     },
     file:
     {
-        type: String
+        type: String,
+        contentType: String
     },
     createAt: {
         type: Date,

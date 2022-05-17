@@ -2,17 +2,19 @@ var express = require("express");
 var router = express.Router();
 const Menu = require("../modules/Menu");
 const upload = require("../middlewares/upload");
+const fs = require('fs-extra')
+const path = require('path')
 require('dotenv/config')
 /* GET menu */
 router.get("/", (req, res, next) => {
-  res.render('menu', { title:"Menu", layout: 'dashboard', isMenu: true})
+  next()
 });
 
 router.post("/", upload.single("file"), async (req, res, next) => {
   if (req.file) {
     const newMenu = new Menu({
       name: req.file.filename,
-      description: req.file.originalname,
+      description: "Watson's Toronto Menu - QR Code",
       file: req.file.path,
     });
     try {
@@ -21,7 +23,8 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     } catch (error) {
       res.status(404).json(error);
     }
-  }
+  } else return res.redirect('/')
+
 });
 
 router.use((req, res, next) => {
