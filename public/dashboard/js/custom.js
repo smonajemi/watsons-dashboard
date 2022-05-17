@@ -23,9 +23,9 @@ $(document).ready( () => {
 const form = document.getElementById('my_form');
 
 form.addEventListener('submit', function handleClick(event) {
-    setTimeout(() => {
-        form.reset();
-    }, 2 * 1000);
+    // setTimeout(() => {
+    //     form.reset();
+    // }, 2 * 1000);
 });
 
 // $("#my_form").on("submit", (event) => {
