@@ -15,13 +15,13 @@ router.get('/reservations', function(req, res, next) {
 
 router.get('*', function(req,res,next) {
   const urlAddress = req.url.split('/')
-  const checkUrl = urlAddress.find(x => x.includes('uploads')) === 'uploads'
+  const checkUrl = urlAddress.find(x => x.includes('menu')) === 'menu'
   const checkAdmin = urlAddress.find(x => x.includes('admin-dashboard')) === 'admin-dashboard'
   checkUrl || checkAdmin ?  next() : res.redirect('/')
 })
 /** RULES OF OUR API */
 router.use((req, res, next) => {
-  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Type', 'application/pdf');
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
   if (req.method === 'OPTIONS') {
