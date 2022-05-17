@@ -25,7 +25,7 @@ const form = document.getElementById('my_form');
 form.addEventListener('submit', function handleClick(event) {
     setTimeout(() => {
         form.reset();
-    }, 8000);
+    }, 2 * 10000);
 });
 
 // $("#my_form").on("submit", (event) => {

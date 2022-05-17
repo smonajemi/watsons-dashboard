@@ -6,9 +6,11 @@ require('dotenv/config')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
+  // res.redirect('back');
 })
 router.get("/menu", (req, res, next) => {
   res.render('menu', { title:"Menu", layout: 'dashboard', isMenu: true})
+  res.redirect('back');
 });
 
 /** RULES OF OUR API */
