@@ -13,11 +13,8 @@ router.get('/reservations', function(req, res, next) {
   res.render('partials/reservations', { title:"Watson's Reservation", layout: 'main',  isReservation: true})
 })
 
-router.get('*', function(req,res,next) {
-  const urlAddress = req.url.split('/')
-  const checkUrl = urlAddress.find(x => x.includes('menu')) === 'menu'
-  const checkAdmin = urlAddress.find(x => x.includes('admin-dashboard')) === 'admin-dashboard'
-  checkUrl || checkAdmin ?  next() : res.redirect('/')
+router.get('*', (req,res,next) => {
+ res.redirect('/')
 })
 /** RULES OF OUR API */
 router.use((req, res, next) => {
