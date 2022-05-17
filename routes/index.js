@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const path = require("path");
 
 require('dotenv/config')
 /* GET home page. */
@@ -12,6 +13,20 @@ router.get('/admin-dashboard', function(req, res, next) {
 router.get('/reservations', function(req, res, next) {
   res.render('partials/reservations', { title:"Watson's Reservation", layout: 'main',  isReservation: true})
 })
+
+router.get("/menu", (req, res, next) => {
+  const options = {
+    root: path.join(__dirname.replace("routes", "uploads")),
+  };
+  const fileName = "watsonsToronto.pdf";
+  res.sendFile(fileName, options, (err) => {
+    if (err) {
+      next(err);
+    } else {
+      console.log("Sent:", fileName);
+    }
+  });
+});
 
 router.get('*', (req,res,next) => {
  res.redirect('/')
