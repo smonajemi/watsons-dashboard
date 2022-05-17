@@ -10,7 +10,6 @@ router.get('/', function(req, res, next) {
 })
 router.get("/menu", (req, res, next) => {
   res.render('menu', { title:"Menu", layout: 'dashboard', isMenu: true})
-  res.redirect('back');
 });
 
 /** RULES OF OUR API */

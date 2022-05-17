@@ -26,6 +26,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     res.status(200).sendFile(fileName, options, (err) => {
         err ? next(err) : next()
     });
+    return res.redirect('back');
     } catch (error) {
       res.status(404).send(error);
     }
