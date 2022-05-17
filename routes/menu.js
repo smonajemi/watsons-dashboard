@@ -18,14 +18,12 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       file: req.file.path,
     });
     try {
-      await newMenu.save();
+      newMenu.save();
     } catch (error) {
       res.status(404).send(error);
     }
   }
   const formFile = req.file;
-  const url = '/'
-  console.log(url)
   const dataReceived = "Your submission was received:<br/><br/>" +
     "Your File data was:<br/>" + JSON.stringify(formFile.originalname) + `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` +
      `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
