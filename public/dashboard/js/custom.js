@@ -20,13 +20,13 @@ $(document).ready( () => {
 //     // }, 500);
 // };
 
-const form = document.getElementById('my_form');
+// const form = document.getElementById('my_form');
 
-form.addEventListener('submit', function handleClick(event) {
-    // setTimeout(() => {
-    //     form.reset();
-    // }, 2 * 1000);
-});
+// form.addEventListener('submit', function handleClick(event) {
+//     setTimeout(() => {
+//         form.reset();
+//     }, 2 * 2000);
+// });
 
 // $("#my_form").on("submit", (event) => {
 //     // window.location.replace("/");

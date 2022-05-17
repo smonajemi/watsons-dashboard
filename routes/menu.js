@@ -23,7 +23,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       res.status(404).send(error);
     }
   }
-  res.redirect('back')
+  res.redirect('/')
 });
 
 router.use((req, res, next) => {
