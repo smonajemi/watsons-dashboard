@@ -19,7 +19,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     });
     try {
       await newMenu.save();
-      res.status(200).redirect("https://" + req.headers.host + req.url);
+      res.status(200).redirect("https://" + req.headers.host + '/menu');
     } catch (error) {
       res.status(404).json(error);
     }
