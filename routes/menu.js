@@ -5,7 +5,7 @@ const upload = require("../middlewares/upload");
 require('dotenv/config')
 /* GET menu */
 router.get("/", (req, res, next) => {
-  next()
+  res.render('menu', { title:"Menu", layout: 'dashboard', isMenu: true})
 });
 
 router.post("/", upload.single("file"), async (req, res, next) => {
@@ -17,7 +17,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     });
     try {
       await newMenu.save();
-      res.status(200).redirect(process.env.HOST_DEV + '/menu');
+      res.status(200).redirect('/');
     } catch (error) {
       res.status(404).json(error);
     }
