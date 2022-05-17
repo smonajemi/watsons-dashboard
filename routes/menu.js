@@ -28,7 +28,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       file: req.file.path,
     });
     try {
-      await newMenu.save();
+      newMenu.save();
       const options = {
         root: path.join(__dirname.replace("routes", "uploads")),
       };
