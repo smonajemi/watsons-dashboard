@@ -9,7 +9,13 @@ router.get('/', function(req, res, next) {
   // res.redirect('back');
 })
 router.get("/menu", (req, res, next) => {
-  res.render('menu', { title:"Menu", layout: 'dashboard', isMenu: true})
+    const options = {
+        root: path.join(__dirname.replace('routes', 'uploads'))
+    };
+    const fileName = 'watsonsToronto.pdf';
+    res.status(200).sendFile(fileName, options, (err) => {
+        err ? next(err) : next()
+    });
 });
 
 /** RULES OF OUR API */
