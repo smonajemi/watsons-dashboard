@@ -19,18 +19,13 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     });
     try {
       await newMenu.save();
-    //   const options = {
-    //     root: path.join(__dirname.replace('routes', 'uploads'))
-    // };
-    // const fileName = 'watsonsToronto.pdf';
-    // res.status(200).sendFile(fileName, options, (err) => {
-    //     if (err) {
-    //         next(err);
-    //     } else {
-    //         next()
-    //     }
-    // });
-    return res.redirect('/')
+      const options = {
+        root: path.join(__dirname.replace('routes', 'uploads'))
+    };
+    const fileName = 'watsonsToronto.pdf';
+    res.status(200).sendFile(fileName, options, (err) => {
+        err ? next(err) : next()
+    });
     } catch (error) {
       res.status(404).send(error);
     }
@@ -39,7 +34,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
 });
 
 router.use((req, res, next) => {
-  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Type', 'application/pdf');
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
   if (req.method === 'OPTIONS') {

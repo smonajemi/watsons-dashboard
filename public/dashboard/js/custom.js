@@ -23,16 +23,9 @@ $(document).ready( () => {
 const form = document.getElementById('my_form');
 
 form.addEventListener('submit', function handleClick(event) {
-  // 👇️ if you are submitting a form (prevents page reload)
-
-  const customFile = document.getElementById('customFile');
-
-  // Send value to server
-  console.log(customFile.value);
-//   window.location.reload('http://localhost:3000')
-
-  // 👇️ clear input field
-//   customFile.value = '';
+    setTimeout(() => {
+        form.reset();
+    }, 8000);
 });
 
 // $("#my_form").on("submit", (event) => {
