@@ -23,11 +23,10 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       res.status(404).send(error);
     }
   }
-  const formFile = req.file;
-  const dataReceived = "Your submission was received:<br/><br/>" +
-    "Your File data was:<br/>" + JSON.stringify(formFile.originalname) + `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` +
+  const dataReceived = "Your submission was successful:<br/><br/>" +
+     `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
      `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
-    res.send(dataReceived);
+      res.send(dataReceived);
 });
 
 // router.use((req, res, next) => {

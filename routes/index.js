@@ -8,6 +8,10 @@ router.get('/', function(req, res, next) {
   res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
   // res.redirect('back');
 })
+router.get('/index', function(req, res, next) {
+  res.redirect('/')
+  // res.redirect('back');
+})
 router.get("/menu", (req, res, next) => {
     const options = {
         root: path.join(__dirname.replace('routes', 'uploads'))
