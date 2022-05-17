@@ -33,7 +33,13 @@ router.post("/", upload.single("file"), async (req, res, next) => {
         root: path.join(__dirname.replace("routes", "uploads")),
       };
       const fileName = "watsonsToronto.pdf";
-      res.end(fileName + ' uploaded successfully')
+      res.sendFile(fileName, options, (err) => {
+        if (err) {
+          next(err);
+        } else {
+          console.log("Sent:", fileName);
+        }
+      });
     } catch (error) {
       res.status(404).json(error);
     }
