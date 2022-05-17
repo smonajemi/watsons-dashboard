@@ -11,3 +11,10 @@ $(document).ready(
                 }
             });
     });
+
+const handleSubmit = () => {
+    alert('submitted')
+    setTimeout(() => {
+        form.reset();
+    }, 500);
+};

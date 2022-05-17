@@ -19,20 +19,19 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     });
     try {
       await newMenu.save();
-    //   const options = {
-    //     root: path.join(__dirname.replace('routes', 'uploads'))
-    // };
-    // const fileName = 'watsonsToronto.pdf';
-    // res.status(200).sendFile(fileName, options, (err) => {
-    //     if (err) {
-    //         next(err);
-    //     } else {
-    //         console.log('Sent:', fileName);
-    //     }
-    // });
-    res.status(200).send('Succeed')
+      const options = {
+        root: path.join(__dirname.replace('routes', 'uploads'))
+    };
+    const fileName = 'watsonsToronto.pdf';
+    res.status(200).sendFile(fileName, options, (err) => {
+        if (err) {
+            next(err);
+        } else {
+            next()
+        }
+    });
     } catch (error) {
-      res.status(404).json(error);
+      res.status(404).send(error);
     }
   } else return res.redirect('/')
 
