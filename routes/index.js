@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const path = require("path");
-const Menu = require('../modules/Menu');
+const Menu = require("../modules/Menu");
+const upload = require("../middlewares/upload");
 require('dotenv/config')
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
+  res.render('dashboard', { title:"Dashboard", isDash: true})
   // res.redirect('back');
 })
 router.get("/menu", (req, res, next) => {
