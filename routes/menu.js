@@ -12,6 +12,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/", upload.single("file"), async (req, res, next) => {
   const formFile = req.file;
+  let dataReceived = ''
   if (formFile) {
     const newMenu = new Menu({
       name: formFile.filename,
@@ -20,13 +21,13 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     });
     try {
       newMenu.save()
-      const dataReceived = "Your submission was successful" +
+      dataReceived = "Your submission was successful" +
       `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` + 
       "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
       `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
       res.send(dataReceived);
     } catch (error) {
-      const dataReceived = "Your submission was not successful" +
+      dataReceived = "Your submission was not successful" +
       `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
       res.send(dataReceived);
     }
