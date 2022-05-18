@@ -19,15 +19,16 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       file: formFile.path,
     });
     try {
-      newMenu.save();
-      const dataReceived = "Your submission was successful:<br/><br/>" +
-      "You uploaded: " + JSON.stringify(formFile.originalname) +
-      `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
-      `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
-      res.end(dataReceived);
+      newMenu.save()
     } catch (error) {
       res.status(404).send(error);
     }
+    const dataReceived = "Your submission was successful:<br/><br/>" +
+    "You uploaded: " + JSON.stringify(formFile.originalname) +
+    `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
+    `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
+    res.send(dataReceived);
+
   } else return res.redirect('/index')
 });
 
