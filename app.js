@@ -7,7 +7,6 @@ const expbs = require('express-handlebars');
 const connectDB = require("./db/connection");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const menuRouter = require('./routes/menu')
 const app = express();
 const http = require("http");
 const https = require("https");
@@ -36,7 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/menu', menuRouter);
 app.use('/uploads', express.static('uploads'))
 connectDB()
 // catch 404 and forward to error handler

@@ -15,9 +15,10 @@ router.get("/menu", (req, res, next) => {
     }
     const fileName = 'watsonsToronto.pdf'
     res.status(200).sendFile(fileName, options, (err) => {
-        err ? next(err) : next()
+        if (err) next(err)
     })
 })
+
 router.get('*', function(req, res, next) {
   res.redirect('/')
 })
