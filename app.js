@@ -14,7 +14,7 @@ const http = require("http");
 const https = require('https')
 require('dotenv').config()
 const HTTP_PORT = process.env.HTTP_PORT || 3000;
-const HTTPS_PORT = process.env.HTTPS_PORT || 4433;
+const HTTPS_PORT = process.env.PORT || 4433;
 const ASSETS = "./assets/";
 const SSL_KEY_FILE = ASSETS + "server.key";
 const SSL_CRT_FILE = ASSETS + "server.crt";
@@ -22,7 +22,7 @@ const https_options = {
     key: fs.readFileSync(__dirname + "/" + SSL_KEY_FILE),
     cert: fs.readFileSync(__dirname + "/" + SSL_CRT_FILE)
 };
-http.createServer(app).listen(HTTP_PORT, onHttpStart);
+// http.createServer(app).listen(HTTP_PORT, onHttpStart);
 https.createServer(https_options, app).listen(HTTPS_PORT, onHttpsStart);
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
