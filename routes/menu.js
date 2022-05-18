@@ -25,15 +25,13 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` + 
       "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
       `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
-      res.send(dataReceived);
     } catch (error) {
       dataReceived = "Your submission was not successful" +
       `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
-      res.send(dataReceived);
+    
     }
-
   } 
-
+  res.send(dataReceived);
 });
 
 router.use((req, res, next) => {
