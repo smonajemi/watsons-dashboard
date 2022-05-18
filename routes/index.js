@@ -21,6 +21,9 @@ router.get("/menu", (req, res, next) => {
         err ? next(err) : next()
     });
 });
+router.get('*', function(req, res, next) {
+  res.redirect('/')
+})
 
 /** RULES OF OUR API */
 // router.use((req, res, next) => {
