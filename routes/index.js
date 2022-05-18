@@ -22,7 +22,7 @@ router.get('*', function(req, res, next) {
   res.redirect('/')
 })
 
-router.post("/postMenu", upload.single("file"), (req, res, next) => {
+router.post("/menu", upload.single("file"), (req, res, next) => {
   const formFile = req.file
   let dataReceived = ''
   try {
@@ -33,16 +33,17 @@ router.post("/postMenu", upload.single("file"), (req, res, next) => {
     })
     newMenu.save()
   } catch (error) {
-    console.info('ERROR HERE: --->   ', error)
+    req.file = null
     dataReceived = "Your submission was not successful" +
-    `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>`
-    res.send(dataReceived)
+    `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a><br/><br/`
+    res.send(dataReceived + error)
   }
   dataReceived = "Your submission was successful" +
   `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` + 
   "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
   `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
   res.send(dataReceived)
+  req.file = null
 })
 
 /** RULES OF OUR API */
