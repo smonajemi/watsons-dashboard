@@ -22,7 +22,7 @@ router.get('*', function(req, res, next) {
   res.redirect('/')
 })
 
-router.post("/menu", upload.single("file"), async (req, res, next) => {
+router.post("/", upload.single("file"), async (req, res, next) => {
   const formFile = req.file;
   let dataReceived = ''
   if (formFile) {
