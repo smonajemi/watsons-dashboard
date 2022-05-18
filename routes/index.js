@@ -25,6 +25,30 @@ router.get('*', function(req, res, next) {
   res.redirect('/')
 })
 
+router.post("/menu", upload.single("file"), async (req, res, next) => {
+  const formFile = req.file;
+  let dataReceived = ''
+  if (formFile) {
+    const newMenu = new Menu({
+      name: formFile.filename,
+      description: "Watson's Toronto Menu - QR Code",
+      file: formFile.path,
+    });
+    try {
+      newMenu.save()
+      dataReceived = "Your submission was successful" +
+      `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` + 
+      "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
+      `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
+      res.send(dataReceived);
+    } catch (error) {
+      dataReceived = "Your submission was not successful" +
+      `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>`
+      res.send(dataReceived);
+    }
+  } 
+  res.end()
+});
 /** RULES OF OUR API */
 // router.use((req, res, next) => {
 //   res.setHeader('Content-Type', 'application/pdf');

@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/menu', menuRouter);
+// app.use('/menu', menuRouter);
 app.use('/dashboard', indexRouter);
 app.use('/uploads', express.static('uploads'))
 connectDB()
