@@ -13,12 +13,8 @@ const http = require("http");
 require('dotenv').config()
 const HTTP_PORT = process.env.PORT || 3000;
 
+const server = http.createServer(app)
 // Creating Server
-const server = http.createServer((req,res)=>{
-  req.statusCode=200;
-  console.log("Server is Started")
-  res.end();
-})
 server.listen(HTTP_PORT, 'localhost',()=>{
   console.log("Express http server listening on: " + HTTP_PORT);
 })
