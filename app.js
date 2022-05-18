@@ -12,8 +12,8 @@ const app = express();
 const http = require("http");
 const https = require("https");
 require('dotenv').config()
-const HTTP_PORT = process.env.PORT_HTTP || 3000;
-const HTTPS_PORT = process.env.PORT_HTTPS || 4433;
+const HTTP_PORT = process.env.PORT_HTTP || process.env.PORT;
+const HTTPS_PORT = process.env.PORT_HTTPS || process.env.PORT;
 // const https = require('https')
 // require('dotenv').config()
 // const HTTP_PORT = process.env.HTTP_PORT || 3000;
