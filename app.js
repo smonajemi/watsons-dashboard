@@ -22,8 +22,8 @@ const https_options = {
     key: fs.readFileSync(__dirname + "/" + SSL_KEY_FILE),
     cert: fs.readFileSync(__dirname + "/" + SSL_CRT_FILE)
 };
-// http.createServer(app).listen(HTTP_PORT, onHttpStart);
-https.createServer(https_options, app).listen(HTTPS_PORT, onHttpsStart);
+http.createServer(app).listen(HTTP_PORT, onHttpStart);
+// https.createServer(https_options, app).listen(HTTPS_PORT, onHttpsStart);
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
