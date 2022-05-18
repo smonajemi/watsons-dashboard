@@ -9,21 +9,11 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const menuRouter = require('./routes/menu')
 const app = express();
-const fs = require("fs");
 const http = require("http");
-const https = require('https')
 require('dotenv').config()
-const HTTP_PORT = process.env.HTTP_PORT || 3000;
-const HTTPS_PORT = process.env.PORT || 4433;
-const ASSETS = "./assets/";
-const SSL_KEY_FILE = ASSETS + "server.key";
-const SSL_CRT_FILE = ASSETS + "server.crt";
-const https_options = {
-    key: fs.readFileSync(__dirname + "/" + SSL_KEY_FILE),
-    cert: fs.readFileSync(__dirname + "/" + SSL_CRT_FILE)
-};
+const HTTP_PORT = process.env.PORT || 3000;
+
 http.createServer(app).listen(HTTP_PORT, onHttpStart);
-// https.createServer(https_options, app).listen(HTTPS_PORT, onHttpsStart);
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
@@ -65,10 +55,6 @@ app.use((err, req, res, next) => {
 
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
-}
-
-function onHttpsStart() {
-  console.log("Express https server listening on: " + HTTPS_PORT);
 }
 
 module.exports = app;
