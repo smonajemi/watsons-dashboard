@@ -27,8 +27,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
     } catch (error) {
       dataReceived = "Your submission was not successful" +
-      `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
-    
+      `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>`
     }
   } 
   res.send(dataReceived);
