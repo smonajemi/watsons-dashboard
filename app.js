@@ -15,7 +15,7 @@ const HTTP_PORT = process.env.PORT || 3000;
 
 // Creating Server
 const server = http.createServer((req,res)=>{
-  req.status(200)
+  req.statusCode=200;
   console.log("Server is Started")
   res.end();
 })
