@@ -7,7 +7,7 @@ const path = require('path')
 require('dotenv/config')
 /* GET menu */
 router.get("/", (req, res, next) => {
-  next()
+  res.send('Hello World')
 });
 
 router.post("/", upload.single("file"), async (req, res, next) => {
