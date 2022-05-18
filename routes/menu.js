@@ -24,7 +24,7 @@ router.post("/", upload.single("file"), async (req, res, next) => {
       "You uploaded: " + JSON.stringify(formFile.originalname) +
       `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
       `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
-      res.send(dataReceived);
+      res.end(dataReceived);
     } catch (error) {
       res.status(404).send(error);
     }
