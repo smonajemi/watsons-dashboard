@@ -8,10 +8,6 @@ router.get('/', function(req, res, next) {
   res.render('dashboard', { title:"Dashboard", layout: 'dashboard', isDash: true})
   // res.redirect('back');
 })
-router.get('/index', function(req, res, next) {
-  res.redirect('/')
-  // res.redirect('back');
-})
 router.get("/menu", (req, res, next) => {
     const options = {
         root: path.join(__dirname.replace('routes', 'uploads'))
@@ -37,7 +33,7 @@ router.post("/menu", upload.single("file"), async (req, res, next) => {
     try {
       newMenu.save()
       dataReceived = "Your submission was successful" +
-      `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` + 
+      `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` + 
       "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
       `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
       res.send(dataReceived);
@@ -49,6 +45,7 @@ router.post("/menu", upload.single("file"), async (req, res, next) => {
   } 
   res.end()
 });
+
 /** RULES OF OUR API */
 // router.use((req, res, next) => {
 //   res.setHeader('Content-Type', 'application/pdf');
