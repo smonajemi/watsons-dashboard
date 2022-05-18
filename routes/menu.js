@@ -21,15 +21,14 @@ router.post("/", upload.single("file"), async (req, res, next) => {
     try {
       newMenu.save()
     } catch (error) {
-      res.status(404).send(error);
+      res.redirect('/index')
     }
-    const dataReceived = "Your submission was successful:<br/><br/>" +
-    "You uploaded: " + JSON.stringify(formFile.originalname) +
-    `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
-    `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
-    res.send(dataReceived);
 
-  } else return res.redirect('/index')
+  } 
+  const dataReceived = "Your submission was successful:<br/><br/>" +
+  `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
+  `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
+  res.send(dataReceived);
 });
 
 // router.use((req, res, next) => {
