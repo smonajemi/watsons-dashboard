@@ -11,24 +11,24 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", upload.single("file"), async (req, res, next) => {
-  if (req.file) {
+  const formFile = req.file;
+  if (formFile) {
     const newMenu = new Menu({
-      name: req.file.filename,
+      name: formFile.filename,
       description: "Watson's Toronto Menu - QR Code",
-      file: req.file.path,
+      file: formFile.path,
     });
     try {
       newMenu.save();
+      const dataReceived = "Your submission was successful:<br/><br/>" +
+      "You uploaded: " + JSON.stringify(formFile.originalname) +
+      `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
+      `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
+      res.send(dataReceived);
     } catch (error) {
       res.status(404).send(error);
     }
-  }
-  const formFile = req.file;
-  const dataReceived = "Your submission was successful:<br/><br/>" +
-     "You uploaded: " + JSON.stringify(formFile.originalname) +
-     `<br/><br/><a class="btn" href="/index"><button>Dashboard</button></a>` +
-     `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
-    res.send(dataReceived);
+  } else return res.redirect('/index')
 });
 
 // router.use((req, res, next) => {
