@@ -26,7 +26,7 @@ const HTTPS_PORT = process.env.HTTPS-PORT || 3000;
 //     cert: fs.readFileSync(__dirname + "/" + SSL_CRT_FILE)
 // };
 http.createServer(app).listen(HTTP_PORT, onHttpStart);
-https.createServer(app).listen(HTTP_PORT, onHttpsStart);
+https.createServer(app).listen(HTTPS_PORT, onHttpsStart);
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
@@ -70,7 +70,7 @@ function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
 }
 function onHttpsStart() {
-  console.log("Express https server listening on: " + HTTP_PORT);
+  console.log("Express https server listening on: " + HTTPS_PORT);
 }
 
 module.exports = app;
