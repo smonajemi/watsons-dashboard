@@ -33,6 +33,7 @@ router.post("/postMenu", upload.single("file"), (req, res, next) => {
     })
     newMenu.save()
   } catch (error) {
+    console.info('ERROR HERE: --->   ', error)
     dataReceived = "Your submission was not successful" +
     `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>`
     res.send(dataReceived)
