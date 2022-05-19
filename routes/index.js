@@ -51,7 +51,7 @@ const isLoggedOut = (req,res,next) => {
 // GET REQUESTS
 // ---------------------------------------------------------------------------------------------------------------
 router.get('/', isLoggedIn, (req, res, next) => {
-  res.render('dashboard', { title:"Dashboard", isDash: true})
+  res.render('dashboard', { title:"Dashboard", isDash: true, user: req.user.firstName + ' ' + req.user.lastName})
 })
 
 router.get('/users', function(req, res, next) {
