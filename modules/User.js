@@ -7,8 +7,10 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: true,
         lowercase: true
+    },
+    password: {
+        type: String,
     },
     firstName: {
         type: String,
@@ -17,6 +19,9 @@ const userSchema = new mongoose.Schema({
     lastName: {
         type: String,
         min: 1
+    },
+    email : {
+        type: String
     },
     role: String,
     createAt: {
@@ -30,4 +35,4 @@ const userSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('user', userSchema)
