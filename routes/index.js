@@ -31,12 +31,11 @@ passport.deserializeUser((id,done) => {
 passport.use(new localStrategy( (username,password, done) => {
   try {
       User.findOne({username:username}, (err,user) => {
-          if(err) throw new Error(err)
-          if(!user) done(null, false)
+          if (err) throw new Error(err)
+          if (!user) return done(null, false)
           bcrypt.compare(password, user.password, (err, isMatch) => {
-          if(err) throw new Error(err)
-          if(!isMatch) done(null, false)
-            done(null, user);
+          if (err) throw new Error(err)
+          return isMatch ? done(null, user) : done(null, false);
           })
       })
   } catch (error) {
