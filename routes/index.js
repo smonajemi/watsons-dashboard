@@ -51,6 +51,9 @@ router.get("/login", isLoggedOut, (req, res) => {
   res.render('partials/login', { title:"Login", isLoggedIn: true})
 });
 
+// router.get("/register", isLoggedIn, (req, res) => {
+//   res.render('partials/register', { title:"Register", isRegistered: true})
+// });
 router.get('*', function(req, res, next) {
   res.redirect('/')
 })
