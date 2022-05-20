@@ -54,7 +54,7 @@ passport.use(new localStrategy( async (username, password, done) => {
 
 // GET REQUESTS
 router.get('/', isLoggedIn, (req, res, next) => {
-  res.render('dashboard', { title:"Dashboard", isDash: true})
+  res.render('dashboard', { title:"Dashboard", isDash: true, user: req.user.firstName + ' ' + req.user.lastName,  firstName: req.user.firstName})
 })
 
 router.get('/users', function(req, res, next) {
