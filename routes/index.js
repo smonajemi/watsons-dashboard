@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+const bcrypt = require('bcrypt');
 const path = require("path")
 const Menu = require("../modules/Menu")
 const User = require('../modules/User')
@@ -28,8 +29,26 @@ passport.deserializeUser((id,done) => {
 
 passport.use(new localStrategy( async (username, password, done) => {
   User.findOne({username:username}, (err,user) => {
-      if(err) return done(err);
-      return !user ? done(null, false) : done(null, user)
+      // if(err) return done(err);
+      // // return !user ? done(null, false) : done(null, user)
+      // bcrypt.compare(password, user.password, (err, isMatch) => {
+      //   if (err) {
+      //     return cb(err);
+      //   }
+      //   cb(null, isMatch);
+      // });
+      try {
+          if (err) throw new Error(err)
+          if (!user) done(null, false)  
+          if (user) {
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+              if (err) throw new Error(err)
+              isMatch ? done(null, user) : done(null, false)
+            })
+          }
+      } catch (error) {
+        done(error)
+      }
   })
 }));
 
