@@ -47,7 +47,7 @@ router.get('/users', function(req, res, next) {
 });
 
 router.get("/login", isLoggedOut, (req, res) => {
-  res.render('login', { title:"Login", isLoggedIn: true})
+  res.render('partials/login', { title:"Login", isLoggedIn: true})
 });
 
 router.get("/register", isLoggedIn, (req, res) => {
