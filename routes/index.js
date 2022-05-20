@@ -4,7 +4,6 @@ const path = require("path")
 const Menu = require("../modules/Menu")
 const User = require('../modules/User')
 const upload = require("../middlewares/upload")
-const bcrypt = require('bcrypt')
 require('dotenv/config')
 
 
@@ -28,24 +27,6 @@ passport.deserializeUser((id,done) => {
   })
 });
 
-// passport.use(new localStrategy((username,password,done) => {
-//   User.findOne({username:username}, (err,user) =>{
-//       if(err) done(err);
-//       if (!user){
-//         done(null, false)
-//       } else {
-//         bcrypt.compare(password, user.password, (err,res) => {
-//           if (res) {
-//             done(null, user)
-//           } else {
-//             return done(false)
-//           }
-//       })
-//       }
-
-//   })
-// }));
-
 passport.use(new localStrategy((username,password,done) => {
   User.findOne({username:username}, (err,user) =>{
       if(err) return done(err);
@@ -58,7 +39,7 @@ passport.use(new localStrategy((username,password,done) => {
 
 // GET REQUESTS
 router.get('/', isLoggedIn, (req, res, next) => {
-  res.render('dashboard', { title:"Dashboard", isDash: true, user: req.user.firstName + ' ' + req.user.lastName})
+  res.render('dashboard', { title:"Dashboard", isDash: true})
 })
 
 router.get('/users', function(req, res, next) {
@@ -66,7 +47,7 @@ router.get('/users', function(req, res, next) {
 });
 
 router.get("/login", isLoggedOut, (req, res) => {
-  res.render('partials/login', { title:"Login", isLoggedIn: true})
+  res.render('login', { title:"Login", isLoggedIn: true})
 });
 
 router.get("/register", isLoggedIn, (req, res) => {
