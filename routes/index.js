@@ -4,12 +4,11 @@ const path = require("path")
 const Menu = require("../modules/Menu")
 const User = require('../modules/User')
 const upload = require("../middlewares/upload")
-require('dotenv/config')
-
-
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
-const session = require("express-session")
+const session = require('cookie-session')
+require('dotenv/config')
+
 router.use(session({
   secret: 'secretWord',
   resave: false,
@@ -27,7 +26,7 @@ passport.deserializeUser((id,done) => {
   })
 });
 
-passport.use(new localStrategy( async (username,password, done) => {
+passport.use(new localStrategy( async (username, password, done) => {
   User.findOne({username:username}, (err,user) => {
       if(err) return done(err);
       return !user ? done(null, false) : done(null, user)
