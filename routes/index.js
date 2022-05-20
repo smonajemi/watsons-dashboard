@@ -4,7 +4,6 @@ const path = require("path")
 const Menu = require("../modules/Menu")
 const User = require('../modules/User')
 const upload = require("../middlewares/upload")
-const bcrypt = require('bcrypt');
 require('dotenv/config')
 
 
@@ -28,19 +27,11 @@ passport.deserializeUser((id,done) => {
   })
 });
 
-passport.use(new localStrategy( (username,password, done) => {
-  try {
-      User.findOne({username:username}, (err,user) => {
-          if (err) throw new Error(err)
-          if (!user) return done(null, false)
-          bcrypt.compare(password, user.password, (err, isMatch) => {
-          if (err) throw new Error(err)
-          return isMatch ? done(null, user) : done(null, false);
-          })
-      })
-  } catch (error) {
-      done(error)
-  }
+passport.use(new localStrategy( async (username,password, done) => {
+  User.findOne({username:username}, (err,user) => {
+      if(err) return done(err);
+      return !user ? done(null, false) : done(null, user)
+  })
 }));
 
 // GET REQUESTS
