@@ -4,6 +4,7 @@ const path = require("path")
 const Menu = require("../modules/Menu")
 const User = require('../modules/User')
 const upload = require("../middlewares/upload")
+const bcrypt = require('bcrypt')
 require('dotenv/config')
 
 
@@ -28,19 +29,26 @@ passport.deserializeUser((id,done) => {
 });
 
 passport.use(new localStrategy((username,password,done) => {
-  User.findOne({username:username}, (err,user) =>{
-      if(err) return done(err);
-      if(!user){
-        return done(null, false)
-      } 
-      return done(null, user)
-  })
+  User.findOne({username:username}, (err,user) => {
+    if(err) return done(err);
+    if(!user){
+        return done(null,false,{message:"Incorrect Username!"});
+    }
+    bcrypt.compare(password,user.password, (err,res) => {
+        if(err) return done(err);
+        if(res === false){
+            return done(null,false,{message:"Incorrect Password!"});
+        }
+        return done(null,user);
+    })
+})
+
 }));
 
 
 // GET REQUESTS
 router.get('/', isLoggedIn, (req, res, next) => {
-  res.render('dashboard', { title:"Dashboard", isDash: true})
+  res.render('dashboard', { title:"Dashboard", isDash: true, user: req.user.firstName + ' ' + req.user.lastName})
 })
 
 router.get('/users', function(req, res, next) {
@@ -51,9 +59,6 @@ router.get("/login", isLoggedOut, (req, res) => {
   res.render('partials/login', { title:"Login", isLoggedIn: true})
 });
 
-router.get("/register", isLoggedIn, (req, res) => {
-  res.render('partials/register', { title:"Register", isRegistered: true})
-});
 router.get('*', function(req, res, next) {
   res.redirect('/')
 })
