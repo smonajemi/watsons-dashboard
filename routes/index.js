@@ -91,7 +91,12 @@ router.get("/menu", (req, res, next) => {
 router.post("/login", passport.authenticate('local',{
   successRedirect: '/',
   failureRedirect: '/login',
-}));
+}))
+
+router.post('/logout', function(req, res){
+  req.logout()
+  res.redirect('/')
+})
 
 router.post("/menu", upload.single("file"), (req, res, next) => {
   const formFile = req.file

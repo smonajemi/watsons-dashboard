@@ -18,6 +18,9 @@ $(document).ready( () => {
                         $('input:submit').attr('disabled',true);
                     }
                 });
+                $('#submit').attr('disabled',false);
+                $('#cancel').attr('disabled',false);
+
     });
 
 // const handleSubmit = () => {
