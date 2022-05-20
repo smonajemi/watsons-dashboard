@@ -68,19 +68,21 @@ router.get("/login", isLoggedOut, (req, res) => {
 router.get("/register", isLoggedIn, (req, res) => {
   res.render('partials/register', { title:"Register", isRegistered: true})
 });
+
+router.get("/menu", (req, res, next) => {
+  const options = {
+      root: path.join(__dirname.replace('routes', 'uploads'))
+  }
+  const fileName = 'watsonsToronto.pdf'
+  res.status(200).sendFile(fileName, options, (err) => {
+      if (err) next(err)
+  })
+})
+
 router.get('*', function(req, res, next) {
   res.redirect('/')
 })
 
-router.get("/menu", (req, res, next) => {
-    const options = {
-        root: path.join(__dirname.replace('routes', 'uploads'))
-    }
-    const fileName = 'watsonsToronto.pdf'
-    res.status(200).sendFile(fileName, options, (err) => {
-        if (err) next(err)
-    })
-})
 
 
 
