@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../modules/User')
-/* GET users listing. */
+
 
 router.post('/', (req, res) => {
   const newUser = new User({
@@ -17,5 +17,6 @@ router.post('/', (req, res) => {
     res.json({message: e})
   })
 });
+
 
 module.exports = router;

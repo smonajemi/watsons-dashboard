@@ -17,7 +17,17 @@ $(document).ready( () => {
                     else {
                         $('input:submit').attr('disabled',true);
                     }
-                });
+            })
+            $('#inputCurrentPassword' && '#inputNewPassword' && '#inputRepeatedPassword').change(
+                function(){
+                    if ($(this).val()){
+                        $('#save').removeAttr('disabled'); 
+                    }
+                    else {
+                        $('#save').attr('disabled',true);
+                    }
+            })
+           
                 $('#submit').attr('disabled',false);
                 $('#cancel').attr('disabled',false);
 

@@ -4,8 +4,9 @@ const bcrypt = require('bcryptjs');
 const path = require("path")
 const Menu = require("../modules/Menu")
 const User = require('../modules/User')
-const upload = require("../middlewares/upload")
+const upload = require("../middleware/middleware")
 const passport = require('passport')
+const user = require('./users')
 const localStrategy = require('passport-local').Strategy
 const session = require('cookie-session')
 require('dotenv/config')
@@ -13,73 +14,107 @@ require('dotenv/config')
 router.use(session({
   secret: 'secretWord',
   resave: false,
-  saveUninitialized: true 
+  saveUninitialized: true
 }));
 router.use(passport.initialize());
 router.use(passport.session());
 
-passport.serializeUser((user,done) => {
-  done(null,user);
+passport.serializeUser((user, done) => {
+  done(null, user);
 });
-passport.deserializeUser((id,done) => {
-  User.findById(id, (err,user) => {
-      done(err,user);
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, user);
   })
 });
 
-passport.use(new localStrategy( async (username, password, done) => {
-  User.findOne({username:username}, (err,user) => {
-      // if(err) return done(err);
-      // // return !user ? done(null, false) : done(null, user)
-      // bcrypt.compare(password, user.password, (err, isMatch) => {
-      //   if (err) {
-      //     return cb(err);
-      //   }
-      //   cb(null, isMatch);
-      // });
-      try {
+passport.use(new localStrategy(async (username, password, done) => {
+  User.findOne({ username: username }, (err, user) => {
+    try {
+      if (err) throw new Error(err)
+      if (!user) done(null, false)
+      if (user) {
+        bcrypt.compare(password, user.password, (err, isMatch) => {
           if (err) throw new Error(err)
-          if (!user) done(null, false)  
-          if (user) {
-            bcrypt.compare(password, user.password, (err, isMatch) => {
-              if (err) throw new Error(err)
-              isMatch ? done(null, user) : done(null, false)
-            })
-          }
-      } catch (error) {
-        done(error)
+          isMatch ? done(null, user) : done(null, false)
+        })
       }
+    } catch (error) {
+      done(error)
+    }
   })
 }));
 
 // GET REQUESTS
 router.get('/', isLoggedIn, (req, res, next) => {
-  res.render('dashboard', { title:"Dashboard", isDash: true, user: req.user.firstName + ' ' + req.user.lastName,  firstName: req.user.firstName})
+  res.render('dashboard', { title: "Dashboard", isDash: true, user: req.user.firstName + ' ' + req.user.lastName, userId: req.user._id})
 })
 
-router.get('/users', function(req, res, next) {
-  res.send('You are on users');
+router.post('/:userId/password', (req, res, next) => {
+  const params = req.params
+  const currentPassword = req.body.currentPassword
+  const newPassword = req.body.newPassword
+  const repeatedPassword = req.body.repeatedPassword
+  User.findOne({ _id: params.userId }, (err, user) => {
+    try {
+      if (err || !user) throw new Error(`User not found`)
+      bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
+        if (err) throw new Error(err)
+        if (!isMatch) res.status(404).send('Password does not match')
+            bcrypt.hash(repeatedPassword, 10, (err, hash) => {
+              try {
+                if (err) throw new Error(err)
+                if (newPassword != repeatedPassword) throw new Error('Password does not match')
+                user.password = hash
+                user.save((err, user) => {
+                  if (err) throw new Error(err)
+                  res.status(202).redirect('/')
+                })
+              } catch (error) {
+                res.status(400).send({ message: error.message })
+              }
+            })
+      })
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  })
+})
+
+
+router.get('/users', async (req, res, next) => {
+  try {
+    if (!user) throw new Error("No users found")
+    User.find({}, (err, users) => {
+      if (err) throw new Error(err)
+      const results = { users: users }
+      res.status(200).json(results)
+    });
+
+  } catch (error) {
+    res.status(404).send({ message: error.message })
+  }
 });
 
 router.get("/login", isLoggedOut, (req, res) => {
-  res.render('partials/login', { title:"Login", isLoggedIn: true})
+  res.render('partials/login', { title: "Login", isLoggedIn: true })
 });
 
 router.get("/register", isLoggedIn, (req, res) => {
-  res.render('partials/register', { title:"Register", isRegistered: true})
+  res.render('partials/register', { title: "Register", isRegistered: true })
 });
 
 router.get("/menu", (req, res, next) => {
   const options = {
-      root: path.join(__dirname.replace('routes', 'uploads'))
+    root: path.join(__dirname.replace('routes', 'uploads'))
   }
   const fileName = 'watsonsToronto.pdf'
   res.status(200).sendFile(fileName, options, (err) => {
-      if (err) next(err)
+    if (err) next(err)
   })
 })
 
-router.get('*', function(req, res, next) {
+router.get('*', (req, res, next) => {
   res.redirect('/')
 })
 
@@ -90,15 +125,16 @@ router.get('*', function(req, res, next) {
 
 // POST REQUESTS
 
-router.post("/login", passport.authenticate('local',{
+router.post("/login", passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
 }))
 
-router.post('/logout', function(req, res){
+router.post('/logout', (req, res) => {
   req.logout()
   res.redirect('/')
 })
+
 
 router.post("/menu", upload.single("file"), (req, res, next) => {
   const formFile = req.file
@@ -113,28 +149,28 @@ router.post("/menu", upload.single("file"), (req, res, next) => {
   } catch (error) {
     req.file = null
     dataReceived = "Your submission was not successful" +
-    `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a><br/><br/`
+      `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a><br/><br/`
     res.send(dataReceived + error)
   }
   dataReceived = "Your submission was successful" +
-  `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` + 
-  "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
-  `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
+    `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` +
+    "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
+    `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
   res.send(dataReceived)
   req.file = null
 })
 
 
 // logged functions
-function isLoggedIn(req,res,next){
-  if(req.isAuthenticated()) return next();
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) return next();
   res.redirect('/login');
 };
-function isLoggedOut(req,res,next){
+function isLoggedOut(req, res, next) {
   console.log('inloggedout', req.body)
-  if(!req.isAuthenticated()) return next();
+  if (!req.isAuthenticated()) return next();
   res.redirect('/')
- 
+
 };
 
 // /** RULES OF OUR API */
