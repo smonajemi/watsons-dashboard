@@ -1,62 +1,78 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const User = require('../modules/User')
-const user = require('./users')
-const bcrypt = require('bcryptjs');
+const User = require("../modules/User");
+const bcrypt = require("bcryptjs");
 
-router.get('/', async (req, res, next) => {
+router.get("/", (req, res, next) => {
   try {
-    if (!user) throw new Error("No users found")
     User.find({}, (err, users) => {
-      if (err) throw new Error(err)
-      const results = { users: users }
-      res.status(200).json(results)
+      if (err) throw new Error(err);
+      const results = { users: users };
+      res.status(200).json(results);
     });
-
   } catch (error) {
-    res.status(404).send({ message: error.message })
+    res.status(404).send({ message: error.message });
   }
 });
 
-router.post('/', async (req, res) => {
-  const newUser = new User(req.body)
-    const salt = await bcrypt.genSalt(10);
-    newUser.password = await bcrypt.hash(newUser.password, salt);
-    newUser.save().then((data) => res.status(201).send(data)).catch(e => {
-        res.json({message: e})
-      });
-})
-
-router.post('/:userId', isLoggedIn, (req, res, next) => {
-  const params = req.params
-  const newPassword = req.body.newPassword
-  const repeatedPassword = req.body.repeatedPassword
-  User.findOne({ _id: params.userId }, (err, user) => {
+router.post("/", async (req, res) => {
+  const salt = await bcrypt.genSalt(10);
+  req.body.password = await bcrypt.hash(req.body.password, salt);
+  User.findOne({ username: req.body.username }, (err, user) => {
     try {
-      if (err || !user) throw new Error(`User not found`)
-      bcrypt.hash(repeatedPassword, 10, (err, hash) => {
-        try {
-          if (err) throw new Error(err)
-          if (newPassword != repeatedPassword)
-            return res.render('partials/passwordModal', {title: "Dashboard", errorMsg: "Passwords do not match", user: req.session.user})
-        
-            user.password = hash
-            user.save((err, user) => {
-            if (err) throw new Error(err)
-            res.status(200).redirect('/')
-          })
-        } catch (error) {
-          res.status(400).send({ message: error.message })
-        }
-      })
+      if (err) throw new Error(err);
+      if (user)
+        res
+          .status(400)
+          .json({ message: `username ${req.body.username} already exists` });
+      else {
+        const newUser = new User(req.body);
+        newUser
+          .save()
+          .then((data) => res.status(201).send(data))
+          .catch((e) => {
+            res.status(201).json({ message: e });
+          });
+      }
     } catch (error) {
-      res.status(400).send({ message: error.message })
+      res.status(400).json({ message: error.message });
     }
-  })
-})
+  });
+});
+
+router.post("/:username", isLoggedIn, (req, res, next) => {
+  const currentUser = req.session.user;
+  const newPassword = req.body.newPassword;
+  const repeatedPassword = req.body.repeatedPassword;
+
+  User.findOne({ _id: currentUser._id }, async (err, user) => {
+    try {
+      if (err) throw new Error(err);
+      if (!user) {
+        req.session.reset();
+        res.redirect("login");
+      }
+      if (newPassword != repeatedPassword)
+        return res.render("partials/passwordModal", {
+          title: "Update Password",
+          errorMsg: "Passwords do not match",
+          user: req.session.user,
+        });
+
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(repeatedPassword, salt);
+      user.save((err, user) => {
+        if (err) throw new Error(err);
+        return res.status(200).redirect("/");
+      });
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  });
+});
 function isLoggedIn(req, res, next) {
-  if (!req.session.user) res.redirect('/login')
-    else next()
-};
+  if (!req.session.user) res.redirect("login");
+  else next();
+}
 
 module.exports = router;

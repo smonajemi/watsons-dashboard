@@ -7,7 +7,6 @@ const logger = require('morgan');
 const connectDB = require("./db/connection");
 const authenticationRouter = require('./routes/authenticate')
 const indexRouter = require('./routes/index');
-const dashboardRouter = require('./routes/dashboard')
 const usersRouter = require('./routes/users');
 const http = require("http");
 const https = require("https");
@@ -33,14 +32,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Get Routers
+
 app.use('/authenticate', authenticationRouter)
-app.use('/', indexRouter);
-app.use('/dashboard', dashboardRouter);
-app.use('/users', usersRouter);
+app.use('/users', usersRouter)
+app.use('/', indexRouter)
 app.use('/uploads', express.static('uploads'))
-// app.use('*', (req, res, next) => {
-//   res.redirect('/')
-// })
+
 // Connect MongoDB - Database
 connectDB()
 

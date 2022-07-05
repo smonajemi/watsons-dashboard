@@ -135,7 +135,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        <form action="/dashboard/menu" method="POST" enctype="multipart/form-data" id="my_form">
+                                        <form action="/menu" method="POST" enctype="multipart/form-data" id="my_form">
                                             <label class="form-label" for="customFile">Upload Menu</label>
                                             <input type="file" name="file" class="form-control" id="customFile" />
                                             <div class="col mt-2">
@@ -178,8 +178,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.
-                    </div>
+                    <div class="modal-body">End your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal" id="cancelLogout">Cancel</button>
                         <input value="Logout" class="btn btn-primary" type="submit" id="submit" />
@@ -189,7 +188,7 @@
         </div>
     </form>
 
-    <form action='/users/{{user._id}}' method="POST">
+    <form action='/users/{{user.username}}' method="POST">
         <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
