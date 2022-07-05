@@ -4,7 +4,7 @@ const path = require("path")
 require('dotenv/config')
 
 // GET REQUESTS
-router.get('/', isLoggedIn, (req, res, next) => {
+router.get('/', (req, res, next) => {
   res.redirect('/dashboard')
 })
 
@@ -22,12 +22,6 @@ router.get("/menu", (req, res, next) => {
     if (err) next(err)
   })
 })
-
-// logged functions
-function isLoggedIn(req, res, next) {
-  if (!req.session.user) res.redirect('/login')
-    else next()
-};
 
 // /** RULES OF OUR API */
 // router.use((req, res, next) => {
