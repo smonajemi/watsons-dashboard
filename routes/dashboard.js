@@ -12,6 +12,10 @@ router.get('/:userId', isLoggedIn, (req, res, next) => {
   res.render('dashboard', { title: "Dashboard", isDash: true, user: req.session.user})
 })
 
+router.get('/login', isLoggedIn, (req,res,next) => {
+  res.redirect('/')
+})
+
 // POST REQUESTS
 router.post("/menu", upload.single("file"), (req, res, next) => {
   const formFile = req.file

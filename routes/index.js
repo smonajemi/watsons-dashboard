@@ -16,7 +16,8 @@ router.get("/menu", (req, res, next) => {
   const options = {
     root: path.join(__dirname.replace('routes', 'uploads'))
   }
-  const fileName = 'watsonsToronto.pdf'
+  const fileName = process.env.UPLOADED_FILENAME
+  console.log(fileName)
   res.status(200).sendFile(fileName, options, (err) => {
     if (err) next(err)
   })
