@@ -24,13 +24,13 @@
 
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <span class="d-lg-inline text-gray-600 small">{{user}}</span>
+                        <span class="d-lg-inline text-gray-600 small">{{user.firstName}} {{user.lastName}}</span>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#" id="alertsDropdown" role="button" href="#" data-toggle="modal"
-                            data-target="#passwordModal" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-item" id="alertsDropdown" role="button" data-toggle="modal"
+                            data-target="#passwordModal" aria-haspopup="true" aria-expanded="false" href="#password" >
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Update Password
                         </a>
@@ -135,7 +135,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        <form action="/menu" method="POST" enctype="multipart/form-data" id="my_form">
+                                        <form action="/dashboard/menu" method="POST" enctype="multipart/form-data" id="my_form">
                                             <label class="form-label" for="customFile">Upload Menu</label>
                                             <input type="file" name="file" class="form-control" id="customFile" />
                                             <div class="col mt-2">
@@ -167,7 +167,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <form action="/logout" method="POST" enctype="multipart/form-data">
+    <form action="/authenticate/logout" method="POST" enctype="multipart/form-data">
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -189,7 +189,7 @@
         </div>
     </form>
 
-    <form action='{{userId}}/password' method="POST" >
+    <form action='/users/{{user._id}}' method="POST">
         <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -201,10 +201,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                        {{!-- <div class="form-group">
                             <label for="inputCurrentPassword">Current Password</label>
-                            <input type="password" class="form-control" id="inputCurrentPassword" required="" name="currentPassword">
-                        </div>
+                            <input type="password" class="form-control" id="inputCurrentPassword" required="" name="currentPassword">   
+                        </div> --}}
                         <div class="form-group">
                             <label for="inputNewPassword">New Password</label>
                             <input type="password" class="form-control" id="inputNewPassword" required="" name="newPassword">
@@ -216,7 +216,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal" id="cancel">Cancel</button>
-                        <input value="Save" class="btn btn-primary" type="submit" id='save' disabled="true" />
+                        <input value="Save" class="btn btn-primary" type="submit" id='save' disabled="true" onclick="errorHandling()">
                     </div>
                 </div>
             </div>

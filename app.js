@@ -1,46 +1,65 @@
 const express = require('express');
 const path = require('path');
+const app = express();
+const expbs = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const expbs = require('express-handlebars');
 const connectDB = require("./db/connection");
+const authenticationRouter = require('./routes/authenticate')
 const indexRouter = require('./routes/index');
+const dashboardRouter = require('./routes/dashboard')
 const usersRouter = require('./routes/users');
-const app = express();
 const http = require("http");
 const https = require("https");
-require('dotenv').config()
 const HTTP_PORT = process.env.PORT || 3000;
 const HTTPS_PORT = process.env.PORT_HTTPS
+const clientSessions = require('client-sessions')
 
+require('dotenv').config()
 http.createServer(app).listen(HTTP_PORT, onHttpStart);
 https.createServer(app).listen(HTTPS_PORT, onHttpsStart);
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'hbs');
-app.engine('.hbs', expbs.engine({ extname: '.hbs',
-defaultLayout: 'dashboard',
-layoutsDir: path.join(__dirname, 'views/layouts'),
-partialsDir: __dirname + '/views/partials'
- }));
-app.set('view engine', 'hbs');
 
+app.use(cookieParser('secretWord'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(clientSessions({
+  cookieName: "session", // this is the object name that will be added to 'req'
+  secret: "secretWord", // this should be a long un-guessable string.
+  duration: 2 * 60 * 1000, // duration of the session in milliseconds (2 minutes)
+  activeDuration: 1000 * 60 // the session will be extended by this many ms each request (1 minute)
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
+// Get Routers
+app.use('/authenticate', authenticationRouter)
 app.use('/', indexRouter);
+app.use('/dashboard', dashboardRouter);
 app.use('/users', usersRouter);
 app.use('/uploads', express.static('uploads'))
+// app.use('*', (req, res, next) => {
+//   res.redirect('/')
+// })
+// Connect MongoDB - Database
 connectDB()
+
+
+
+
+// view engine setup
+app.engine('.hbs', expbs.engine({ extname: '.hbs',
+defaultLayout: 'dashboard',
+layoutsDir: path.join(__dirname, 'views/layouts'),
+partialsDir: __dirname + '/views/partials'
+ }))
+app.set('view engine', 'hbs');
+
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const reqType = req.headers["x-forwarded-proto"];
-  reqType == 'https' ? next() : res.redirect("https://" + req.headers.host + req.url);
-});
+  res.redirect('/')
+})
 
 // error handler
 app.use((err, req, res, next) => {
@@ -51,7 +70,9 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+})
+
+
 
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);

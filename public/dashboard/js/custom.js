@@ -33,14 +33,9 @@ $(document).ready( () => {
 
     });
 
-// const handleSubmit = () => {
-//     alert('submitted')
-//         const customFile = document.getElementById('customFile');
-//     console.log(customFile)
-//     // setTimeout(() => {
-//     //     form.reset();
-//     // }, 500);
-// };
+const errorHandling = () => {
+    console.log(window.location)
+};
 
 // const form = document.getElementById('my_form');
 
