@@ -5,7 +5,7 @@ const User = require('../modules/User')
 
 // GET REQUESTS
 router.get("/login", (req, res) => {
-  res.redirect('/')
+  res.render('login', {title: 'Login'})
 })
 router.get("/logout", (req, res) => {
   res.redirect('/')
