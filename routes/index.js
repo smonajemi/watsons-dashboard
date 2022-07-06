@@ -13,7 +13,6 @@ router.get("/menu", (req, res, next) => {
     root: path.join(__dirname.replace('routes', 'uploads'))
   }
   const fileName = process.env.UPLOADED_FILENAME
-  console.log(fileName)
   res.status(200).sendFile(fileName, options, (err) => {
     if (err) next(err)
   })
@@ -63,15 +62,10 @@ req.file = null
 })
 
 
-
-
-
-
 //Helper Function - Authenticated
 function isLoggedIn(req, res, next) {
-  if (!req.session.user) res.redirect('login')
-      else next()
-};
+  !req.session.user ? res.redirect('login') : next()
+}
 
 //Redirect 404
 router.use('*', (req, res, next) => {
@@ -81,14 +75,14 @@ router.use('*', (req, res, next) => {
 
 // /** RULES OF OUR API */
 // router.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
+//   res.header('Access-Control-Allow-Origin', '*')
+//   res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization')
 //   if (req.method === 'OPTIONS') {
-//       res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-//       res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-//       res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers');
-//       return res.status(200).json({});
+//       res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000')
+//       res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+//       res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers')
+//       return res.status(200).json({})
 //   }
-//   next();
-// });
+//   next()
+// })
 module.exports = router

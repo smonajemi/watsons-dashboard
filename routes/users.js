@@ -71,8 +71,7 @@ router.post("/:username", isLoggedIn, (req, res, next) => {
   });
 });
 function isLoggedIn(req, res, next) {
-  if (!req.session.user) res.redirect("login");
-  else next();
+  !req.session.user ? res.redirect("login") : next();
 }
 
 module.exports = router;
