@@ -21,17 +21,18 @@ conn.once('open', () => {
     gfs.collection('menus');
 })
 
+
 // GET REQUESTS
 
-//Render MENU
-router.get("/menu", (req, res, next) => {
-  gfs.files.findOne({_id : "62c733e6010dfe4b93ccc524"}, (err, file) => {
-  if (!file || file.length === 0) return res.status(404).json({error: 'No file exists'});
-  return res.json(file)
+//Find Menu
+router.get('/menu', (req, res) => {
+  gfs.files.findOne({}, {sort: {uploadDate: -1}}, (err, file) => {
+    if (!file || file.length === 0) return res.status(404).json({error: 'No file exists'});
+    res.redirect(`/menu/${file.filename}`)
+  })
 })
-})
-
-router.get("/menus/:filename", (req, res, next) => {
+//Render Menu
+router.get("/menu/:filename", (req, res, next) => {
   gfs.files.findOne({filename : req.params.filename}, (err, file) => {
   if (!file || file.length === 0) return res.status(404).json({error: 'No file exists'});
   if (file.contentType === 'application/pdf') {
@@ -67,6 +68,35 @@ router.get('/:username', isLoggedIn, (req, res, next) => {
 
 router.post("/menu", upload.single("file"), (req, res, next) => {
   res.redirect('/')
+    //   const newMenu = new Menu({
+  //   name: formFile.filename,
+  //   file: formFile.path,
+  // })
+  // const stream = fs.createReadStream(file.path);
+  // storage.fromStream(stream, req, file)
+  //   .then(() => res.send('File uploaded'))
+  //   .catch(() => res.status(500).send('error'));
+// const formFile = req.file
+// let dataReceived = ''
+// try {
+//   const newMenu = new Menu({
+//     name: formFile.filename,
+//     description: "Watson's Toronto Menu - QR Code",
+//     file: formFile.path,
+//   })
+//   newMenu.save()
+// } catch (error) {
+//   req.file = null
+//   dataReceived = "Your submission was not successful" +
+//     `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a><br/><br/`
+//   res.status(200).send(dataReceived + error)
+// }
+// dataReceived = "Your submission was successful" +
+//   `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` +
+//   "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
+//   `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
+// res.status(200).send(dataReceived)
+// req.file = null
 })
 
 
