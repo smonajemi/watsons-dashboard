@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 const path = require("path")
 const Menu = require("../modules/Menu")
-const upload = require("../middleware/middleware")
+const upload = require("../middleware/upload")
 require('dotenv/config')
 
 // GET REQUESTS
