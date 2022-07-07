@@ -9,13 +9,15 @@ const fileSchema = new mongoose.Schema({
         type: String,
         lowercase: true
     },
-    description: {
+    author: {
         type: String
     },
     file:
     {
-        type: String,
-        contentType: String
+        data: Buffer
+    },
+    contentType: {
+        type: String
     },
     createAt: {
         type: Date,

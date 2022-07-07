@@ -3,19 +3,46 @@ var router = express.Router()
 const path = require("path")
 const Menu = require("../modules/Menu")
 const upload = require("../middleware/upload")
+const Grid = require('gridfs-stream')
+const mongoose = require('mongoose')
 require('dotenv/config')
+
+
+
+
+// 
+let gfs, gridfsBucket
+const conn = mongoose.connection;
+conn.once('open', () => {
+    gridfsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+        bucketName: 'menus'
+    });
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection('menus');
+})
 
 // GET REQUESTS
 
 //Render MENU
 router.get("/menu", (req, res, next) => {
-  const options = {
-    root: path.join(__dirname.replace('routes', 'uploads'))
+  gfs.files.findOne({_id : "62c733e6010dfe4b93ccc524"}, (err, file) => {
+  if (!file || file.length === 0) return res.status(404).json({error: 'No file exists'});
+  return res.json(file)
+})
+})
+
+router.get("/menus/:filename", (req, res, next) => {
+  gfs.files.findOne({filename : req.params.filename}, (err, file) => {
+  if (!file || file.length === 0) return res.status(404).json({error: 'No file exists'});
+  if (file.contentType === 'application/pdf') {
+    const readStream = gridfsBucket.openDownloadStream(file._id);
+    res.contentType('application/pdf')
+    readStream.pipe(res);
+  } else {
+    res.status(404).json({error: 'not a pdf'})
   }
-  const fileName = process.env.UPLOADED_FILENAME
-  res.status(200).sendFile(fileName, options, (err) => {
-    if (err) next(err)
-  })
+})
+
 })
 
 //Render Login
@@ -37,28 +64,9 @@ router.get('/:username', isLoggedIn, (req, res, next) => {
 // POST REQUESTS
 
 //Upload Menu
+
 router.post("/menu", upload.single("file"), (req, res, next) => {
-const formFile = req.file
-let dataReceived = ''
-try {
-  const newMenu = new Menu({
-    name: formFile.filename,
-    description: "Watson's Toronto Menu - QR Code",
-    file: formFile.path,
-  })
-  newMenu.save()
-} catch (error) {
-  req.file = null
-  dataReceived = "Your submission was not successful" +
-    `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a><br/><br/`
-  res.status(200).send(dataReceived + error)
-}
-dataReceived = "Your submission was successful" +
-  `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` +
-  "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
-  `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
-res.status(200).send(dataReceived)
-req.file = null
+  res.redirect('/')
 })
 
 

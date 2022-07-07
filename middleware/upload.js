@@ -1,23 +1,28 @@
 const path = require('path')
 const multer = require('multer')
-const fileStorage = multer.diskStorage({
-    destination: (req,file, cb) => {
-        cb(null, `./uploads`)
-    },
-    filename: (req, file, cb) => {
-        cb(null, `watsonsToronto.pdf`)
-    }
-})
-const upload = multer ({
-    storage: fileStorage,
-    fileFilter: (req, file, callback) => {
-        if (file.mimetype == "application/pdf") {
-            callback(null, true)
-        } else {
-            console.log('Error Uploading PDF')
-            callback(null, false)
-        }
-    }
-})
+const crypto = require('crypto');
+const {GridFsStorage} = require('multer-gridfs-storage');
+require('dotenv').config()
+
+
+const storage = new GridFsStorage({
+    url: process.env.DB_CONNECTION,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+          crypto.randomBytes(16, (err, buf) => {
+            if (err) {
+              return reject(err);
+            }
+            const filename = buf.toString('hex') + path.extname(file.originalname);
+            const fileInfo = {
+              filename: filename,
+              bucketName: 'menus'
+            };
+            resolve(fileInfo);
+          });
+        });
+      }
+  });
+const upload = multer({storage})
 
 module.exports = upload
