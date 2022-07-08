@@ -33,6 +33,9 @@ $(document).ready( () => {
     
     });
 
+const handleReset = () => {
+        location.reload()
+    }
 // const form = document.getElementById('my_form');
 
 // form.addEventListener('submit', function handleClick(event) {
