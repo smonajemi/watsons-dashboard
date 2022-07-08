@@ -21,7 +21,7 @@ conn.once('open', () => {
 //Find Menu
 router.get('/menu', (req, res) => {
   gfs.files.findOne({}, {sort: {uploadDate: -1}}, (err, file) => {
-    if (!file || file.length === 0) return res.status(404).json({error: 'No file exists'});
+    if (!file || file.length === 0) return res.status(404).json({message: 'No file exists'});
     res.redirect(`/menu/${file.filename}`)
   })
 })
@@ -29,13 +29,13 @@ router.get('/menu', (req, res) => {
 //Render Menu
 router.get("/menu/:filename", (req, res) => {
   gfs.files.findOne({filename : req.params.filename}, (err, file) => {
-  if (!file || file.length === 0) return res.status(404).json({error: 'No file exists'});
+  if (!file || file.length === 0) return res.status(404).json({message: 'No file exists'});
   if (file.contentType === 'application/pdf') {
     const readStream = gridfsBucket.openDownloadStream(file._id);
     res.contentType('application/pdf')
     readStream.pipe(res);
   } else {
-    res.status(404).json({error: 'not a pdf'})
+    res.status(404).json({error: 'server error'})
   }
 })
 })
@@ -54,27 +54,19 @@ router.get('/', isLoggedIn, (req,res,next) => {
 router.get('/:username', isLoggedIn, (req, res) => {
   res.render('dashboard', { title: "Dashboard", isDash: true, user: req.session.user})
 })
-  
 
 // POST REQUESTS
 
 //Upload Menu
 router.post("/menu", upload.single("file"), (req, res) => {
 const formFile = req.file
-let dataReceived = ''
 try {
   if (formFile.mimetype !== 'application/pdf') return res.render('dashboard', {title: "Dashboard", errorMsg: "pdf files only"})
 } catch (error) {
   req.file = null
-  dataReceived = `Not Successful - ${error.message}` +
-    `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a><br/><br/`
-  return res.status(404).send(dataReceived)
+  res.render('error', {title: "Error"})
 }
-dataReceived = "Menu uploaded successfully" +
-  `<br/><br/><a class="btn" href="/"><button>Dashboard</button></a>` +
-  "<br/><br/> You uploaded: " + JSON.stringify(formFile.originalname) +
-  `<br/><br/><a class="btn" href="/menu" target="_blank"><button>View Uploaded Menu</button></a>`
-  return res.status(200).send(dataReceived)
+  res.render('success', {title: "Dashboard",user: req.session.user, menu: req.file.originalname})
 })
 
 
@@ -85,7 +77,7 @@ function isLoggedIn(req, res, next) {
 
 //Redirect 404
 router.use('*', (req, res) => {
-  res.redirect('/')
+  res.render('error', {title: "Error"})
 })
 
 

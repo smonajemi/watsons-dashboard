@@ -1,2 +1,15 @@
-<p>Menu uploaded successfully: {{dataName}} created at {{dataCreatedAt}}</p>
-<p><button  onclick="location.href = '/dashboard'">Click here to go back to dashboard</button></p>
+<div class="main-container-success">
+	<div class="check-container-success">
+		<div class="check-background-success">
+			<svg viewBox="0 0 65 51" fill="none">
+				<path d="M7 25L27.3077 44L58.5 7" stroke="white" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+		</div>
+		<div class="check-shadow-success"></div>
+	</div>
+     <div class="col-md-6 align-self-center">
+        <h2>Menu uploaded successfully</h2>
+        <p>{{menu}}</p>
+        <button class="btn btn-info" onclick="location.href = '/'">Dashboard</button>           
+      </div>
+</div>
