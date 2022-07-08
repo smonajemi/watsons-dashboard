@@ -63,7 +63,7 @@ router.post("/:username", isLoggedIn, (req, res, next) => {
       user.password = await bcrypt.hash(repeatedPassword, salt);
       user.save((err, user) => {
         if (err) throw new Error(err);
-        return res.status(200).redirect("/");
+        return res.status(200).render('success', {title: "Dashboard", user: req.session.user, isPassword: true})
       });
     } catch (error) {
       res.status(400).send({ message: error.message });

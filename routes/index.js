@@ -66,7 +66,7 @@ try {
   req.file = null
   res.render('error', {title: "Error"})
 }
-  res.render('success', {title: "Dashboard",user: req.session.user, menu: req.file.originalname})
+  res.render('success', {title: "Dashboard",user: req.session.user, menu: req.file.originalname, isMenu: true})
 })
 
 
