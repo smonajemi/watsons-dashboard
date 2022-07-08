@@ -20,7 +20,9 @@ const storage = new GridFsStorage({
             resolve(fileInfo);
           });
         });
-      } return null}
+      } 
+      return null
+    }
   });
   
 const upload = multer({storage})
