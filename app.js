@@ -4,19 +4,19 @@ const app = express()
 const expbs = require('express-handlebars')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
-const {connectDB} = require("./db/connection")
+const clientSessions = require('client-sessions')
+const connectDB = require("./db/connection")
 const authenticationRouter = require('./routes/authenticate')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const http = require("http")
-const https = require("https")
 const HTTP_PORT = process.env.PORT || 3000
-const HTTPS_PORT = process.env.PORT_HTTPS
-const clientSessions = require('client-sessions')
+
 
 require('dotenv').config()
+// Connect MongoDB - Database
+connectDB()
 http.createServer(app).listen(HTTP_PORT, onHttpStart)
-https.createServer(app).listen(HTTPS_PORT, onHttpsStart)
 
 app.use(cookieParser('secretWord'))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -32,16 +32,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // Get Routers
-
 app.use('/authenticate', authenticationRouter)
 app.use('/users', usersRouter)
 app.use('/', indexRouter)
-app.use('/uploads', express.static('uploads'))
-
-// Connect MongoDB - Database
-connectDB()
-
-
 
 
 // view engine setup
@@ -70,12 +63,9 @@ app.use((err, req, res, next) => {
 })
 
 
-
+// Helper functions
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT)
-}
-function onHttpsStart() {
-  console.log("Express https server listening on: " + HTTPS_PORT)
 }
 
 module.exports = app

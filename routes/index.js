@@ -1,9 +1,20 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const mongoose = require('mongoose');
+const router = express.Router()
 const upload = require("../middleware/upload")
-const {gridfsBucket, gfs} = require('../db/connection')
+const Grid = require('gridfs-stream')
 require('dotenv/config')
 
+
+let gfs, gridfsBucket
+const conn = mongoose.connection;
+conn.once('open', () => {
+    gridfsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+        bucketName: 'menus'
+    });
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection('menus');
+})
 
 // GET REQUESTS
 
