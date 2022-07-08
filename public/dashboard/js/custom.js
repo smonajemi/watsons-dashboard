@@ -4,9 +4,9 @@ $(document).ready( () => {
             function(){
                 if ($(this).val()){
                     $('input:submit').removeAttr('disabled'); 
-                }
+                } 
                 else {
-                    $('input:submit').attr('disabled',true);
+                    $('input:submit').attr('disabled',false);
                 }
             });
             $('input:text').change(
@@ -30,12 +30,8 @@ $(document).ready( () => {
            
                 $('#submit').attr('disabled',false);
                 $('#cancel').attr('disabled',false);
-
+    
     });
-
-const errorHandling = () => {
-    console.log(window.location)
-};
 
 // const form = document.getElementById('my_form');
 
