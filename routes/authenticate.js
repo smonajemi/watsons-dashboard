@@ -16,7 +16,7 @@ router.post("/login", (req, res) => {
   const username = req.body.username
   const password = req.body.password
   if (username === "" || password === "")
-    return res.render("/login", {
+    return res.render("pages/login", {
       title: "Login",
       errorMsg: "Missing credentials",
     })
@@ -24,7 +24,7 @@ router.post("/login", (req, res) => {
     try {
       if (err) throw new Error(err)
       if (!user)
-        return res.render("login", {
+        return res.render("pages/login", {
           title: "Login",
           errorMsg: "invalid username",
         })
@@ -36,7 +36,7 @@ router.post("/login", (req, res) => {
               req.session.user = user
               res.redirect(`/${req.session.user.username}`)
             } else {
-              res.render("login", {
+              res.render("pages/login", {
                 title: "Login",
                 errorMsg: "invalid password",
               })
