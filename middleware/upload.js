@@ -7,6 +7,7 @@ require('dotenv').config()
 
 const storage = new GridFsStorage({
     url: process.env.DB_CONNECTION,
+    options: { useNewUrlParser: true, useUnifiedTopology: true },
     file: (req, file) => {
       if (file.mimetype === 'application/pdf') {
         return new Promise((resolve, reject) => {
@@ -15,11 +16,13 @@ const storage = new GridFsStorage({
             const filename = buf.toString('hex') + path.extname(file.originalname);
             const fileInfo = {
               filename: filename,
-              bucketName: 'menus'
-            };
+              bucketName: 'uploads',
+              metadata:  req.body.selectControl
+            }
             resolve(fileInfo);
           });
         });
+
       } 
       return null
     }

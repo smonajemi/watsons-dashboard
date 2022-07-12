@@ -5,18 +5,24 @@ const fileSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref : 'Menu'
     },
-    name: {
+    fieldname: {
         type: String,
         lowercase: true
     },
-    author: {
+    originalname: {
+        type: String
+    },
+    encoding: {
         type: String
     },
     file:
     {
         data: Buffer
     },
-    contentType: {
+    author:{
+        type: String
+    },
+    mimetype: {
         type: String
     },
     createAt: {
