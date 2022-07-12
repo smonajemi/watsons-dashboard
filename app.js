@@ -11,18 +11,18 @@ const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const http = require("http")
 const HTTP_PORT = process.env.PORT || 3000
-
+const crypto = require('crypto')
 
 require('dotenv').config()
 // Connect MongoDB - Database
 connectDB()
 http.createServer(app).listen(HTTP_PORT, onHttpStart)
 
-app.use(cookieParser(process.env.SESSION_SECRET_WORD))
+app.use(cookieParser(crypto.randomBytes(25000).toString("hex")))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(clientSessions({
   cookieName: "session", // this is the object name that will be added to 'req'
-  secret: process.env.SESSION_SECRET_WORD, // this should be a long un-guessable string.
+  secret: crypto.randomBytes(25000).toString("hex"), 
   duration: 15 * 60 * 1000, // duration of the session in milliseconds (15 minutes)
   activeDuration: 1000 * 60 // the session will be extended by this many as each request (1 minute)
 }))
