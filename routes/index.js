@@ -77,7 +77,6 @@ router.get("/:username", isLoggedIn, (req, res) => {
 //Upload Menu
 router.post("/menu", upload.single("file"), (req, res) => {
   const formFile = req.file;
-
   try {
     if (formFile.mimetype !== "application/pdf")
       return res.render("dashboard", {
