@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.post("/:username", isLoggedIn, (req, res, next) => {
+router.post("/updatePassword/:username", isLoggedIn, (req, res, next) => {
   const currentUser = req.session.user;
   const newPassword = req.body.newPassword;
   const repeatedPassword = req.body.repeatedPassword;
@@ -53,7 +53,7 @@ router.post("/:username", isLoggedIn, (req, res, next) => {
         res.redirect("login");
       }
       if (newPassword != repeatedPassword)
-        return res.render("partials/passwordModal", {
+        return res.render("partials/updatePassword", {
           title: "Update Password",
           errorMsg: "Passwords do not match",
           user: req.session.user,
@@ -63,7 +63,13 @@ router.post("/:username", isLoggedIn, (req, res, next) => {
       user.password = await bcrypt.hash(repeatedPassword, salt);
       user.save((err, user) => {
         if (err) throw new Error(err);
-        return res.status(200).render('success', {title: "Dashboard", user: req.session.user, isPassword: true})
+        return res
+          .status(200)
+          .render("pages/success", {
+            title: "Dashboard",
+            user: req.session.user,
+            isPassword: true,
+          });
       });
     } catch (error) {
       res.status(400).send({ message: error.message });

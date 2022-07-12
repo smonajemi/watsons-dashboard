@@ -1,0 +1,21 @@
+<div class="main-container-success">
+	<div class="check-container-success">
+		<div class="check-background-success">
+			<svg viewBox="0 0 65 51" fill="none">
+				<path d="M7 25L27.3077 44L58.5 7" stroke="white" stroke-width="13" stroke-linecap="round"
+					stroke-linejoin="round" />
+			</svg>
+		</div>
+		<div class="check-shadow-success"></div>
+	</div>
+	<div class="col-md-6 align-self-center">
+		{{#if isMenu}}
+		<h2>{{uploadedFile}} menu uploaded successfully</h2>
+		<p>{{menu}}</p>
+		{{/if}}
+		{{#if isPassword}}
+		<h2>Password updated successfully</h2>
+		{{/if}}
+		<button class="btn btn-info" onclick="location.href = '/'">Dashboard</button>
+	</div>
+</div>

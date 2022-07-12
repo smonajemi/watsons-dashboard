@@ -48,7 +48,7 @@ app.set('view engine', 'hbs')
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  res.render('error', {title: "Error"})
+  res.render('pages/error', {title: "Error"})
 })
 
 // error handler
@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error', {title: "Error"})
+  res.render('pages/error', {title: "Error"})
 })
 
 

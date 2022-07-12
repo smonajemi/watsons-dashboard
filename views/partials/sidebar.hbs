@@ -1,52 +1,54 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon">
-            {{user.firstName}}
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
         </div>
+        <div class="sidebar-brand-text mx-3">{{user.firstName}}</div>
     </a>
-
     <hr class="sidebar-divider my-0">
 
     <li class="nav-item active">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
 
-
     <hr class="sidebar-divider">
-
+    <div class="sidebar-heading">
+        Uploaded Docs
+    </div>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-upload"></i>
+            <span>Menu</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menus</h6>
+                <a class="collapse-item" href="/getMenu/qrMenu" target="_blank">Qr Menu</a>
+                <a class="collapse-item" href="/getMenu/foodMenu" target="_blank">Food Menu</a>
+                <a class="collapse-item" href="/getMenu/cocktailMenu" target="_blank">Cocktail Menu</a>
+                <a class="collapse-item" href="/getMenu/beer&WineMenu" target="_blank">Beer &amp; Wine Menu</a>
+                <a class="collapse-item" href="/">Blank Page</a>
+            </div>
+        </div>
+    </li>
+    <hr class="sidebar-divider">
     <div class="sidebar-heading">
         Addons
     </div>
-    <li class="active nav-item">
-
-        <a class="nav-link" href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Menu</span>
-        </a>
-        <ul class="collapse list-unstyled" id="homeSubmenu">
-            <li>
-                <a class="nav-link" href="/getMenu/qrMenu" target="_blank"><span>Qr Menu</span></a>
-            </li>
-            <li>
-                <a class="nav-link" href="/getMenu/foodMenu" target="_blank"><span>Food Menu</span></a>
-            </li>
-            <li>
-                <a class="nav-link" href="/getMenu/cocktailMenu" target="_blank"><span>Cocktail Menu</span></a>
-            </li>
-            <li>
-                <a class="nav-link" href="/getMenu/beer&WineMenu" target="_blank"><span>Beer &amp; Wine Menu</span></a>
-            </li>
-        </ul>
-    </li>
-
     <li class="nav-item">
-        <a class="nav-link" href="https://watsonstoronto.com/menu/" target="_blank">
-            <i class="fas fa-fw fa-chart-area"></i>
+        <a class="nav-link" href="https:/watsonstoronto.com/menu/" target="_blank">
+            <i class="fas fa-fw fa-house-user"></i>
             <span>Watson's</span>
         </a>
     </li>
+
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
 
 </ul>

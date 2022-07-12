@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-8 col-lg-7">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <form action="menu" method="POST" enctype="multipart/form-data" id="my_form"
+                                    class="needs-validation" novalidate>
+                                    {{#if errorMsg}}
+                                    <div class="text-center">
+                                        <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+                                        {{else}}
+                                        <label class="form-label" for="customFile">Upload Menu</label>
+                                        {{/if}}
+                                        <div class="container mt-3">
+                                            <div class="mb-6">
+                                                <select class="form-control" id="validationCustom04"
+                                                    name="selectControl" title="Select upload type" required>
+                                                    <option selected disabled value="">Select upload type
+                                                    </option>
+                                                    <option value="qrMenu">Qr-Menu</option>
+                                                    <option value="foodMenu">Food Menu</option>
+                                                    <option value="cocktailMenu">Cocktail Menu</option>
+                                                    <option value="beer&WineMenu">Beer&amp;wine Menu</option>
+                                                </select>
+                                                <div class="invalid-feedback text-center">
+                                                    Please select the uploaded type.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col mt-2">
+                                            <div class="form-group" style="padding: 1em;">
+                                                <div class="input-group input-file" name="uploadMenu">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default btn-choose"
+                                                            type="button">Choose</button>
+                                                    </span>
+                                                    <input type="text" class="form-control" accept="application/pdf"
+                                                        required name="file" placeholder='Choose a file...' />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col text-right mt-2">
+                                            <input type="submit" class="btn btn-info"> </input>
+                                            <input type="reset" class="btn btn-warning"> </input>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
