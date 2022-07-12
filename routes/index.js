@@ -10,26 +10,27 @@ const conn = mongoose.connection;
 conn.once("open", () => {
   gridBucket = new mongoose.mongo.GridFSBucket(conn.db, {
     bucketName: "uploads",
-  });
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection("uploads");
-});
+  })
+  gfs = Grid(conn.db, mongoose.mongo)
+  gfs.collection("uploads")
+})
 
 // GET REQUESTS
-
 //Find Menu
 router.get("/getMenu/:option", (req, res) => {
   const param = req.params.option;
   gfs.files.findOne(
-    { metadata: param },
+    { metadata: {
+      menuType: param
+    }},
     { sort: { uploadDate: -1 } },
     (err, file) => {
       if (!file || file.length === 0)
         return res.status(404).json({ message: "No file exists" });
       return res.redirect(`/menu/${file.filename}`);
     }
-  );
-});
+  )
+})
 
 //Render Menu
 router.get("/menu/:filename", (req, res) => {
@@ -43,8 +44,8 @@ router.get("/menu/:filename", (req, res) => {
     } else {
       res.status(404).json({ error: "server error" });
     }
-  });
-});
+  })
+})
 
 //Render Login
 router.get("/login", (req, res) => {
@@ -80,7 +81,8 @@ router.post("/menu", upload.single("file"), (req, res) => {
     req.file = null;
     res.render("pages/error", { title: "Error" });
   }
-  const str = req.file.metadata.replace("Menu", "");
+  const str = req.file.metadata.menuType.replace("Menu", "");
+  console.log(str)
   const metadata = str.charAt(0).toUpperCase() + str.slice(1);
   res.render("pages/success", {
     title: "Dashboard",

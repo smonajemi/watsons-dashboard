@@ -17,7 +17,9 @@ const storage = new GridFsStorage({
             const fileInfo = {
               filename: filename,
               bucketName: 'uploads',
-              metadata:  req.body.selectControl
+              metadata:  {
+                menuType: req.body.selectControl
+              }
             }
             resolve(fileInfo);
           });
