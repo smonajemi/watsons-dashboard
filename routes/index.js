@@ -50,13 +50,6 @@ router.get("/menu/:filename", (req, res) => {
 router.get("/login", (req, res) => {
   res.render("pages/login", { title: "Login", isBody: "bg-gradient-primary" });
 });
-router.get("/password", isLoggedIn, (req, res) => {
-  res.render("pages/updatePassword", {
-    title: "Update Password",
-    user: req.session.user,
-    isBody: "bg-gradient-primary",
-  });
-});
 
 //Redirect homePage
 router.get("/", isLoggedIn, (req, res, next) => {

@@ -15,6 +15,14 @@ router.get("/", (req, res, next) => {
   }
 });
 
+router.get("/password/:userId", isLoggedIn, (req, res) => {
+  res.render("pages/updatePassword", {
+    title: "Update Password",
+    user: req.session.user,
+    isBody: "bg-gradient-primary",
+  });
+});
+
 router.post("/", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   req.body.password = await bcrypt.hash(req.body.password, salt);
