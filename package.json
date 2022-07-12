@@ -27,5 +27,25 @@
     "multer-gridfs-storage": "^5.0.2",
     "node-fetch": "^2.6.7",
     "serve": "^13.0.2"
-  }
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smonajemi/qrwatsons.git"
+  },
+  "keywords": [
+    "Watson's",
+    "Toronto",
+    "-",
+    "Admin",
+    "Dashboard"
+  ],
+  "author": "Sina Monajemi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smonajemi/qrwatsons/issues"
+  },
+  "homepage": "https://github.com/smonajemi/qrwatsons#readme",
+  "description": ""
 }
