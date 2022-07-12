@@ -90,7 +90,7 @@ router.post("/menu", upload.single("file"), (req, res) => {
   }
   const str = req.file.metadata.replace("Menu", "");
   const metadata = str.charAt(0).toUpperCase() + str.slice(1);
-  res.render("success", {
+  res.render("pages/success", {
     title: "Dashboard",
     user: req.session.user,
     menu: req.file.originalname,
