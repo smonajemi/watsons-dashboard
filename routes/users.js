@@ -53,7 +53,7 @@ router.post("/updatePassword/:username", isLoggedIn, (req, res, next) => {
         res.redirect("login");
       }
       if (newPassword != repeatedPassword)
-        return res.render("partials/updatePassword", {
+        return res.render("pages/updatePassword", {
           title: "Update Password",
           errorMsg: "Passwords do not match",
           user: req.session.user,
