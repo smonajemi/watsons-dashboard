@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.post("/updatePassword/:username", isLoggedIn, (req, res, next) => {
+router.post("/password/:username", isLoggedIn, (req, res, next) => {
   const currentUser = req.session.user;
   const newPassword = req.body.newPassword;
   const repeatedPassword = req.body.repeatedPassword;
