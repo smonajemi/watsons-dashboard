@@ -57,6 +57,7 @@ router.post("/updatePassword/:username", isLoggedIn, (req, res, next) => {
           title: "Update Password",
           errorMsg: "Passwords do not match",
           user: req.session.user,
+          isBody: "bg-gradient-primary"
         });
 
       const salt = await bcrypt.genSalt(10);
