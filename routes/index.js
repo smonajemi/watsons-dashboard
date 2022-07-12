@@ -25,9 +25,9 @@ router.get("/getMenu/:option", (req, res) => {
     }},
     { sort: { uploadDate: -1 } },
     (err, file) => {
-        if (!file || file.length === 0) 
+        if (!file || file.length === 0) {
            return res.status(404).json({ message: "No file exists" })
-           else 
+           } 
               return res.(200).redirect(`/menu/${file.filename}`);
     }
   )
