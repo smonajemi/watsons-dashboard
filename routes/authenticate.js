@@ -3,6 +3,7 @@ const router = express.Router()
 const bcrypt = require("bcryptjs")
 const User = require("../modules/User")
 const nodemailer = require('nodemailer')
+const validator = require('validator')
 require('dotenv').config()
 
 
@@ -53,6 +54,7 @@ router.post("/register", async (req, res) => {
   try {
     const findUser = await User.findOne({username: currentUser.email})
     if (findUser)  return res.render('pages/register', {title: 'Sign Up', isBody: 'bg-gradient-primary', errorMsg: `user already exists`})
+    if (!validator.isEmail(currentUser.email)) return res.render('pages/register', {title: 'Sign Up', errorMsg: 'invalid email', isBody: 'bg-gradient-primary'})
     if (currentUser.password !== currentUser.rePassword) return res.render('pages/register', {title: 'Sign Up', errorMsg: 'Passwords do not match', isBody: 'bg-gradient-primary'})
     const response = new User({...currentUser, username: currentUser.email, password: hashedPassword})
     await response.save()
