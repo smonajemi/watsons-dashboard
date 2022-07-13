@@ -13,25 +13,18 @@
                                         {{errorMsg}}
                                     </div>
                                     {{else}}
-                                    <div class="alert alert-info" role="alert">Please login below</div>
+                                    <div class="alert alert-info" role="alert">Enter Verification Code</div>
                                     {{/if}}
                                     <br>
                                 </div>
-                                <form class="needs-validation user" action='/authenticate/login' method="POST" novalidate>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="username"
-                                            name="username" placeholder="Username" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="password"
-                                            name="password" placeholder="Password" required>
-                                    </div>
+                                <form class="needs-validation user" action='/authenticate/verification' method="POST" novalidate>
+                                
+              <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" id="verificationCode"
+                                        placeholder="Verification Code" name="verificationCode" required>
+                                </div>
                                     <input type="submit" class="btn btn-primary btn-user btn-block" value="Login" />
                                 </form>
-                                    <hr>
-                          <div class="text-center">
-                                        <a class="small" href="/register">Create an Account!</a>
-                                    </div>
                             </div>
                         </div>
                     </div>

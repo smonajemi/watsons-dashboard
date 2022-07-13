@@ -26,10 +26,10 @@
     "multer": "^1.3.0",
     "multer-gridfs-storage": "^5.0.2",
     "node-fetch": "^2.6.7",
+    "nodemailer": "^6.7.7",
     "serve": "^13.0.2"
   },
   "main": "app.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/smonajemi/qrwatsons.git"

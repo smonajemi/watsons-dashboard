@@ -50,9 +50,14 @@ router.get("/login", (req, res) => {
   res.render("pages/login", { title: "Login", isBody: "bg-gradient-primary" });
 });
 
+router.get("/register", (req, res) => {
+  res.render("pages/register", { title: "Sign Up", isBody: "bg-gradient-primary" });
+});
+
+
 //Redirect homePage
 router.get("/", isLoggedIn, (req, res, next) => {
-  res.redirect(`/${req.session.user.username}`);
+  res.redirect(`/${req.session.user._id}`);
 });
 
 //Render adminPage
@@ -80,7 +85,6 @@ router.post("/menu", upload.single("file"), (req, res) => {
     res.render("pages/error", { title: "Error" });
   }
   const str = req.file.metadata.menuType.replace("Menu", "");
-  console.log(str)
   const metadata = str.charAt(0).toUpperCase() + str.slice(1);
   res.render("pages/success", {
     title: "Dashboard",
@@ -93,7 +97,12 @@ router.post("/menu", upload.single("file"), (req, res) => {
 
 //Helper Function - Authenticated
 function isLoggedIn(req, res, next) {
-  !req.session.user ? res.redirect("login") : next();
+  if (req.session.user) {
+    return !req.session.user.role ? res.redirect('/authenticate/verification') : next()
+  }
+  return res.redirect('login')
+
+  // res.render('pages/verification', {title: 'Verification', isBody: 'bg-gradient-primary'})
 }
 
 //Redirect 404
