@@ -82,7 +82,7 @@ router.post("/register", async (req, res) => {
           }
         const verificationEmail = {
           from: USER_EMAIL,
-          to: 'smonajemi92@gmail.com',
+          to: process.env.ADMIN_EMAIL,
           subject: `Verification Code - ${req.session.user.username}`,
           html: `
             <h3>${req.session.user.firstName} ${req.session.user.lastName} has registered</h3>
