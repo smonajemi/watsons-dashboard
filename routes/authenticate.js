@@ -24,7 +24,7 @@ router.post('/verification', async (req, res) => {
       const verificationCode = req.body.verificationCode
       const currentUser = req.session.user
       if (currentUser._id !== verificationCode) return res.render('pages/verification', {title: 'Verification', isBody: 'bg-gradient-primary', errorMsg: 'Incorrect Code'})
-      req.session.user.role = 'Admin'
+      req.session.user.role = 'Member'
       await User.updateOne({ _id: currentUser._id }, { role: req.session.user.role}) 
       return res.status(200).redirect(`/${currentUser._id}`)
   } catch (error) {
