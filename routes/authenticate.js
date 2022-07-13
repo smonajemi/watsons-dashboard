@@ -61,7 +61,8 @@ router.post("/register", async (req, res) => {
     })
     .catch((e) => {
       return res.status(404).render('pages/register', {title: 'Sign Up', isBody: 'bg-gradient-primary', errorMsg: `Server error: ${e.message}`})
-    });
+    })
+    
     // Send verification code to admin
        const host = req.get('host')
        const url = host.includes('local') ? "http://" : "https://" 
