@@ -23,7 +23,9 @@ const userSchema = new mongoose.Schema({
     email : {
         type: String
     },
-    role: String,
+    role: {
+        type: String
+    },
     createAt: {
         type: Date,
         immutable: true,

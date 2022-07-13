@@ -85,8 +85,12 @@ router.post("/password/:username", isLoggedIn, (req, res, next) => {
     }
   });
 });
+
 function isLoggedIn(req, res, next) {
-  !req.session.user ? res.redirect("login") : next();
+  if (req.session.user) {
+    return !req.session.user.role ? res.redirect('/authenticate/verification') : next()
+  }
+  return res.redirect('login')
 }
 
 module.exports = router;
