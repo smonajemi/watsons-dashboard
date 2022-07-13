@@ -74,9 +74,10 @@ router.post("/register", async (req, res) => {
             html: `
               <h3>${req.session.user.firstName} ${req.session.user.lastName} has been registered</h3>
               <h5>Your username is ${(req.session.user.username)}</h5>
-             <a href="${link}">
-                <h7>Verify your account</h7>
-              </a>
+              <h7>Verification code has been sent to Sina</h7>
+              <a href="${link}">
+                  <h8>Verify your account</h8>
+                </a>
             ` 
           }
         const verificationEmail = {
