@@ -72,11 +72,11 @@ router.post("/register", async (req, res) => {
             to: currentUser.email,
             subject: `Verify Account - ${req.session.user.username}`,
             html: `
-              <h3>${req.session.user.firstName} ${req.session.user.lastName} has been registered</h3>
-              <h5>Your username is ${(req.session.user.username)}</h5>
-              <h7>Verification code has been sent to Sina</h7>
+              <h2>${req.session.user.firstName} ${req.session.user.lastName} has been registered</h2>
+              <h3>Your username is ${(req.session.user.username)}</h3>
+              <h4>Verification code has been sent to Sina</h4>
               <a href="${link}">
-                  <h8>Verify your account</h8>
+                  <h6>Verify your account</h6>
                 </a>
             ` 
           }
