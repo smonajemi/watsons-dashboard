@@ -65,7 +65,7 @@ router.put('/:userId', async (req, res) => {
   })
 })
 
-router.put("/password/:userId", (req, res, next) => {
+router.post("/password/:userId", (req, res, next) => {
   const password = req.body.password;
   const rePassword = req.body.rePassword;
 
