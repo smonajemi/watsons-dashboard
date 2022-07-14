@@ -51,18 +51,14 @@ router.post("/", async (req, res) => {
 
 router.put('/:userId', async (req, res) => {
   const currentUser = req.body
-  const userId = req.params.userId
-  User.findOne({ _id: userId}, async (err, user) => {
-    try {
-      if (err) throw new Error(err);
-      if (!user) return res.status(404).json({message: 'user not found'})
-      const response = {...user._doc, ...currentUser}
-      await User.findOneAndUpdate({ _id: userId}, response, { overwrite: true }     )
-      return res.status(200).json({user: response})
-    } catch (error) {
-      return res.status(400).json({ message: error.message });
-    }
-  })
+  const user = await User.findOne({_id: req.params.userId})
+  try {
+    if (!user) throw new Error('user not found')
+    await User.findOneAndUpdate({ _id: user._id}, currentUser, { upsert: true })
+  } catch (error) {
+    return res.status(404).json({message: error.message})
+  }
+  return res.status(200).json({message: 'user updated'})
 })
 
 router.post("/password/:userId", (req, res, next) => {
