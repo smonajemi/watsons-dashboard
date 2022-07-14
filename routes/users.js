@@ -15,6 +15,12 @@ router.get("/", (req, res, next) => {
   }
 });
 
+router.get("/:userId", async (req, res) => {
+   const user = await User.findOne({_id: req.params.userId})
+   if (!user) return res.json({message: 'user not found'})
+   return res.json(user)
+});
+
 router.get("/password/:userId", isLoggedIn, (req, res) => {
   res.render("pages/updatePassword", {
     title: "Update Password",
@@ -22,6 +28,8 @@ router.get("/password/:userId", isLoggedIn, (req, res) => {
     isBody: "bg-gradient-primary",
   });
 });
+
+
 
 // create user
 router.post("/", async (req, res) => {
@@ -58,7 +66,7 @@ router.put('/:userId', async (req, res) => {
   } catch (error) {
     return res.status(404).json({message: error.message})
   }
-  return res.status(200).json({message: 'user updated'})
+  return res.status(200).json({message: 'deleted', user})
 })
 
 router.post("/password/:userId", (req, res, next) => {
@@ -99,11 +107,10 @@ router.post("/password/:userId", (req, res, next) => {
 });
 
 router.delete('/:userId', async (req, res) => {
-  const userId = req.params.userId
-  const user = await User.findOne({_id: userId})
+  const user = await User.findOne({_id: req.params.userId})
   if (!user) return res.status(404).json({message: 'user not found'})
-  await User.deleteOne({ _id: userId });
-  return res.status(200).json({message: 'user deleted'})
+  await User.deleteOne({ _id: user._id });
+  return res.status(200).json({message: 'deleted', user})
 })
 
 

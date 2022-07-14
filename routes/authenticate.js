@@ -21,11 +21,10 @@ router.get("/verification", (req, res) => {
 
 router.post('/verification', async (req, res) => {
     try {
-      const verificationCode = req.body.verificationCode
       const currentUser = req.session.user
-      if (currentUser._id !== verificationCode) return res.render('pages/verification', {title: 'Verification', isBody: 'bg-gradient-primary', errorMsg: 'Incorrect Code'})
+      if (currentUser._id !== req.body.verificationCode) return res.render('pages/verification', {title: 'Verification', isBody: 'bg-gradient-primary', errorMsg: 'Incorrect Code'})
       req.session.user.role = 'Member'
-      await User.updateOne({ _id: currentUser._id }, { role: req.session.user.role}) 
+      await User.findOneAndUpdate({ _id: currentUser._id}, {role: req.session.user.role}, { upsert: true })
       return res.status(200).redirect(`/${currentUser._id}`)
   } catch (error) {
     return res.status(404).render('pages/register', {title: 'Sign Up', isBody: 'bg-gradient-primary', errorMsg: 'cannot register at this time'})
@@ -69,27 +68,22 @@ router.post("/register", async (req, res) => {
        const host = req.get('host')
        const url = host.includes('local') ? "http://" : "https://" 
        const link = url + host + '/' + req.session.user._id
-       const mailOptions = {
+       const mailOptions = {  
             from: USER_EMAIL,
             to: currentUser.email,
             subject: `Verify Account - ${req.session.user.username}`,
             html: `
-              <h2>${req.session.user.firstName} ${req.session.user.lastName} has been registered</h2>
-              <h3>Your username is ${(req.session.user.username)}</h3>
-              <h4>Verification code has been sent to admin</h4>
-              <a href="${link}">
-                  <h6>Verify your account</h6>
-                </a>
+              <h3>${req.session.user.firstName} ${req.session.user.lastName}, you have been registered. A verification code has been sent to the admin</h3>
+              <h5>Your username: ${(req.session.user.username)} - Please <a href="${link}">verify</a> your account</h5>           
             ` 
           }
         const verificationEmail = {
           from: USER_EMAIL,
           to: process.env.ADMIN_EMAIL,
-          subject: `Verification Code - ${req.session.user.username}`,
+          subject: `${req.session.user.firstName} ${req.session.user.lastName} has registered`,
           html: `
-            <h3>${req.session.user.firstName} ${req.session.user.lastName} has registered</h3>
-            <h5>Verification code: ${req.session.user._id}</h5>
-          ` 
+            <h3>Share below code in order to grant access for ${req.session.user.firstName}.</h3>
+            <h5>Verification code: ${req.session.user._id}</h5> ` 
         }
         transporter.sendMail(mailOptions)
         transporter.sendMail(verificationEmail)
