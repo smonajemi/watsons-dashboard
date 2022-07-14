@@ -107,7 +107,7 @@ router.post("/login", (req, res) => {
   if (username === "" || password === "")
     return res.render("pages/login", {
       title: "Login",
-      errorMsg: "Missing credentials",
+      errorMsg: "missing credentials",
       isBody: 'bg-gradient-primary'
     })
   User.findOne({ username: username }, (err, user) => {
@@ -116,7 +116,7 @@ router.post("/login", (req, res) => {
       if (!user)
         return res.render("pages/login", {
           title: "Login",
-          errorMsg: "invalid username",
+          errorMsg: "user not found",
           isBody: 'bg-gradient-primary'
         })
       if (user) {
