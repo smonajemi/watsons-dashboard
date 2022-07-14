@@ -67,7 +67,7 @@ router.put('/:userId', async (req, res) => {
     return res.status(404).json({message: error.message})
   }
   const result = {...user._doc, ...currentUser}
-  return res.status(200).json({message: 'updated', result})
+  return res.status(200).json({message: 'updated', user: result})
 })
 
 router.post("/password/:userId", (req, res, next) => {
