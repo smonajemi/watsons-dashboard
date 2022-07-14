@@ -1,0 +1,38 @@
+{{#if admin}}
+<div class="col-xl-4 col-lg-5">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">List of users</h6>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">username</th>
+                        <th scope="col">Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <td>{{@index}}</td>
+                        <td>{{firstName}}</td>
+                        <td>{{lastName}}</td>
+                        <td>{{username}}</td>
+                        <td>{{role}}</td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="4">No Data Available</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+{{/if}}

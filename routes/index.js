@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const upload = require("../middleware/upload");
 const Grid = require("gridfs-stream");
+const User = require('../modules/User')
 require("dotenv/config");
 
 let gfs, gridBucket;
@@ -71,12 +72,26 @@ router.get("/", isLoggedIn, (req, res, next) => {
 });
 
 //Render adminPage
-router.get("/:username", isLoggedIn, (req, res) => {
-  res.render("dashboard", {
-    title: "Dashboard",
-    isDash: true,
-    user: req.session.user,
-  });
+router.get("/:userId", isLoggedIn, async (req, res) => {
+  try {
+    User.find({}, (err, users) => {
+      if (err) throw new Error(err);
+      const results = JSON.stringify(users)
+      return res.render("dashboard", {
+        title: "Dashboard",
+        isDash: true,
+        user: req.session.user,
+        data: JSON.parse(results),
+        admin: (req.session.user.role).includes('Admin') ? true : false
+      });
+    });
+      
+   
+
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+ 
 });
 
 // POST REQUESTS
