@@ -23,6 +23,7 @@ router.get("/password/:userId", isLoggedIn, (req, res) => {
   });
 });
 
+// create user
 router.post("/", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   req.body.password = await bcrypt.hash(req.body.password, salt);
@@ -48,20 +49,35 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.post("/password/:username", isLoggedIn, (req, res, next) => {
-  const currentUser = req.session.user;
-  const newPassword = req.body.newPassword;
-  const repeatedPassword = req.body.repeatedPassword;
+router.put('/:userId', async (req, res) => {
+  const currentUser = req.body
+  const userId = req.params.userId
+  User.findOne({ _id: userId}, async (err, user) => {
+    try {
+      if (err) throw new Error(err);
+      if (!user) return res.status(404).json({message: 'user not found'})
+      const response = {...user._doc, ...currentUser}
+      await User.findOneAndUpdate({ _id: userId}, response, { overwrite: true }     )
+      return res.status(200).json({user: response})
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  })
+})
 
-  User.findOne({ _id: currentUser._id }, async (err, user) => {
+router.put("/password/:userId", (req, res, next) => {
+  const password = req.body.password;
+  const rePassword = req.body.rePassword;
+
+  User.findOne({ _id: req.params.userId }, async (err, user) => {
     try {
       if (err) throw new Error(err);
       if (!user) {
         req.session.reset();
-        res.redirect("login");
+       return res.status(404).redirect("login");
       }
-      if (newPassword != repeatedPassword)
-        return res.render("pages/updatePassword", {
+      if (password != rePassword)
+        return res.status(404).render("pages/updatePassword", {
           title: "Update Password",
           errorMsg: "Passwords do not match",
           user: req.session.user,
@@ -69,7 +85,7 @@ router.post("/password/:username", isLoggedIn, (req, res, next) => {
         });
 
       const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(repeatedPassword, salt);
+      user.password = await bcrypt.hash(rePassword, salt);
       user.save((err, user) => {
         if (err) throw new Error(err);
         return res
@@ -81,14 +97,23 @@ router.post("/password/:username", isLoggedIn, (req, res, next) => {
           });
       });
     } catch (error) {
-      res.status(400).send({ message: error.message });
+      return res.status(400).send({ message: error.message });
     }
   });
 });
 
+router.delete('/:userId', async (req, res) => {
+  const userId = req.params.userId
+  const user = await User.findOne({_id: userId})
+  if (!user) return res.status(404).json({message: 'user not found'})
+  await User.deleteOne({ _id: userId });
+  return res.status(200).json({message: 'user deleted'})
+})
+
+
 function isLoggedIn(req, res, next) {
   if (req.session.user) {
-    return !req.session.user.role ? res.redirect('/authenticate/verification') : next()
+    return !req.session.user.role ? res.status(401).redirect('/authenticate/verification') : next()
   }
   return res.redirect('login')
 }
