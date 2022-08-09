@@ -4,6 +4,10 @@ const router = express.Router();
 const upload = require("../middleware/upload");
 const Grid = require("gridfs-stream");
 const User = require('../modules/User')
+const Menu = require('../modules/Menu')
+const crypto = require('crypto');
+const MenuItem = require("../modules/MenuItem");
+const ObjectId = require('mongodb').ObjectID;
 require("dotenv/config");
 
 let gfs, gridBucket;
@@ -30,6 +34,10 @@ router.get("/getMenu/:option", (req, res) => {
   )
 })
 
+router.get("/menu", async (req,res) => {
+  const menu = await Menu.find({})
+  return res.send(menu)
+})
 //Render Menu
 router.get("/menu/:filename", (req, res) => {
   if (!req.params.filename)
@@ -71,10 +79,17 @@ router.get("/", isLoggedIn, (req, res, next) => {
   res.redirect(`/${req.session.user._id}`);
 });
 
+router.get("/testpage", (req, res, next) => {
+  res.render('partials/menu')
+});
+
+
 //Render adminPage
 router.get("/:userId", isLoggedIn, async (req, res) => {
   try {
-    User.find({}, (err, users) => {
+    const menus = await Menu.findOne({title: 'cocktailMenu'})
+    const repo = JSON.stringify(menus.data)
+   User.find({}, (err, users) => {
       if (err) throw new Error(err);
       const results = JSON.stringify(users)
       return res.render("dashboard", {
@@ -82,6 +97,7 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
         isDash: true,
         user: req.session.user,
         data: JSON.parse(results),
+        menuData: JSON.parse(repo),
         admin: (req.session.user.role).includes('Admin') ? true : false
       });
     });
@@ -95,29 +111,103 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
 });
 
 // POST REQUESTS
+// Update Menu
+router.post('/', async (req, res, next) => {
+
+
+const body = {...req.body}
+const findMenu = await Menu.find({})
+Menu.findById("62f15a013ee0b797f81e2c78", async (err, menu) => {
+  var items = menu.data;
+  const menuitemId = body.id
+  if (!menuitemId) {
+      const newMenuItem = new MenuItem({
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description
+      })
+      await Menu.updateOne(
+        { $push: { data: newMenuItem} }
+    )
+  } else {
+    for ( i = 0; i < items.length; i++ ) {
+      if (items[i]._id.toString() === menuitemId) {
+          items[i].name = body.name;
+          items[i].price = body.price;
+          items[i].description = body.description;
+          await menu.save((err) => {
+            if (err) throw err;
+            console.log("name updated");
+          });
+      }
+    }
+  }
+  return res.redirect('/')
+})
+
+
+// res.send(body)
+
+})
 
 //Upload Menu
-router.post("/menu", upload.single("file"), (req, res) => {
-  const formFile = req.file;
-  try {
-    if (formFile.mimetype !== "application/pdf")
-      return res.render("dashboard", {
-        title: "Dashboard",
-        errorMsg: "pdf files only",
-      });
-  } catch (error) {
-    req.file = null;
-    res.render("pages/error", { title: "Error" });
+router.post("/menu/:name", async (req, res) => {
+  const entries = {...req.body}
+// res.send(req.body.selectControl)
+  const findMenu = await Menu.findOne({title: req.params.name})
+  const men = {...req.body.menu}
+
+  if (findMenu) {
+  // const t = findMenu.data.find((data) => {
+  //  return data._id.toString() === '62d5006c37947c48c3031c54' ? data : null
+  // })
+   
+  //   // keeps adding one
+  // await Menu.updateOne(
+  //       {title: req.body.selectControl}, 
+  //       { $push: { data: men} }
+  //   )
+
+  return res.send('findMenu')    
+  } 
+  else {
+  const newMenu = new Menu({
+    title: req.body.selectControl,
+    description: req.body.menu.description,
+    author: 'smonajemi',
+    data: [men],
+  })
+
+  await newMenu.save()
+  return res.send(newMenu)
   }
-  const str = req.file.metadata.replace("Menu", "");
-  const metadata = str.charAt(0).toUpperCase() + str.slice(1);
-  res.render("pages/success", {
-    title: "Dashboard",
-    user: req.session.user,
-    menu: req.file.originalname,
-    uploadedFile: metadata,
-    isMenu: true,
-  });
+
+
+
+  // await Menu.findOneAndUpdate({title: req.body.selectControl}, {data: currentMenu}, { upsert: true })
+  // return res.send(currentMenu)
+  // const formFile = req.file;
+  // try {
+  //   if (formFile.mimetype !== "application/pdf")
+  //     return res.render("dashboard", {
+  //       title: "Dashboard",
+  //       errorMsg: "pdf files only",
+  //     });
+  // } catch (error) {
+  //   req.file = null;
+  //   res.render("pages/error", { title: "Error" });
+  // }
+  // const str = req.file.metadata.replace("Menu", "");
+  // const metadata = str.charAt(0).toUpperCase() + str.slice(1);
+  // res.render("pages/success", {
+  //   title: "Dashboard",
+  //   user: req.session.user,
+  //   menu: req.file.originalname,
+  //   uploadedFile: metadata,
+  //   isMenu: true,
+  // });
+
+
 });
 
 //Helper Function - Authenticated

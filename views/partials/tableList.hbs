@@ -5,14 +5,47 @@
             <h6 class="m-0 font-weight-bold text-primary">List of users</h6>
         </div>
         <div class="card-body">
-            <table class="table">
+              <table class="table table-bordered">
+                <thead>
+                    <tr>
+                       <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">username</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                       {{#each data}}
+                    <tr>
+                        <td>{{@index}}</td>
+                        <td>{{firstName}}</td>
+                        <td>{{lastName}}</td>
+                        <td>{{username}}</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i
+                                    class="fa fa-plus" aria-hidden="true"></i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="fa fa-edit"></i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="4">No Data Available</td>
+                    </tr>
+                    {{/each}}
+                     
+                </tbody>
+            </table>
+            {{!-- <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
                         <th scope="col">username</th>
-                        <th scope="col">Role</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,7 +55,6 @@
                         <td>{{firstName}}</td>
                         <td>{{lastName}}</td>
                         <td>{{username}}</td>
-                        <td>{{role}}</td>
                     </tr>
                     {{else}}
                     <tr>
@@ -30,7 +62,7 @@
                     </tr>
                     {{/each}}
                 </tbody>
-            </table>
+            </table> --}}
             
         </div>
     </div>

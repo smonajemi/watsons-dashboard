@@ -1,29 +1,39 @@
 const mongoose  = require('mongoose')
+const menuItem = new mongoose.Schema({
+    id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref : 'menuSchema'
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    }
+})
 
-const fileSchema = new mongoose.Schema({
+const menuSchema = new mongoose.Schema({
     id: {
         type: mongoose.SchemaTypes.ObjectId,
         ref : 'Menu'
     },
-    fieldname: {
+    title: {
         type: String,
-        lowercase: true
+        required: true
     },
-    originalname: {
-        type: String
+    description: {
+        type: String,
+        required: true
     },
-    encoding: {
-        type: String
-    },
-    file:
-    {
-        data: Buffer
-    },
-    author:{
-        type: String
-    },
-    mimetype: {
-        type: String
+    data: {
+        type: [menuItem],
+        required: true
     },
     createAt: {
         type: Date,
@@ -36,4 +46,4 @@ const fileSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('Menu', fileSchema)
+module.exports = mongoose.model('Menu', menuSchema)
