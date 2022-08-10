@@ -79,31 +79,36 @@ router.get("/", isLoggedIn, (req, res, next) => {
   res.redirect(`/${req.session.user._id}`);
 });
 
-router.get("/testpage", (req, res, next) => {
-  res.render('partials/menu')
-});
-
 
 //Render adminPage
 router.get("/:userId", isLoggedIn, async (req, res) => {
   try {
-    const menus = await Menu.findOne({title: 'cocktailMenu'})
-    const repo = JSON.stringify(menus.data)
-   User.find({}, (err, users) => {
-      if (err) throw new Error(err);
-      const results = JSON.stringify(users)
-      return res.render("dashboard", {
-        title: "Dashboard",
-        isDash: true,
-        user: req.session.user,
-        data: JSON.parse(results),
-        menuData: JSON.parse(repo),
-        admin: (req.session.user.role).includes('Admin') ? true : false
-      });
-    });
-      
-   
 
+    const users = await User.find({});
+    const usersData = JSON.stringify(users)
+    const menu = {
+      cocktailMenuData: null,
+      foodMenuData: null,
+      beer_wineMenuData: null
+    }
+    const cocktailMenu = await Menu.findOne({title: 'cocktailMenu'})
+    menu.cocktailMenu = JSON.stringify(cocktailMenu?.data) || null
+    const foodMenu = await Menu.findOne({title: 'foodMenu'})
+    menu.foodMenuData  = JSON.stringify(foodMenu?.data) || null
+    const beerMenu = await Menu.findOne({title: 'beer_wineMenu'})
+    menu.beer_wineMenuData = JSON.stringify(beerMenu?.data) || null
+
+    return res.render("dashboard", {
+      title: "Dashboard",
+      isDash: true,
+      user: req.session.user,
+      data: JSON.parse(usersData),
+      cocktailMenuData: {data: JSON.parse(menu.cocktailMenu), title: cocktailMenu.title},
+      foodMenuData: {data: JSON.parse(menu.foodMenuData), title: foodMenu.title},
+      beer_wineMenuData: {data: JSON.parse(menu.beer_wineMenuData), title: beerMenu.title},
+      admin: (req.session.user.role).includes('Admin') ? true : false
+    });
+   
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
@@ -111,104 +116,52 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
 });
 
 // POST REQUESTS
-// Update Menu
-router.post('/', async (req, res, next) => {
 
-
-const body = {...req.body}
-const findMenu = await Menu.find({})
-Menu.findById("62f15a013ee0b797f81e2c78", async (err, menu) => {
-  var items = menu.data;
-  const menuitemId = body.id
-  if (!menuitemId) {
-      const newMenuItem = new MenuItem({
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description
+// POST/UPDATE Menu
+router.post('/:option', async (req, res, next) => {
+  const body = {...req.body}
+  try {
+    const findMenu = await Menu.findOne({title: req.params.option})
+    if (!findMenu) {
+      const newMenu = new Menu({
+        title: req.body.selectControl || req.params.name,
+        author: req.session.user?.username || 'default',
+        data: [body],
       })
-      await Menu.updateOne(
-        { $push: { data: newMenuItem} }
-    )
-  } else {
-    for ( i = 0; i < items.length; i++ ) {
-      if (items[i]._id.toString() === menuitemId) {
-          items[i].name = body.name;
-          items[i].price = body.price;
-          items[i].description = body.description;
-          await menu.save((err) => {
-            if (err) throw err;
-            console.log("name updated");
-          });
-      }
+      await newMenu.save()
     }
-  }
-  return res.redirect('/')
-})
-
-
-// res.send(body)
-
-})
-
-//Upload Menu
-router.post("/menu/:name", async (req, res) => {
-  const entries = {...req.body}
-// res.send(req.body.selectControl)
-  const findMenu = await Menu.findOne({title: req.params.name})
-  const men = {...req.body.menu}
-
-  if (findMenu) {
-  // const t = findMenu.data.find((data) => {
-  //  return data._id.toString() === '62d5006c37947c48c3031c54' ? data : null
-  // })
-   
-  //   // keeps adding one
-  // await Menu.updateOne(
-  //       {title: req.body.selectControl}, 
-  //       { $push: { data: men} }
-  //   )
-
-  return res.send('findMenu')    
-  } 
-  else {
-  const newMenu = new Menu({
-    title: req.body.selectControl,
-    description: req.body.menu.description,
-    author: 'smonajemi',
-    data: [men],
-  })
-
-  await newMenu.save()
-  return res.send(newMenu)
+    Menu.findOne({title: req.params.option}, async (err, menu) => {
+      let items = menu.data;
+      const menuitemId = body.id
+      if (!menuitemId) {
+          const newMenuItem = new MenuItem({
+            name: req.body.name,
+            price: req.body.price,
+            description: req.body.description
+          })
+        await Menu.updateOne ({title: req.params.option}, 
+            { $push: { data: newMenuItem} }
+        )
+      } else {
+        for ( i = 0; i < items.length; i++ ) {
+          if (items[i]._id.toString() === menuitemId) {
+              items[i].name = body.name;
+              items[i].price = body.price;
+              items[i].description = body.description; 
+              await menu.save((err,data) => {
+                if (err) throw err;
+                console.info("item updated", data);
+              });
+           }
+        }
+      }
+      return res.redirect('/')
+    })
+  } catch (error) {
+    res.status(404).send({ message: error.message });
   }
 
-
-
-  // await Menu.findOneAndUpdate({title: req.body.selectControl}, {data: currentMenu}, { upsert: true })
-  // return res.send(currentMenu)
-  // const formFile = req.file;
-  // try {
-  //   if (formFile.mimetype !== "application/pdf")
-  //     return res.render("dashboard", {
-  //       title: "Dashboard",
-  //       errorMsg: "pdf files only",
-  //     });
-  // } catch (error) {
-  //   req.file = null;
-  //   res.render("pages/error", { title: "Error" });
-  // }
-  // const str = req.file.metadata.replace("Menu", "");
-  // const metadata = str.charAt(0).toUpperCase() + str.slice(1);
-  // res.render("pages/success", {
-  //   title: "Dashboard",
-  //   user: req.session.user,
-  //   menu: req.file.originalname,
-  //   uploadedFile: metadata,
-  //   isMenu: true,
-  // });
-
-
-});
+})
 
 //Helper Function - Authenticated
 function isLoggedIn(req, res, next) {

@@ -1,96 +1,306 @@
 <div class="col-xl-8 col-lg-7">
-  <div class="card shadow mb-4">
-    <!-- Card Header - Dropdown -->
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <h6 class="m-0 font-weight-bold text-primary">Upload Menu</h6>
-    </div>
-    <!-- Card Body -->
-    <div class="col text-right" style="padding: 1em">
-      <button type="button" class="btn btn-info add-row">
-        <i class="fa fa-plus"></i> Add New
-      </button>
-    </div>
-    <div class="card-body">
-      <div class="container">
-        <table class="table table-bordered table-striped" id="editableTable">
-          <thead>
-            <tr>
 
-              <th class="">Name</th>
-              <th class="">Price</th>
-              <th class="">Description</th>
-              <th class="">Id</th>
-              <th class="">Action</th>
-            </tr>
-          </thead>
-          <tbody id="table_body">
-            {{#each menuData}}
-            <tr>
-              <td class="">{{name}}</td>
-              <td class="">{{price}}</td>
-              <td class="">{{description}}</td>
-              <td style="text-align:center;" id="itemId">{{_id}}</td>
-              <td style="text-align:center; display: flex;">
-              <a class='btn btn-primary' data-toggle='modal' data-target='#myModal'
-                  contenteditable='false'>
-                  <span id='span'><i class='fa fa-pencil'></i></span>
-              </a>
-              <a class='btn btn-danger' title='Delete'>
-                <span id='span'><i class='fa fa-trash'></i></span>
-              </a>
-              </td>
-            </tr>
+  <div id="exTab3" class="container">
 
-            {{/each}}
-
-          </tbody>
-        </table>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content"></div>
-          </div>
-          <div class="modal-dialog">
-            <div class="modal-content"></div>
-          </div>
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
-                  </span><span class="sr-only">Close</span>
-                </button>
+    <div class="card shadow mb-4">
+      <div class="tab-content clearfix ">
+        <ul class="nav justify-content-center" style="padding: 1em;">
+            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton" onclick="handleMenuTabs('foodMenu')" type="button" data-toggle="tab">Food Menu</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton" onclick="handleMenuTabs('cocktailMenu')" type="button" data-toggle="tab">Cocktail Menu</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton" onclick="handleMenuTabs('beerMenu')" type="button" data-toggle="tab">Beer &amp; Wine Menu</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton" onclick="handleMenuTabs('qrMenu')" type="button" data-toggle="tab">QR Menu</a></li>
+        </ul>
+          <div class="card-body">          
+            <div class="container">
+              <div id="foodMenuTableBody">
+                <table class="table table-bordered table-striped" id="addRow_foodMenu">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Id</th>
+                    <th class="">Name</th>
+                    <th class="col-sm-1">Price</th>
+                    <th class="">Description</th>
+                    <th style="text-align:center;"> 
+                      <a type="button" class="btn btn-info add-row-foodMenu">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                 {{#each foodMenuData.data}}
+                  <tr>
+                    <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                    <td class="">{{name}}</td>
+                    <td class="">{{price}}</td>
+                    <td class="">{{description}}</td>
+                    <td style="text-align:center; display: flex;">
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal'
+                        contenteditable='false'>
+                        <span id='span'><i class='fa fa-pencil'></i></span>
+                      </a>
+                      <a class='btn btn-danger' title='Delete'>
+                        <span id='span'><i class='fa fa-trash'></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+                </table>
+              </div>
+             <div id="cocktailMenuTableBody">
+                 <table class="table table-bordered table-striped"  id="addRow_cocktailMenu">
+                <thead>
+                  <tr>
+                   <th class="col-md-2">Id</th>
+                    <th class="">Name</th>
+                    <th class="col-sm-1">Price</th>
+                    <th class="">Description</th>
+                    <th style="text-align:center;"> 
+                      <a type="button" class="btn btn-info add-row-cocktailMenu">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                 {{#each cocktailMenuData.data}}
+                  <tr>
+                    <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                    <td class="">{{name}}</td>
+                    <td class="">{{price}}</td>
+                    <td class="">{{description}}</td>
+                    <td style="text-align:center; display: flex;">
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal'
+                        contenteditable='false'>
+                        <span id='span'><i class='fa fa-pencil'></i></span>
+                      </a>
+                      <a class='btn btn-danger' title='Delete'>
+                        <span id='span'><i class='fa fa-trash'></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+                </table>
+             </div>
+              <div id="beerMenuTableBody">
+                <table class="table table-bordered table-striped" id="addRow_beerMenu">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Id</th>
+                    <th class="">Name</th>
+                    <th class="col-sm-1">Price</th>
+                    <th class="">Description</th>
+                     <th style="text-align:center;"> 
+                      <a type="button" class="btn btn-info add-row-beerMenu">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                  <tbody id="table_body">
+                    {{#each beer_wineMenuData.data}}
+                  <tr>
+                    <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                    <td class="">{{name}}</td>
+                    <td class="">{{price}}</td>
+                    <td class="">{{cocktailMenuData.title}}</td>
+                    <td style="text-align:center; display: flex;">
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal'
+                        contenteditable='false'>
+                        <span id='span'><i class='fa fa-pencil'></i></span>
+                      </a>
+                      <a class='btn btn-danger' title='Delete'>
+                        <span id='span'><i class='fa fa-trash'></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+              </div>
+              <div id="qrMenuTableBody">
+                <table class="table table-bordered table-striped" id="addRow_qrMenu">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Id</th>
+                    <th class="">Name</th>
+                    <th class="col-sm-1">Price</th>
+                    <th class="">Description</th>
+                    <th style="text-align:center;"> 
+                      <a type="button" class="btn btn-info add-row-qrMenu">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                 {{#each qrMenuData.data}}
+                  <tr>
+                    <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                    <td class="">{{name}}</td>
+                    <td class="">{{price}}</td>
+                    <td class="">{{description}}</td>
+                    <td style="text-align:center; display: flex;">
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal'
+                        contenteditable='false'>
+                        <span id='span'><i class='fa fa-pencil'></i></span>
+                      </a>
+                      <a class='btn btn-danger' title='Delete'>
+                        <span id='span'><i class='fa fa-trash'></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+                </table>
               </div>
 
-              <div class="modal-body" id="modalBody">
-                <form name="modalForm" action="/" method="post">
-                  <div class="form-group">
-                    <label for="name" class="col-form-label">Name</label>
-                    <input type="text" name="name" id="name" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="price" class="col-form-label">Price</label>
-                    <input type="text" name="price" id="price" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="description" class="col-form-label">Description</label>
-                    <input type="text" name="description" id="description" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="description" class="col-form-label">Id</label>
-                    <input type="text" name="id" id="id" class="form-control" readonly="readonly">
-                  </div>
-                </form>
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-              </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+<div class="modal fade" id="foodMenuModal" tabindex="-1" role="dialog" aria-labelledby="foodMenuModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="foodMenuModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
+          </span><span class="sr-only">Close</span>
+        </button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <form name="modalForm" action="/foodMenu" method="post" id="menuModalForm">
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name</label>
+            <input type="text" name="name" id="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="price" class="col-form-label">Price</label>
+            <input type="number" name="price" id="price" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Description</label>
+            <input type="text" name="description" id="description" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Id</label>
+            <input type="text" name="id" id="id" class="form-control" readonly="readonly">
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- <div class="modal fade" id="cocktailMenuModal" tabindex="-1" role="dialog" aria-labelledby="cocktailMenuModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="cocktailMenuModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
+          </span><span class="sr-only">Close</span>
+        </button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <form name="modalForm_cocktailMenu" action="/" method="post">
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name</label>
+            <input type="text" name="name" id="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="price" class="col-form-label">Price</label>
+            <input type="text" name="price" id="price" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Description</label>
+            <input type="text" name="description" id="description" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Id</label>
+            <input type="text" name="id" id="id" class="form-control" readonly="readonly">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> --}}
+
+{{!-- <div class="modal fade" id="beer_wineMenuModal" tabindex="-1" role="dialog" aria-labelledby="beer_wineMenuModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="beer_wineMenuModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
+          </span><span class="sr-only">Close</span>
+        </button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <form name="modalForm" action="/" method="post">
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name</label>
+            <input type="text" name="name" id="name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="price" class="col-form-label">Price</label>
+            <input type="text" name="price" id="price" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Description</label>
+            <input type="text" name="description" id="description" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Id</label>
+            <input type="text" name="id" id="id" class="form-control" readonly="readonly">
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> --}}

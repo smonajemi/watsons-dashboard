@@ -88,7 +88,7 @@ Array.prototype.slice.call(forms)
 })()
 
 
-$(".btn[data-target='#myModal']").click(function() {
+$(".btn[data-target='#foodMenuModal']").click(function() {
   let columnHeadings = $("thead th").map(function() {
     return $(this).text() 
   }).get();
@@ -106,237 +106,63 @@ $('.modal-footer .btn-primary').click(function() {
 $('form[name="modalForm"]').submit();
 });
 
+// $(".btn[data-target='#cocktailMenuModal']").click(function() {
 
-
-// (function($, window, document, undefined) {
-//   var pluginName = "editable",
-//     defaults = {
-//       keyboard: true,
-//       dblclick: true,
-//       button: true,
-//       buttonSelector: ".edit",
-//       maintainWidth: true,
-//       dropdowns: {},
-//       edit: function() {},
-//       save: function() {},
-//       cancel: function() {}
-//     };
-
-//   function editable(element, options) {
-//     this.element = element;
-//     this.options = $.extend({}, defaults, options);
-
-//     this._defaults = defaults;
-//     this._name = pluginName;
-
-//     this.init();
-//   }
-
-//   editable.prototype = {
-//     init: function() {
-//       this.editing = false;
-
-//       if (this.options.dblclick) {
-//         $(this.element)
-//           .css('cursor', 'pointer')
-//           .bind('dblclick', this.toggle.bind(this));
-//       }
-
-//       if (this.options.button) {
-//         $(this.options.buttonSelector, this.element)
-//           .bind('click', this.toggle.bind(this));
-//       }
-//     },
-
-//     toggle: function(e) {
-//       e.preventDefault();
-
-//       this.editing = !this.editing;
-
-//       if (this.editing) {
-//         this.edit();
-//       } else {
-//         this.save();
-//       }
-//     },
-
-//     edit: function() {
-//       var instance = this,
-//         values = {};
-
-//       $('td[data-field]', this.element).each(function() {
-//         var input,
-//           field = $(this).data('field'),
-//           value = $(this).text(),
-//           width = $(this).width();
-
-//         values[field] = value;
-
-//         $(this).empty();
-
-//         if (instance.options.maintainWidth) {
-//           $(this).width(width);
-//         }
-
-//         if (field in instance.options.dropdowns) {
-//           input = $('<select></select>');
-
-//           for (var i = 0; i < instance.options.dropdowns[field].length; i++) {
-//             $('<option></option>')
-//               .text(instance.options.dropdowns[field][i])
-//               .appendTo(input);
-//           };
-
-//           input.val(value)
-//             .data('old-value', value)
-//             .dblclick(instance._captureEvent);
-//         } else {
-//           input = $('<input type="text" />')
-//             .val(value)
-//             .data('old-value', value)
-//             .dblclick(instance._captureEvent);
-//         }
-
-//         input.appendTo(this);
-
-//         if (instance.options.keyboard) {
-//           input.keydown(instance._captureKey.bind(instance));
-//         }
-//       });
-
-//       this.options.edit.bind(this.element)(values);
-//     },
-
-//     save: function() {
-//       var instance = this,
-//         values = {};
-
-//       $('td[data-field]', this.element).each(function() {
-//         var value = $(':input', this).val();
-
-//         values[$(this).data('field')] = value;
-
-//         $(this).empty()
-//           .text(value);
-//       });
-
-//       this.options.save.bind(this.element)(values);
-//     },
-
-//     cancel: function() {
-//       var instance = this,
-//         values = {};
-
-//       $('td[data-field]', this.element).each(function() {
-//         var value = $(':input', this).data('old-value');
-
-//         values[$(this).data('field')] = value;
-
-//         $(this).empty()
-//           .text(value);
-//       });
-
-//       this.options.cancel.bind(this.element)(values);
-//     },
-
-//     _captureEvent: function(e) {
-//       e.stopPropagation();
-//     },
-
-//     _captureKey: function(e) {
-//       if (e.which === 13) {
-//         this.editing = false;
-//         this.save();
-//       } else if (e.which === 27) {
-//         this.editing = false;
-//         this.cancel();
-//       }
-//     }
-//   };
-
-//   $.fn[pluginName] = function(options) {
-//     return this.each(function() {
-//       if (!$.data(this, "plugin_" + pluginName)) {
-//         $.data(this, "plugin_" + pluginName,
-//           new editable(this, options));
-//       }
-//     });
-//   };
-
-// })(jQuery, window, document);
-
-// editTable();
-
-//custome editable starts
-// function editTable(){
-  
-//   $(function() {
-//   var pickers = {};
-
-//   $('table tr').editable({
-//     dropdowns: {
-//       sex: ['Male', 'Female']
-//     },
-//     edit: function(values) {
-//       $(".edit i", this)
-//         .removeClass('fa-pencil')
-//         .addClass('fa-save')
-//         .attr('title', 'Save');
-
-//       pickers[this] = new Pikaday({
-//         field: $("td[data-field=birthday] input", this)[0],
-//         format: 'MMM D, YYYY'
-//       });
-//     },
-//     save: function(values) {
-//       $(".edit i", this)
-//         .removeClass('fa-save')
-//         .addClass('fa-pencil')
-//         .attr('title', 'Edit');
-
-//       if (this in pickers) {
-//         pickers[this].destroy();
-//         delete pickers[this];
-//       }
-//     },
-//     cancel: function(values) {
-//       $(".edit i", this)
-//         .removeClass('fa-save')
-//         .addClass('fa-pencil')
-//         .attr('title', 'Edit');
-
-//       if (this in pickers) {
-//         pickers[this].destroy();
-//         delete pickers[this];
-//       }
-//     }
+//   let columnHeadings = $("thead th").map(function() {
+//     return $(this).text() 
+//   }).get();
+//   // columnHeadings.shift();       
+//   columnHeadings.pop();
+//   let columnValues = $(this).parent().siblings().map(function() {
+//     return $(this).text()
+//   }).get();
+//   // columnValues.shift()
+//   $.each(columnHeadings, function(i, columnHeader) {
+//     document.getElementById(columnHeader.toLowerCase()).value += columnValues[i]
 //   });
 // });
-  
-// }
+// $('.modal-footer .btn-primary').click(function() {
+// $('form[name="modalForm_cocktailMenu"]').submit();
+// });
 
-$(".add-row").click(function(){
-  $("#editableTable").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#myModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
+// $(".btn[data-target='#beer_wineMenuModal']").click(function() {
+//   let columnHeadings = $("thead th").map(function() {
+//     return $(this).text() 
+//   }).get();
+//   // columnHeadings.shift();       
+//   columnHeadings.pop();
+//   let columnValues = $(this).parent().siblings().map(function() {
+//     return $(this).text()
+//   }).get();
+//   // columnValues.shift()
+//   $.each(columnHeadings, function(i, columnHeader) {
+//     document.getElementById(columnHeader.toLowerCase()).value += columnValues[i]
+//   });
+// });
+// $('.modal-footer .btn-primary').click(function() {
+// $('form[name="modalForm"]').submit();
+// });
+
+$(".add-row-foodMenu").click(function(){
+  $("#addRow_foodMenu").find("tbody tr:first").length 
+  ? $("#addRow_foodMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
+  : $("#addRow_foodMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
   editTable();  
   setTimeout(function(){   
-    $("#editableTable").find("tbody tr:first td:last a[title='Edit']").click(); 
+    $("#addRow_foodMenu").find("tbody tr:first td:last a[title='Edit']").click(); 
   }, 200); 
   
   setTimeout(function(){ 
-    $("#editableTable").find("tbody tr:first td:first input[type='text']").focus();
+    $("#addRow_foodMenu").find("tbody tr:first td:first input[type='text']").focus();
       }, 300); 
   
-   $("#editableTable").find("a[title='Delete']").unbind('click').click(function(e){
+   $("#addRow_foodMenu").find("a[title='Delete']").unbind('click').click(function(e){
         $(this).closest("tr").remove();
     });
    
 });
 
-// function myFunction() {
-    
-// }
-
-$("#editableTable").find("a[title='Delete']").click(function(e){  
+$("#addRow_foodMenu").find("a[title='Delete']").click(function(e){  
   var x;
     if (confirm("Are you sure you want to delete entire row?") == true) {
         $(this).closest("tr").remove();
@@ -344,3 +170,137 @@ $("#editableTable").find("a[title='Delete']").click(function(e){
         
     }     
 });
+
+
+$(".add-row-cocktailMenu").click(function(){
+  $("#addRow_cocktailMenu").find("tbody tr:first").length 
+  ? $("#addRow_cocktailMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
+  : $("#addRow_cocktailMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
+  editTable();  
+  setTimeout(function(){   
+    $("#addRow_cocktailMenu").find("tbody tr:first td:last a[title='Edit']").click(); 
+  }, 200); 
+  
+  setTimeout(function(){ 
+    $("#addRow_cocktailMenu").find("tbody tr:first td:first input[type='text']").focus();
+      }, 300); 
+  
+   $("#addRow_cocktailMenu").find("a[title='Delete']").unbind('click').click(function(e){
+        $(this).closest("tr").remove();
+    });
+});
+
+$("#addRow_beerMenu").find("a[title='Delete']").click(function(e){  
+  var x;
+    if (confirm("Are you sure you want to delete entire row?") == true) {
+        $(this).closest("tr").remove();
+    } else {
+        
+    }     
+});
+
+
+$(".add-row-beerMenu").click(function(){
+  $("#addRow_beerMenu").find("tbody tr:first").length 
+  ? $("#addRow_beerMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
+  : $("#addRow_beerMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
+
+  editTable();  
+  setTimeout(function(){   
+    $("#addRow_beerMenu").find("tbody tr:first td:last a[title='Edit']").click(); 
+  }, 200); 
+  
+  setTimeout(function(){ 
+    $("#addRow_beerMenu").find("tbody tr:first td:first input[type='text']").focus();
+      }, 300); 
+  
+   $("#addRow_beerMenu").find("a[title='Delete']").unbind('click').click(function(e){
+        $(this).closest("tr").remove();
+    });
+   
+});
+
+$("#addRow_beerMenu").find("a[title='Delete']").click(function(e){  
+  var x;
+    if (confirm("Are you sure you want to delete entire row?") == true) {
+        $(this).closest("tr").remove();
+    } else {
+        
+    }     
+});
+
+$(".add-row-qrMenu").click(function(){
+  $("#addRow_qrMenu").find("tbody tr:first").length 
+  ? $("#addRow_qrMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
+  : $("#addRow_qrMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
+
+  editTable();  
+  setTimeout(function(){   
+    $("#addRow_qrMenu").find("tbody tr:first td:last a[title='Edit']").click(); 
+  }, 200); 
+  
+  setTimeout(function(){ 
+    $("#addRow_qrMenu").find("tbody tr:first td:first input[type='text']").focus();
+      }, 300); 
+  
+   $("#addRow_qrMenu").find("a[title='Delete']").unbind('click').click(function(e){
+        $(this).closest("tr").remove();
+    });
+   
+});
+
+$("#addRow_qrMenu").find("a[title='Delete']").click(function(e){  
+  var x;
+    if (confirm("Are you sure you want to delete entire row?") == true) {
+        $(this).closest("tr").remove();
+    } else {
+        
+    }     
+});
+
+
+
+
+const handleMenuTabs = (tab) => {
+    switch (tab) {
+      case 'foodMenu':
+        document.getElementById('foodMenuTableBody').style.display = 'initial'
+        document.getElementById('cocktailMenuTableBody').style.display = 'none'
+        document.getElementById('beerMenuTableBody').style.display = 'none'
+        document.getElementById('qrMenuTableBody').style.display = 'none'
+        document.getElementById('menuModalForm').action = '/foodMenu'
+      break;
+      case 'cocktailMenu':
+        document.getElementById('cocktailMenuTableBody').style.display = 'initial'
+        document.getElementById('foodMenuTableBody').style.display = 'none'
+        document.getElementById('beerMenuTableBody').style.display = 'none'
+        document.getElementById('qrMenuTableBody').style.display = 'none'
+        document.getElementById('menuModalForm').action = '/cocktailMenu'
+      break;
+      case 'beerMenu':
+        document.getElementById('beerMenuTableBody').style.display = 'initial'
+        document.getElementById('foodMenuTableBody').style.display = 'none'
+        document.getElementById('cocktailMenuTableBody').style.display = 'none'
+        document.getElementById('qrMenuTableBody').style.display = 'none'
+        document.getElementById('menuModalForm').action = '/beer_wineMenu'
+      break;
+      case 'qrMenu':
+        document.getElementById('qrMenuTableBody').style.display = 'initial'
+        document.getElementById('foodMenuTableBody').style.display = 'none'
+        document.getElementById('cocktailMenuTableBody').style.display = 'none'
+        document.getElementById('beerMenuTableBody').style.display = 'none'
+        document.getElementById('menuModalForm').action = '/qrMenu'
+      break
+      default:
+        document.getElementById('foodMenuTableBody').style.display = 'initial'
+        document.getElementById('cocktailMenuTableBody').style.display = 'none'
+        document.getElementById('beerMenuTableBody').style.display = 'none'
+        document.getElementById('qrMenuTableBody').style.display = 'none'
+        document.getElementById('menuModalForm').action = '/foodMenu'
+      break;
+    }
+}
+
+$('.modal').on('hidden.bs.modal', function () {
+  $(this).find('form').trigger('reset');
+})

@@ -10,7 +10,6 @@ const menuItem = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
     },
     price: {
         type: Number,
@@ -27,7 +26,7 @@ const menuSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: {
+    author: {
         type: String,
         required: true
     },

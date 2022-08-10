@@ -224,3 +224,19 @@ table.table td .add {
     padding: 0px;
     margin-left: -5px;
   }
+
+  #cocktailMenuTableBody, #beerMenuTableBody, #qrMenuTableBody {
+    display: none;
+  }
+
+
+
+  .fancyButton {
+    border-radius: 5px;
+    transition: transform 300ms;
+    margin: 3px;
+}
+
+.fancyButton:hover {
+    transform: scale(0.8);
+}
