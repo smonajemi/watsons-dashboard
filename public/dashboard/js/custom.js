@@ -145,8 +145,8 @@ $('form[name="modalForm"]').submit();
 
 $(".add-row-foodMenu").click(function(){
   $("#addRow_foodMenu").find("tbody tr:first").length 
-  ? $("#addRow_foodMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
-  : $("#addRow_foodMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
+  ? $("#addRow_foodMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' onclick='onDelete('{{_id}}', '{{menuTitle}}')'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
+  : $("#addRow_foodMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' onclick='onDelete('{{_id}}', '{{menuTitle}}')'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
   editTable();  
   setTimeout(function(){   
     $("#addRow_foodMenu").find("tbody tr:first td:last a[title='Edit']").click(); 
@@ -162,20 +162,11 @@ $(".add-row-foodMenu").click(function(){
    
 });
 
-$("#addRow_foodMenu").find("a[title='Delete']").click(function(e){  
-  var x;
-    if (confirm("Are you sure you want to delete entire row?") == true) {
-        $(this).closest("tr").remove();
-    } else {
-        
-    }     
-});
-
 
 $(".add-row-cocktailMenu").click(function(){
   $("#addRow_cocktailMenu").find("tbody tr:first").length 
-  ? $("#addRow_cocktailMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
-  : $("#addRow_cocktailMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
+  ? $("#addRow_cocktailMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' onclick='onDelete('{{_id}}', '{{menuTitle}}')'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
+  : $("#addRow_cocktailMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' onclick='onDelete('{{_id}}', '{{menuTitle}}')'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
   editTable();  
   setTimeout(function(){   
     $("#addRow_cocktailMenu").find("tbody tr:first td:last a[title='Edit']").click(); 
@@ -190,20 +181,10 @@ $(".add-row-cocktailMenu").click(function(){
     });
 });
 
-$("#addRow_beerMenu").find("a[title='Delete']").click(function(e){  
-  var x;
-    if (confirm("Are you sure you want to delete entire row?") == true) {
-        $(this).closest("tr").remove();
-    } else {
-        
-    }     
-});
-
-
 $(".add-row-beerMenu").click(function(){
   $("#addRow_beerMenu").find("tbody tr:first").length 
-  ? $("#addRow_beerMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
-  : $("#addRow_beerMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
+  ? $("#addRow_beerMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' onclick='onDelete('{{_id}}', '{{menuTitle}}')'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
+  : $("#addRow_beerMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' onclick='onDelete('{{_id}}', '{{menuTitle}}')'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
 
   editTable();  
   setTimeout(function(){   
@@ -220,19 +201,10 @@ $(".add-row-beerMenu").click(function(){
    
 });
 
-$("#addRow_beerMenu").find("a[title='Delete']").click(function(e){  
-  var x;
-    if (confirm("Are you sure you want to delete entire row?") == true) {
-        $(this).closest("tr").remove();
-    } else {
-        
-    }     
-});
-
 $(".add-row-qrMenu").click(function(){
   $("#addRow_qrMenu").find("tbody tr:first").length 
-  ? $("#addRow_qrMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
-  : $("#addRow_qrMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
+  ? $("#addRow_qrMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' onclick='onDelete('{{_id}}', '{{menuTitle}}')'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>") 
+  : $("#addRow_qrMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center; display: flex;'><a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal' contenteditable='false'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' onclick='onDelete('{{_id}}', '{{menuTitle}}')'><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");   
 
   editTable();  
   setTimeout(function(){   
@@ -249,16 +221,23 @@ $(".add-row-qrMenu").click(function(){
    
 });
 
-$("#addRow_qrMenu").find("a[title='Delete']").click(function(e){  
-  var x;
-    if (confirm("Are you sure you want to delete entire row?") == true) {
-        $(this).closest("tr").remove();
-    } else {
-        
-    }     
-});
 
 
+const onDelete = (id, title) => {
+  if (confirm("Are you sure you want to delete entire row?") == true) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/menu/item", true);
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
+    xhr.send(`id=${id}&title=${title}`);
+    location.reload();
+  }
+}
+
+// $("#addRow_qrMenu").find("a[title='Delete']").click(function(e){  
+//     if (onDelete() === true) {
+//       $(this).closest("tr").remove();
+//     }  
+// });
 
 
 const handleMenuTabs = (tab) => {

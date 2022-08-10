@@ -89,7 +89,8 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
     const menu = {
       cocktailMenuData: null,
       foodMenuData: null,
-      beer_wineMenuData: null
+      beer_wineMenuData: null,
+      qrCodeMenuData: null
     }
     const cocktailMenu = await Menu.findOne({title: 'cocktailMenu'})
     menu.cocktailMenu = JSON.stringify(cocktailMenu?.data) || null
@@ -97,71 +98,109 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
     menu.foodMenuData  = JSON.stringify(foodMenu?.data) || null
     const beerMenu = await Menu.findOne({title: 'beer_wineMenu'})
     menu.beer_wineMenuData = JSON.stringify(beerMenu?.data) || null
+    const qrMenu = await Menu.findOne({title: 'qrMenu'})
+    menu.qrCodeMenuData = JSON.stringify(qrMenu?.data) || null
 
     return res.render("dashboard", {
       title: "Dashboard",
       isDash: true,
       user: req.session.user,
       data: JSON.parse(usersData),
-      cocktailMenuData: {data: JSON.parse(menu.cocktailMenu), title: cocktailMenu.title},
-      foodMenuData: {data: JSON.parse(menu.foodMenuData), title: foodMenu.title},
-      beer_wineMenuData: {data: JSON.parse(menu.beer_wineMenuData), title: beerMenu.title},
+      cocktailMenuData: {data: JSON.parse(menu.cocktailMenu)},
+      foodMenuData: {data: JSON.parse(menu.foodMenuData)},
+      beer_wineMenuData: {data: JSON.parse(menu.beer_wineMenuData)},
+      qrCodeMenuData: {data: JSON.parse(menu.qrCodeMenuData)},
       admin: (req.session.user.role).includes('Admin') ? true : false
     });
-   
+
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
- 
+
 });
 
 // POST REQUESTS
+router.post('/menu/item', async (req, res) => {
+  // Menu.find({title: req.body.title}, (err, menu) => {
+  //     menu.find((x) => {
+  //       console.log()
+  //     })
+  // })
+  const itemId = req.body.id
+  // Menu.find({title: req.body.title}, async (req, menu) => {
+  //   await menu.deleteOne({ _id: itemId});
+  // })
 
+  await Menu.updateOne({title: req.body.title},
+    { $pull: { data: { _id: itemId } } }
+  )
+  // const [test] = response.data.filter((x) => {
+  //   return x._id.toString() === req.body.id ? x : null
+  // })
+  // console.log(response)
+  // await menu.deleteOne({ _id: test._id });
+  // await Test.deleteOne({ title: req.body.title}, (err, menu) => {
+
+  // });
+  res.end("OK");
+})
 // POST/UPDATE Menu
 router.post('/:option', async (req, res, next) => {
-  const body = {...req.body}
+  const body = {...req.body, menuTitle: req.params.option}
+  if (!body.id){
+    delete body.id
+  }
   try {
     const findMenu = await Menu.findOne({title: req.params.option})
     if (!findMenu) {
+      console.log('here')
       const newMenu = new Menu({
-        title: req.body.selectControl || req.params.name,
+        title: req.params.option,
         author: req.session.user?.username || 'default',
         data: [body],
       })
       await newMenu.save()
-    }
-    Menu.findOne({title: req.params.option}, async (err, menu) => {
-      let items = menu.data;
-      const menuitemId = body.id
-      if (!menuitemId) {
-          const newMenuItem = new MenuItem({
-            name: req.body.name,
-            price: req.body.price,
-            description: req.body.description
-          })
-        await Menu.updateOne ({title: req.params.option}, 
-            { $push: { data: newMenuItem} }
-        )
-      } else {
-        for ( i = 0; i < items.length; i++ ) {
-          if (items[i]._id.toString() === menuitemId) {
-              items[i].name = body.name;
-              items[i].price = body.price;
-              items[i].description = body.description; 
-              await menu.save((err,data) => {
-                if (err) throw err;
-                console.info("item updated", data);
-              });
-           }
-        }
-      }
       return res.redirect('/')
-    })
+    } else {
+      console.log('here3')
+      Menu.findOne({title: req.params.option}, async (err, menu) => {
+        let items = menu.data;
+        const menuitemId = body.id
+        if (!menuitemId) {
+            const newMenuItem = new MenuItem({
+              menuTitle: req.params.option,
+              name: req.body.name,
+              price: req.body.price,
+              description: req.body.description
+            })
+          await Menu.updateOne ({title: req.params.option},
+              { $push: { data: newMenuItem} }
+          )
+          return res.redirect('/')
+        } else {
+          for ( i = 0; i < items.length; i++ ) {
+            if (items[i]._id.toString() === menuitemId) {
+                items[i].name = body.name;
+                items[i].price = body.price;
+                items[i].description = body.description;
+                await menu.save((err,data) => {
+                  if (err) throw err;
+                  console.info("item updated", data);
+                });
+              return res.redirect('/')
+             }
+          }
+        }
+        
+      })
+    }
+
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
-
 })
+
+
 
 //Helper Function - Authenticated
 function isLoggedIn(req, res, next) {

@@ -4,6 +4,10 @@ const menuItem = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref : 'menuSchema'
     },
+    menuTitle: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
