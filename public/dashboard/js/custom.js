@@ -224,20 +224,24 @@ $(".add-row-qrMenu").click(function(){
 
 
 const onDelete = (id, title) => {
-  if (confirm("Are you sure you want to delete entire row?") == true) {
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/menu/item", true);
+    xhr.open("DELETE", "/menu/item", true);
     xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
     xhr.send(`id=${id}&title=${title}`);
-    location.reload();
-  }
 }
 
-// $("#addRow_qrMenu").find("a[title='Delete']").click(function(e){  
-//     if (onDelete() === true) {
-//       $(this).closest("tr").remove();
-//     }  
-// });
+$("#addRow_foodMenu").find("a[title='Delete']").click(function(e){  
+  $(this).closest("tr").remove();
+});
+$("#addRow_cocktailMenu").find("a[title='Delete']").click(function(e){  
+  $(this).closest("tr").remove();
+});
+$("#addRow_beerMenu").find("a[title='Delete']").click(function(e){  
+  $(this).closest("tr").remove();
+});
+$("#addRow_qrMenu").find("a[title='Delete']").click(function(e){  
+    $(this).closest("tr").remove();
+});
 
 
 const handleMenuTabs = (tab) => {

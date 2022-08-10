@@ -116,33 +116,19 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
-
 });
 
 // POST REQUESTS
-router.post('/menu/item', async (req, res) => {
-  // Menu.find({title: req.body.title}, (err, menu) => {
-  //     menu.find((x) => {
-  //       console.log()
-  //     })
-  // })
-  const itemId = req.body.id
-  // Menu.find({title: req.body.title}, async (req, menu) => {
-  //   await menu.deleteOne({ _id: itemId});
-  // })
-
-  await Menu.updateOne({title: req.body.title},
-    { $pull: { data: { _id: itemId } } }
-  )
-  // const [test] = response.data.filter((x) => {
-  //   return x._id.toString() === req.body.id ? x : null
-  // })
-  // console.log(response)
-  // await menu.deleteOne({ _id: test._id });
-  // await Test.deleteOne({ title: req.body.title}, (err, menu) => {
-
-  // });
-  res.end("OK");
+router.delete('/menu/item', async (req, res) => {
+  try {
+    const body = {...req.body}
+    await Menu.updateOne({title: body.title},
+      { $pull: { data: { _id: body.id } } }
+    )
+    res.status(200).end("OK");
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
 })
 // POST/UPDATE Menu
 router.post('/:option', async (req, res, next) => {
