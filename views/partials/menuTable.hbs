@@ -1,7 +1,10 @@
-<div class="col-xl-12 col-lg-12">
-
-  <div id="exTab3" class="container_">
-
+  {{#if isAdmin}}
+<div class="col-xl-8 col-lg-12">
+  <div id="exTab3" class="container">
+  {{else}}
+  <div class="col-xl-12 col-lg-12">
+    <div id="exTab3">
+  {{/if}}
     <div class="card shadow mb-4">
       <div class="tab-content clearfix ">
         <ul class="nav justify-content-center" style="padding: 1em;">
@@ -35,7 +38,7 @@
                     <td class="">{{price}}</td>
                     <td class="">{{description}}</td>
                     <td style="text-align:center; display: flex;">
-                      <a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal'
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
                         contenteditable='false'>
                         <span id='span'><i class='fa fa-pencil'></i></span>
                       </a>
@@ -71,7 +74,7 @@
                     <td class="">{{price}}</td>
                     <td class="">{{description}}</td>
                     <td style="text-align:center; display: flex;">
-                      <a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal'
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
                         contenteditable='false'>
                         <span id='span'><i class='fa fa-pencil'></i></span>
                       </a>
@@ -107,7 +110,7 @@
                     <td class="">{{price}}</td>
                     <td class="">{{description}}</td>
                     <td style="text-align:center; display: flex;">
-                      <a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal'
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
                         contenteditable='false'>
                         <span id='span'><i class='fa fa-pencil'></i></span>
                       </a>
@@ -143,7 +146,7 @@
                     <td class="">{{price}}</td>
                     <td class="">{{description}}</td>
                     <td style="text-align:center; display: flex;">
-                      <a class='btn btn-primary' data-toggle='modal' data-target='#foodMenuModal'
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
                         contenteditable='false'>
                         <span id='span'><i class='fa fa-pencil'></i></span>
                       </a>
@@ -165,9 +168,7 @@
 </div>
 
 
-
-
-<div class="modal fade" id="foodMenuModal" tabindex="-1" role="dialog" aria-labelledby="foodMenuModalLabel"
+<div class="modal fade" id="menuModals" tabindex="-1" role="dialog" aria-labelledby="menuModalsLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content"></div>
@@ -178,21 +179,21 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="foodMenuModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="menuModalsLabel">Modal title</h4>
         <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
           </span><span class="sr-only">Close</span>
         </button>
       </div>
 
       <div class="modal-body" id="modalBody">
-        <form name="modalForm" action="/foodMenu" method="post" id="menuModalForm">
+        <form class="needs-validation" name="modalForm" action="/foodMenu" method="POST" id="menuModalForm" novalidate>
           <div class="form-group">
             <label for="name" class="col-form-label">Name</label>
-            <input type="text" name="name" id="name" class="form-control">
+            <input type="text" name="name" id="nameMenuModal" class="form-control" required="" required>
           </div>
           <div class="form-group">
             <label for="price" class="col-form-label">Price</label>
-            <input type="number" name="price" id="price" class="form-control">
+            <input type="number" name="price" id="priceMenuModal" class="form-control" required="" required>
           </div>
           <div class="form-group">
             <label for="description" class="col-form-label">Description</label>
@@ -202,105 +203,12 @@
             <label for="description" class="col-form-label">Id</label>
             <input type="text" name="id" id="id" class="form-control" readonly="readonly">
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" disabled="true" id="saveModal">Save changes</button>
+          </div>
         </form>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
-
-{{!-- <div class="modal fade" id="cocktailMenuModal" tabindex="-1" role="dialog" aria-labelledby="cocktailMenuModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content"></div>
-  </div>
-  <div class="modal-dialog">
-    <div class="modal-content"></div>
-  </div>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="cocktailMenuModalLabel">Modal title</h4>
-        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
-          </span><span class="sr-only">Close</span>
-        </button>
-      </div>
-
-      <div class="modal-body" id="modalBody">
-        <form name="modalForm_cocktailMenu" action="/" method="post">
-          <div class="form-group">
-            <label for="name" class="col-form-label">Name</label>
-            <input type="text" name="name" id="name" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="price" class="col-form-label">Price</label>
-            <input type="text" name="price" id="price" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="description" class="col-form-label">Description</label>
-            <input type="text" name="description" id="description" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="description" class="col-form-label">Id</label>
-            <input type="text" name="id" id="id" class="form-control" readonly="readonly">
-          </div>
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> --}}
-
-{{!-- <div class="modal fade" id="beer_wineMenuModal" tabindex="-1" role="dialog" aria-labelledby="beer_wineMenuModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content"></div>
-  </div>
-  <div class="modal-dialog">
-    <div class="modal-content"></div>
-  </div>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="beer_wineMenuModalLabel">Modal title</h4>
-        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
-          </span><span class="sr-only">Close</span>
-        </button>
-      </div>
-
-      <div class="modal-body" id="modalBody">
-        <form name="modalForm" action="/" method="post">
-          <div class="form-group">
-            <label for="name" class="col-form-label">Name</label>
-            <input type="text" name="name" id="name" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="price" class="col-form-label">Price</label>
-            <input type="text" name="price" id="price" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="description" class="col-form-label">Description</label>
-            <input type="text" name="description" id="description" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="description" class="col-form-label">Id</label>
-            <input type="text" name="id" id="id" class="form-control" readonly="readonly">
-          </div>
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> --}}

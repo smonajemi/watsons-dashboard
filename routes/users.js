@@ -24,12 +24,10 @@ router.get("/:userId", async (req, res) => {
 router.get("/password/:userId", isLoggedIn, (req, res) => {
   res.render("pages/updatePassword", {
     title: "Update Password",
-    user: req.session.user,
+    user: {data: req.session.user, userId: req.session.user._id},
     isBody: "bg-gradient-primary",
   });
 });
-
-
 
 // create user
 router.post("/", async (req, res) => {
@@ -73,7 +71,6 @@ router.put('/:userId', async (req, res) => {
 router.post("/password/:userId", (req, res, next) => {
   const password = req.body.password;
   const rePassword = req.body.rePassword;
-
   User.findOne({ _id: req.params.userId }, async (err, user) => {
     try {
       if (err) throw new Error(err);
@@ -81,11 +78,12 @@ router.post("/password/:userId", (req, res, next) => {
         req.session.reset();
        return res.status(404).redirect("login");
       }
+  
       if (password != rePassword)
         return res.status(404).render("pages/updatePassword", {
           title: "Update Password",
           errorMsg: "Passwords do not match",
-          user: req.session.user,
+          user: {data: user, userId: user._id.toString()},
           isBody: "bg-gradient-primary"
         });
 
@@ -107,6 +105,7 @@ router.post("/password/:userId", (req, res, next) => {
   });
 });
 
+// DELETE REQUESTS
 router.delete('/:userId', async (req, res) => {
   const user = await User.findOne({_id: req.params.userId})
   if (!user) return res.status(404).json({message: 'user not found'})
