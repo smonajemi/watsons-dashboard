@@ -1,0 +1,233 @@
+  {{#if isAdmin}}
+<div class="col-xl-8 col-lg-12">
+  <div id="exTab3" class="container">
+  {{else}}
+  <div class="col-xl-12 col-lg-12">
+    <div id="exTab3">
+  {{/if}}
+    <div class="card shadow mb-4">
+      <div class="tab-content clearfix ">
+        <ul class="nav justify-content-center" style="padding: 1em;">
+            <li class="nav-item active"><a class="nav-link btn btn-outline-info fancyButton active" onclick="handleMenuTabs('foodMenu');" type="button" data-toggle="tab">Food Menu</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton" onclick="handleMenuTabs('cocktailMenu')" type="button" data-toggle="tab">Cocktail Menu</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton" onclick="handleMenuTabs('beerMenu')" type="button" data-toggle="tab">Beer &amp; Wine Menu</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton" onclick="handleMenuTabs('qrMenu');  return true;" type="button" data-toggle="tab">QR Menu</a></li>
+        </ul>        
+          <div class="card-body">          
+            <div class="container_">
+              <div id="foodMenuTableBody">
+                <table class="table table-bordered table-striped" id="addRow_foodMenu">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Id</th>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-sm-1">Price</th>
+                    <th class="">Description</th>
+                    <th style="text-align:center;"> 
+                      <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                 {{#each foodMenuData.data}}
+                  <tr>
+                    <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                    <td class="">{{name}}</td>
+                    <td class="">{{price}}</td>
+                    <td class="">{{description}}</td>
+                    <td style="text-align:center; display: flex;">
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
+                        contenteditable='false'>
+                        <span id='span'><i class='fa fa-pencil'></i></span>
+                      </a>
+                      <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
+                        <span id='span'><i class='fa fa-trash'></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+                </table>
+              </div>
+             <div id="cocktailMenuTableBody">
+                 <table class="table table-bordered table-striped"  id="addRow_cocktailMenu">
+                <thead>
+                  <tr>
+                   <th class="col-md-2">Id</th>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-sm-1">Price</th>
+                    <th class="">Description</th>
+                    <th style="text-align:center;"> 
+                      <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                 {{#each cocktailMenuData.data}}
+                  <tr>
+                    <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                    <td class="">{{name}}</td>
+                    <td class="">{{price}}</td>
+                    <td class="">{{description}}</td>
+                    <td style="text-align:center; display: flex;">
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
+                        contenteditable='false'>
+                        <span id='span'><i class='fa fa-pencil'></i></span>
+                      </a>
+                      <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
+                        <span id='span'><i class='fa fa-trash'></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+                </table>
+             </div>
+              <div id="beerMenuTableBody">
+                <table class="table table-bordered table-striped" id="addRow_beerMenu">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Id</th>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-sm-1">Price</th>
+                    <th class="">Description</th>
+                    <th class="col-md-2">Type</th>
+                     <th style="text-align:center;"> 
+                      <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                  <tbody id="table_body">
+                    {{#each beer_wineMenuData.data}}
+                  <tr>
+                    <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                    <td class="">{{name}}</td>
+                    <td class="">{{price}}</td>
+                    <td class="">{{description}}</td>
+                    <td class="">{{type}}</td>
+                    <td style="text-align:center; display: flex;">
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
+                        contenteditable='false'>
+                        <span id='span'><i class='fa fa-pencil'></i></span>
+                      </a>
+                      <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
+                        <span id='span'><i class='fa fa-trash'></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+              </div>
+              <div id="qrMenuTableBody">
+                <table class="table table-bordered table-striped" id="addRow_qrMenu">
+                <thead>
+                  <tr>
+                    <th class="col-md-2">Id</th>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-sm-1">Price</th>
+                    <th class="">Description</th>
+                    <th style="text-align:center;"> 
+                      <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals' >
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="table_body">
+                 {{#each qrCodeMenuData.data}}
+                  <tr>
+                    <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                    <td class="">{{name}}</td>
+                    <td class="">{{price}}</td>
+                    <td class="">{{description}}</td>
+                    <td style="text-align:center; display: flex;">
+                      <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
+                        contenteditable='false'>
+                        <span id='span'><i class='fa fa-pencil'></i></span>
+                      </a>
+                      <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
+                        <span id='span'><i class='fa fa-trash'></i></span>
+                      </a>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="menuModals" tabindex="-1" role="dialog" aria-labelledby="menuModalsLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+  <div class="modal-dialog">
+    <div class="modal-content"></div>
+  </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="menuModalsLabel">Update Menu Items</h4>
+        <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
+          </span><span class="sr-only">Close</span>
+        </button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <form class="needs-validation" name="modalForm" action="/foodMenu" method="post" id="menuModalForm" novalidate>
+     
+           <div class="form-group open" id="selectOptions">
+                <label for="name" class="col-form-label">Type</label>
+                <select class="form-control " id="validationCustom04" name="type"
+                    title="Select type" required>
+                    <option selected disabled value="">Select</option>
+                    <option value="beer">Beer</option>
+                    <option value="red">Red</option>
+                    <option value="white">White</option>
+                </select>
+                <div class="invalid-feedback text-center">
+                    Please select the type.
+                </div>
+        </div>
+        <br>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name</label>
+            <input type="text" name="name" id="name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="price" class="col-form-label">Price</label>
+            <input type="number" step="0.01" name="price" id="price" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Description</label>
+            <input type="text" name="description" id="description" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-form-label">Id</label>
+            <input type="text" name="_id" id="id" class="form-control" readonly="readonly">
+          </div>
+ 
+        
+      <div class="modal-footer actions">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="saveModal" disabled="true" onclick="onSaveModalItem();">Save changes</button>
+      </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
