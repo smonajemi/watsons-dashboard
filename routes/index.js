@@ -119,15 +119,15 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
 // POST/UPDATE Menu
 router.post('/:option', async (req, res, next) => {
   const body = {...req.body, menuTitle: req.params.option}
-  if (!body.id){
-    delete body.id
+  if (!body._id){
+    delete body._id
   }
   try {
     const findMenu = await Menu.findOne({title: req.params.option})
     if (!findMenu) {
       const newMenu = new Menu({
         title: req.params.option,
-        author: req.session.user?.username || 'default',
+        author: req.session.user?.username || 'admin',
         data: [body],
       })
       await newMenu.save()
@@ -135,29 +135,34 @@ router.post('/:option', async (req, res, next) => {
     } else {
       Menu.findOne({title: req.params.option}, async (err, menu) => {
         let items = menu.data;
-        const menuitemId = body.id
+        const menuitemId = body._id
         if (!menuitemId) {
-            const newMenuItem = new MenuItem({
-              menuTitle: req.params.option,
-              name: req.body.name,
-              price: req.body.price,
-              description: req.body.description
-            })
+            const newMenuItem = new MenuItem(body)
           await Menu.updateOne ({title: req.params.option},
               { $push: { data: newMenuItem} }
           )
           return res.redirect('/')
         } else {
+   
           for ( i = 0; i < items.length; i++ ) {
             if (items[i]._id.toString() === menuitemId) {
-                items[i].name = body.name;
-                items[i].price = body.price;
-                items[i].description = body.description;
-                await menu.save((err,data) => {
+                if (menu.title === 'beer_wineMenu') {
+                  items[i].type = body.type;
+                  items[i].name = body.name;
+                  items[i].price = body.price;
+                  items[i].description = body.description;
+                } else {
+                  items[i].name = body.name;
+                  items[i].price = body.price;
+                  items[i].description = body.description;
+                }
+                 await menu.save((err,data) => {
                   if (err) throw err;
                   console.info("item updated", data);
                 });
-              return res.redirect('/')
+                // const response = {...items[i]._doc, ...body}
+               
+                return res.redirect('/')
              }
           }
         }

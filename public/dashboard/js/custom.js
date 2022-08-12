@@ -18,26 +18,19 @@ $(document).ready( () => {
                   $('input:submit').attr('disabled',true);
               }
       })
-      // $('#inputCurrentPassword' && '#inputNewPassword' && '#inputRepeatedPassword').change(
-      //     function(){
-      //         if ($(this).val()){
-      //             $('#save').removeAttr('disabled'); 
-      //         }
-      //         else {
-      //             $('#save').attr('disabled',true);
-      //         }
-      // })
+
       $('#name' && '#price').change(
         function(){
             if ($(this).val()) {
                 $('#saveModal').removeAttr('disabled'); 
+          
             }
             else {
                 $('#saveModal').attr('disabled',true);
+             
             }
     })
 
-      
      
           $('#submit').attr('disabled',false);
           $('#cancel').attr('disabled',false);
@@ -99,25 +92,50 @@ Array.prototype.slice.call(forms)
 })()
 
 
+$("#validationCustom04").on('change',function(event){
+  const val1 = document.getElementById('name').value
+  const val2 = document.getElementById('price').value
+  const typeArray = ['Beer', 'Red', 'White']
+  if(typeArray.includes($(this).find('option:selected').text())) {
+    if (val1 && val2) {
+      $("#saveModal").attr('disabled',false)
+    }
+    else {
+      event.preventDefault();
+      $("#saveModal").attr('disabled',true)
+    }
+  }
+});
+
+
 $(".btn[data-target='#menuModals']").click(function() {
   let columnHeadings = $("thead th").map(function() {
     return $(this).text() 
   }).get();
-  // columnHeadings.shift();       
   columnHeadings.pop();
   let columnValues = $(this).parent().siblings().map(function() {
     return $(this).text()
   }).get();
-  
-  // columnValues.shift()
+
   $.each(columnHeadings, function(i, columnHeader) {
     document.getElementById(columnHeader.toLowerCase()).value += columnValues[i]
   });
+
 });
+
 $('.modal-footer .btn-primary').click(function() {
 $('form[name="modalForm"]').submit();
 });
 
+// const onSaveModalItem = () => {
+//   const val1 = document.getElementById('name').value
+//   const val2 = document.getElementById('price').value
+//   const val3 = document.getElementById('validationCustom04').value
+
+// // const value = document.getElementById('validationCustom04').value
+// // value.length <= 0 ? document.getElementById('saveModal').disabled = true
+// // : document.getElementById('saveModal').disabled = false
+// }
 
 $(".add-row-userList").click(function(){
   $("#addRow_userList").find("tbody tr:first").length 
@@ -236,6 +254,12 @@ const onChangeUserPassword = (id) => {
   document.getElementById('userPasswordForm').action = `/users/password/${id}`
 }
 
+// const onSaveModalItem = () => {
+//   const value = document.getElementById('validationCustom04').value
+//   value.length <= 0 ? document.getElementById('saveModal').disabled = true
+//   : document.getElementById('saveModal').disabled = false
+// }
+
 $("#addRow_userList").find("a[title='Delete']").click(function(e){  
   $(this).closest("tr").remove();
 });
@@ -257,37 +281,56 @@ const handleMenuTabs = (tab) => {
     switch (tab) {
       case 'foodMenu':
         document.getElementById('foodMenuTableBody').style.display = 'initial'
+
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
+        document.getElementById('selectOptions').style.display = 'none'
+        document.getElementById('validationCustom04').value = ''
+        
         document.getElementById('menuModalForm').action = '/foodMenu'
       break;
       case 'cocktailMenu':
         document.getElementById('cocktailMenuTableBody').style.display = 'initial'
+
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
+        document.getElementById('selectOptions').style.display = 'none'
+        document.getElementById('validationCustom04').value = ''
+        
         document.getElementById('menuModalForm').action = '/cocktailMenu'
       break;
       case 'beerMenu':
         document.getElementById('beerMenuTableBody').style.display = 'initial'
+        document.getElementById('selectOptions').style.display = 'initial'
+
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
+        
         document.getElementById('menuModalForm').action = '/beer_wineMenu'
       break;
       case 'qrMenu':
         document.getElementById('qrMenuTableBody').style.display = 'initial'
+
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
+        document.getElementById('selectOptions').style.display = 'none'
+        document.getElementById('validationCustom04').value = ''
+
         document.getElementById('menuModalForm').action = '/qrMenu'
       break
       default:
         document.getElementById('foodMenuTableBody').style.display = 'initial'
+        
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
+        document.getElementById('selectOptions').style.display = 'none'
+        document.getElementById('validationCustom04').value = ''
+
         document.getElementById('menuModalForm').action = '/foodMenu'
       break;
     }
