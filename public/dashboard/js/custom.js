@@ -244,25 +244,20 @@ const onDelete = (id, title) => {
     xhr.send(`id=${id}&title=${title}`);
 }
 const onDeleteUser = (id) => {
-  let xhr = new XMLHttpRequest();
-  xhr.open("DELETE", `/users/${id}`, true);
-  xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
-  xhr.send(`id=${id}`);
+  if (confirm('Would you like to delete the user?') === true) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("DELETE", `/users/${id}`, true);
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
+    xhr.send(`id=${id}`);
+    setTimeout("location.reload(true);", 100);
+  }
 }
 
 const onChangeUserPassword = (id) => {
   document.getElementById('userPasswordForm').action = `/users/password/${id}`
 }
 
-// const onSaveModalItem = () => {
-//   const value = document.getElementById('validationCustom04').value
-//   value.length <= 0 ? document.getElementById('saveModal').disabled = true
-//   : document.getElementById('saveModal').disabled = false
-// }
 
-$("#addRow_userList").find("a[title='Delete']").click(function(e){  
-  $(this).closest("tr").remove();
-});
 $("#addRow_foodMenu").find("a[title='Delete']").click(function(e){  
   $(this).closest("tr").remove();
 });
@@ -287,7 +282,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
         document.getElementById('validationCustom04').value = ''
-        
+             
         document.getElementById('menuModalForm').action = '/foodMenu'
       break;
       case 'cocktailMenu':
@@ -304,7 +299,8 @@ const handleMenuTabs = (tab) => {
       case 'beerMenu':
         document.getElementById('beerMenuTableBody').style.display = 'initial'
         document.getElementById('selectOptions').style.display = 'initial'
-
+        document.getElementById('price').type = 'text'
+        
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
