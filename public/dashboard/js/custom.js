@@ -108,6 +108,7 @@ $("#validationCustom04").on('change',function(event){
 });
 
 
+
 $(".btn[data-target='#menuModals']").click(function() {
   let columnHeadings = $("thead th").map(function() {
     return $(this).text() 
@@ -281,6 +282,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
+        document.getElementById('qrSelectOptions').style.display = 'none'
         document.getElementById('validationCustom04').value = ''
              
         document.getElementById('menuModalForm').action = '/foodMenu'
@@ -292,6 +294,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
+        document.getElementById('qrSelectOptions').style.display = 'none'
         document.getElementById('validationCustom04').value = ''
         
         document.getElementById('menuModalForm').action = '/cocktailMenu'
@@ -304,11 +307,13 @@ const handleMenuTabs = (tab) => {
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
+        document.getElementById('qrSelectOptions').style.display = 'none'
         
         document.getElementById('menuModalForm').action = '/beer_wineMenu'
       break;
       case 'qrMenu':
         document.getElementById('qrMenuTableBody').style.display = 'initial'
+        document.getElementById('qrSelectOptions').style.display = 'initial'
 
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
@@ -325,6 +330,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
+        document.getElementById('qrSelectOptions').style.display = 'none'
         document.getElementById('validationCustom04').value = ''
 
         document.getElementById('menuModalForm').action = '/foodMenu'

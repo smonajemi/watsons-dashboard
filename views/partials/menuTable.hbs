@@ -133,6 +133,7 @@
                     <th class="col-md-3">Name</th>
                     <th class="col-sm-1">Price</th>
                     <th class="">Description</th>
+                    <th class="col-md-2">Type</th>
                     <th style="text-align:center;"> 
                       <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals' >
                         <i class="fa fa-plus"></i>
@@ -147,6 +148,7 @@
                     <td class="">{{name}}</td>
                     <td class="">{{price}}</td>
                     <td class="">{{description}}</td>
+                    <td class="">{{type}}</td>
                     <td style="text-align:center; display: flex;">
                       <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
                         contenteditable='false'>
@@ -198,6 +200,24 @@
                     <option value="red">Red</option>
                     <option value="white">White</option>
                     <option value="sparkling">Sparkling</option>
+                </select>
+                <div class="invalid-feedback text-center">
+                    Please select the type.
+                </div>
+        </div>
+          <div class="form-group open" id="qrSelectOptions">
+                <label for="name" class="col-form-label">Type</label>
+                <select class="form-control " id="validationCustom04" name="type"
+                    title="Select type" required>
+                    <option selected disabled value="">Select</option>
+                    <option value="scotch">Scotch Single Malt &amp; Blended</option>
+                    <option value="canadianWhiskey">Canadian &amp; American Whiskey</option>
+                    <option value="tequila">Tequila &amp; Mezcal</option>
+                    <option value="irishWhiskey">Irish Whiskey</option>
+                    <option value="cognac">Cognac &amp; Armagnac</option>
+                    <option value="rum">Rum &amp; Cachaca</option>
+                    <option value="vodka">Vodka</option>
+                    <option value="gin">Gin</option>
                 </select>
                 <div class="invalid-feedback text-center">
                     Please select the type.
