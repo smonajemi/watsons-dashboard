@@ -225,7 +225,7 @@ table.table td .add {
     margin-left: -5px;
   }
 
-  #cocktailMenuTableBody, #beerMenuTableBody, #qrMenuTableBody, #selectOptions, #qrSelectOptions {
+  #cocktailMenuTableBody, #beerMenuTableBody, #qrMenuTableBody, #selectOptions, #qrSelectOptions, #validationCustom04, #validationCustom05 {
     display: none;
   }
 

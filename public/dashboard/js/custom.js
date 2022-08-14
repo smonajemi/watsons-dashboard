@@ -92,10 +92,26 @@ Array.prototype.slice.call(forms)
 })()
 
 
+
 $("#validationCustom04").on('change',function(event){
   const val1 = document.getElementById('name').value
   const val2 = document.getElementById('price').value
-  const typeArray = ['Beer', 'Red', 'White']
+  const typeArray = ['beer', 'red', 'white', 'sparkling']
+  if(typeArray.includes($(this).find('option:selected').text().toLowerCase())) {
+    if (val1 && val2) {
+      $("#saveModal").attr('disabled',false)
+    }
+    else {
+      event.preventDefault();
+      $("#saveModal").attr('disabled',true)
+    }
+  }
+});
+
+$("#validationCustom05").on('change',function(event){
+  const val1 = document.getElementById('name').value
+  const val2 = document.getElementById('price').value
+  const typeArray = ['Scotch Single Malt & Blended', 'Canadian & American Whiskey', 'Tequila & Mezcal', 'Irish Whiskey', 'Cognac & Armagnac', 'Rum', 'Vodka', 'Gin' ]
   if(typeArray.includes($(this).find('option:selected').text())) {
     if (val1 && val2) {
       $("#saveModal").attr('disabled',false)
@@ -128,15 +144,6 @@ $('.modal-footer .btn-primary').click(function() {
 $('form[name="modalForm"]').submit();
 });
 
-// const onSaveModalItem = () => {
-//   const val1 = document.getElementById('name').value
-//   const val2 = document.getElementById('price').value
-//   const val3 = document.getElementById('validationCustom04').value
-
-// // const value = document.getElementById('validationCustom04').value
-// // value.length <= 0 ? document.getElementById('saveModal').disabled = true
-// // : document.getElementById('saveModal').disabled = false
-// }
 
 $(".add-row-userList").click(function(){
   $("#addRow_userList").find("tbody tr:first").length 
@@ -283,8 +290,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
-        document.getElementById('validationCustom04').value = ''
-             
+                 
         document.getElementById('menuModalForm').action = '/foodMenu'
       break;
       case 'cocktailMenu':
@@ -295,31 +301,32 @@ const handleMenuTabs = (tab) => {
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
-        document.getElementById('validationCustom04').value = ''
-        
+         
         document.getElementById('menuModalForm').action = '/cocktailMenu'
       break;
       case 'beerMenu':
         document.getElementById('beerMenuTableBody').style.display = 'initial'
         document.getElementById('selectOptions').style.display = 'initial'
+        document.getElementById('validationCustom04').style.display = 'initial'
         document.getElementById('price').type = 'text'
         
+        document.getElementById('validationCustom05').style.display = 'none'
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
-        
+
         document.getElementById('menuModalForm').action = '/beer_wineMenu'
       break;
       case 'qrMenu':
         document.getElementById('qrMenuTableBody').style.display = 'initial'
-        document.getElementById('qrSelectOptions').style.display = 'initial'
+        document.getElementById('selectOptions').style.display = 'initial'
+        document.getElementById('validationCustom05').style.display = 'initial'
 
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
-        document.getElementById('selectOptions').style.display = 'none'
-        document.getElementById('validationCustom04').value = ''
+        document.getElementById('validationCustom04').style.display = 'none'
 
         document.getElementById('menuModalForm').action = '/qrMenu'
       break

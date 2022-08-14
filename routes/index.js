@@ -94,7 +94,7 @@ router.post('/:option', async (req, res, next) => {
    
           for ( i = 0; i < items.length; i++ ) {
             if (items[i]._id.toString() === menuitemId) {
-                if (menu.title === 'beer_wineMenu') {
+                if (menu.title === 'beer_wineMenu' || menu.title === 'qrMenu'  ) {
                   items[i].type = body.type;
                   items[i].name = body.name;
                   items[i].price = body.price;

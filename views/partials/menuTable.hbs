@@ -191,23 +191,17 @@
       <div class="modal-body" id="modalBody">
         <form class="needs-validation" name="modalForm" action="/foodMenu" method="post" id="menuModalForm" novalidate>
      
-           <div class="form-group open" id="selectOptions">
-                <label for="name" class="col-form-label">Type</label>
-                <select class="form-control " id="validationCustom04" name="type"
-                    title="Select type" required>
-                    <option selected disabled value="">Select</option>
-                    <option value="beer">Beer</option>
-                    <option value="red">Red</option>
-                    <option value="white">White</option>
-                    <option value="sparkling">Sparkling</option>
-                </select>
-                <div class="invalid-feedback text-center">
-                    Please select the type.
-                </div>
-        </div>
-          <div class="form-group open" id="qrSelectOptions">
-                <label for="name" class="col-form-label">Type</label>
-                <select class="form-control " id="validationCustom04" name="type"
+          <div class="form-group open" id="selectOptions">
+              <label for="name" class="col-form-label">Type</label>
+              <select class="form-control " id="validationCustom04" name="type"
+                  title="Select type" required>
+                  <option selected disabled value="">Select</option>
+                  <option value="beer">Beer</option>
+                  <option value="red">Red</option>
+                  <option value="white">White</option>
+                  <option value="sparkling">Sparkling</option>
+              </select>
+              <select class="form-control " id="validationCustom05" name="type"
                     title="Select type" required>
                     <option selected disabled value="">Select</option>
                     <option value="scotch">Scotch Single Malt &amp; Blended</option>
@@ -219,10 +213,11 @@
                     <option value="vodka">Vodka</option>
                     <option value="gin">Gin</option>
                 </select>
-                <div class="invalid-feedback text-center">
-                    Please select the type.
-                </div>
+              <div class="invalid-feedback text-center">
+                  Please select the type.
+              </div>
         </div>
+
         <br>
           <div class="form-group">
             <label for="name" class="col-form-label">Name</label>
