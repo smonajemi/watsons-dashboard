@@ -294,6 +294,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('menuModalForm').action = '/foodMenu'
       break;
       case 'cocktailMenu':
+        document.getElementById('menuModalForm').action = '/cocktailMenu'
         document.getElementById('cocktailMenuTableBody').style.display = 'initial'
 
         document.getElementById('foodMenuTableBody').style.display = 'none'
@@ -301,10 +302,10 @@ const handleMenuTabs = (tab) => {
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
-         
-        document.getElementById('menuModalForm').action = '/cocktailMenu'
       break;
       case 'beerMenu':
+        
+        document.getElementById('menuModalForm').action = '/beer_wineMenu'
         document.getElementById('beerMenuTableBody').style.display = 'initial'
         document.getElementById('selectOptions').style.display = 'initial'
         document.getElementById('validationCustom04').style.display = 'initial'
@@ -316,9 +317,9 @@ const handleMenuTabs = (tab) => {
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
 
-        document.getElementById('menuModalForm').action = '/beer_wineMenu'
       break;
       case 'qrMenu':
+        document.getElementById('menuModalForm').action = '/qrMenu'
         document.getElementById('qrMenuTableBody').style.display = 'initial'
         document.getElementById('selectOptions').style.display = 'initial'
         document.getElementById('validationCustom05').style.display = 'initial'
@@ -327,10 +328,9 @@ const handleMenuTabs = (tab) => {
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('validationCustom04').style.display = 'none'
-
-        document.getElementById('menuModalForm').action = '/qrMenu'
       break
       default:
+        document.getElementById('menuModalForm').action = '/foodMenu'
         document.getElementById('foodMenuTableBody').style.display = 'initial'
         
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
@@ -339,8 +339,6 @@ const handleMenuTabs = (tab) => {
         document.getElementById('selectOptions').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
         document.getElementById('validationCustom04').value = ''
-
-        document.getElementById('menuModalForm').action = '/foodMenu'
       break;
     }
 }

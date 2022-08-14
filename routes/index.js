@@ -107,9 +107,7 @@ router.post('/:option', async (req, res, next) => {
                  await menu.save((err,data) => {
                   if (err) throw err;
                   console.info("item updated", data);
-                });
-                // const response = {...items[i]._doc, ...body}
-               
+                });               
                 return res.redirect('/')
              }
           }
