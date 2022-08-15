@@ -324,6 +324,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('selectOptions').style.display = 'initial'
         document.getElementById('validationCustom05').style.display = 'initial'
 
+        
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
@@ -360,7 +361,6 @@ function foodMenuFunction() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    console.log(tr[i].getElementsByTagName("td")[1])
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
       txtValue = td.textContent || td.innerText;
@@ -383,7 +383,6 @@ function cocktailMenuFunction() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    console.log(tr[i].getElementsByTagName("td")[1])
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
       txtValue = td.textContent || td.innerText;
@@ -406,7 +405,6 @@ function beerMenuFunction() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    console.log(tr[i].getElementsByTagName("td")[1])
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
       txtValue = td.textContent || td.innerText;
@@ -418,6 +416,28 @@ function beerMenuFunction() {
     }
   }
 }
+function beerTypeMenuFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput_beer_type");
+  filter = input.value.toUpperCase()
+  table = document.getElementById("addRow_beerMenu");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
 function qrMenuFunction() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
@@ -428,8 +448,29 @@ function qrMenuFunction() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    console.log(tr[i].getElementsByTagName("td")[1])
     td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function qrTypeMenuFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput_qr_type");
+  filter = input.value.toUpperCase()
+  table = document.getElementById("addRow_qrMenu");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
