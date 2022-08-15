@@ -40,9 +40,9 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
     const foodMenu = await Menu.findOne({title: 'foodMenu'})
         menu.foodMenuData  = JSON.stringify(foodMenu?.data) || null
     const beerMenu = await Menu.findOne({title: 'beer_wineMenu'})
-        menu.beer_wineMenuData = JSON.stringify(beerMenu?.data) || null
+        menu.beer_wineMenuData = JSON.stringify(beerMenu.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
     const qrMenu = await Menu.findOne({title: 'qrMenu'})
-        menu.qrCodeMenuData = JSON.stringify(qrMenu?.data) || null
+        menu.qrCodeMenuData = JSON.stringify(qrMenu?.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
 
     return res.render("dashboard", {
       title: "Dashboard",
