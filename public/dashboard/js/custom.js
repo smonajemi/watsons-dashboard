@@ -19,15 +19,13 @@ $(document).ready( () => {
               }
       })
 
-      $('#name' && '#price').change(
+      $('#name' && '#price' && '#description').change(
         function(){
             if ($(this).val()) {
                 $('#saveModal').removeAttr('disabled'); 
-          
             }
             else {
                 $('#saveModal').attr('disabled',true);
-             
             }
     })
 
@@ -70,11 +68,12 @@ $(function() {
   bs_input_file();
 });
 
-$(document).click(function(e) {
-  if (!$(e.target).is('#collapseUtilities')) {
-      $('.collapse').collapse('hide');	    
-  }
-});
+// $(document).click(function(e) {
+//   if ($(e.target).is('#modal')) {
+//     $('.collapse').collapse('hide');	 
+ 
+//   }
+// });
 
 (function () {
 'use strict'
@@ -346,10 +345,8 @@ const handleMenuTabs = (tab) => {
 
 $('.modal').on('hidden.bs.modal', function () {
   $(this).find('form').trigger('reset');
+  document.getElementById('saveModal').disabled = true
 })
-
-
-
 
 function foodMenuFunction() {
   // Declare variables
