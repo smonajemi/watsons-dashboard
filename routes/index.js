@@ -18,12 +18,12 @@ router.get("/register", (req, res) => {
 });
 
 //Redirect homePage
-router.get("/", (req, res, next) => {
+router.get("/", isLoggedIn, (req, res, next) => {
   res.redirect(`/${req.session.user._id}`);
 });
 
 //Render adminPage
-router.get("/:userId", async (req, res) => {
+router.get("/:userId", isLoggedIn, async (req, res) => {
   try {
     // _id: { $nin: req.params.userId } 
     const users = await User.find({});
@@ -52,7 +52,7 @@ router.get("/:userId", async (req, res) => {
       foodMenuData: { data: JSON.parse(menu.foodMenuData) },
       beer_wineMenuData: { data: JSON.parse(menu.beer_wineMenuData) },
       qrCodeMenuData: { data: JSON.parse(menu.qrCodeMenuData) },
-      isAdmin: req.session.user?.isAdmin
+      isAdmin: req.session.user.isAdmin
     });
 
   } catch (error) {
