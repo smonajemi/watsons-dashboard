@@ -34,24 +34,24 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
       beer_wineMenuData: null,
       qrCodeMenuData: null
     }
-    const cocktailMenu = await Menu.findOne({title: 'cocktailMenu'})
-        menu.cocktailMenu = JSON.stringify(cocktailMenu?.data) || null
-    const foodMenu = await Menu.findOne({title: 'foodMenu'})
-        menu.foodMenuData  = JSON.stringify(foodMenu?.data) || null
-    const beerMenu = await Menu.findOne({title: 'beer_wineMenu'})
-        menu.beer_wineMenuData = JSON.stringify(beerMenu.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
-    const qrMenu = await Menu.findOne({title: 'qrMenu'})
-        menu.qrCodeMenuData = JSON.stringify(qrMenu?.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
+    const cocktailMenu = await Menu.findOne({ title: 'cocktailMenu' })
+    menu.cocktailMenu = JSON.stringify(cocktailMenu?.data) || null
+    const foodMenu = await Menu.findOne({ title: 'foodMenu' })
+    menu.foodMenuData = JSON.stringify(foodMenu?.data) || null
+    const beerMenu = await Menu.findOne({ title: 'beer_wineMenu' })
+    menu.beer_wineMenuData = JSON.stringify(beerMenu.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
+    const qrMenu = await Menu.findOne({ title: 'qrMenu' })
+    menu.qrCodeMenuData = JSON.stringify(qrMenu?.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
 
     return res.render("dashboard", {
       title: "Dashboard",
       isDash: true,
       user: req.session.user,
-      users: {data: JSON.parse(usersData)},
-      cocktailMenuData: {data: JSON.parse(menu.cocktailMenu)},
-      foodMenuData: {data: JSON.parse(menu.foodMenuData)},
-      beer_wineMenuData: {data: JSON.parse(menu.beer_wineMenuData)},
-      qrCodeMenuData: {data: JSON.parse(menu.qrCodeMenuData)},
+      users: { data: JSON.parse(usersData) },
+      cocktailMenuData: { data: JSON.parse(menu.cocktailMenu) },
+      foodMenuData: { data: JSON.parse(menu.foodMenuData) },
+      beer_wineMenuData: { data: JSON.parse(menu.beer_wineMenuData) },
+      qrCodeMenuData: { data: JSON.parse(menu.qrCodeMenuData) },
       isAdmin: req.session.user.isAdmin
     });
 
@@ -64,12 +64,12 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
 
 // POST/UPDATE Menu
 router.post('/:option', async (req, res, next) => {
-  const body = {...req.body, menuTitle: req.params.option}
-  if (!body._id){
+  const body = { ...req.body, menuTitle: req.params.option }
+  if (!body._id) {
     delete body._id
   }
   try {
-    const findMenu = await Menu.findOne({title: req.params.option})
+    const findMenu = await Menu.findOne({ title: req.params.option })
     if (!findMenu) {
       const newMenu = new Menu({
         title: req.params.option,
@@ -79,38 +79,38 @@ router.post('/:option', async (req, res, next) => {
       await newMenu.save()
       return res.redirect('/')
     } else {
-      Menu.findOne({title: req.params.option}, async (err, menu) => {
+      Menu.findOne({ title: req.params.option }, async (err, menu) => {
         let items = menu.data;
         const menuitemId = body._id
         if (!menuitemId) {
-            const newMenuItem = new MenuItem(body)
-          await Menu.updateOne ({title: req.params.option},
-              { $push: { data: newMenuItem} }
+          const newMenuItem = new MenuItem(body)
+          await Menu.updateOne({ title: req.params.option },
+            { $push: { data: newMenuItem } }
           )
           return res.redirect('/')
         } else {
-   
-          for ( i = 0; i < items.length; i++ ) {
+
+          for (i = 0; i < items.length; i++) {
             if (items[i]._id.toString() === menuitemId) {
-                if (menu.title === 'beer_wineMenu' || menu.title === 'qrMenu'  ) {
-                  items[i].type = body.type;
-                  items[i].name = body.name;
-                  items[i].price = body.price;
-                  items[i].description = body.description;
-                } else {
-                  items[i].name = body.name;
-                  items[i].price = body.price;
-                  items[i].description = body.description;
-                }
-                 await menu.save((err,data) => {
-                  if (err) throw err;
-                  console.info("item updated", data);
-                });               
-                return res.redirect('/')
-             }
+              if (menu.title === 'beer_wineMenu' || menu.title === 'qrMenu') {
+                items[i].type = body.type;
+                items[i].name = body.name;
+                items[i].price = body.price;
+                items[i].description = body.description;
+              } else {
+                items[i].name = body.name;
+                items[i].price = body.price;
+                items[i].description = body.description;
+              }
+              await menu.save((err, data) => {
+                if (err) throw err;
+                console.info("item updated", data);
+              });
+              return res.redirect('/')
+            }
           }
         }
-        
+
       })
     }
 
@@ -121,17 +121,19 @@ router.post('/:option', async (req, res, next) => {
 
 // DELETE REQUESTS
 
+//DELETE item by id
 router.delete('/menu/item', async (req, res) => {
   try {
-    const body = {...req.body}
-     await Menu.findOneAndUpdate({'data._id' : body.id.toString()},
-        { $pull: { data: { _id: body.id } } }
+    const body = { ...req.body }
+    await Menu.findOneAndUpdate({ 'data._id': body.id.toString() },
+      { $pull: { data: { _id: body.id } } }
     )
     res.status(200).end("OK");
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
 })
+
 
 //Helper Function - Authenticated
 function isLoggedIn(req, res, next) {
@@ -161,6 +163,10 @@ router.use("*", (req, res) => {
 //   next()
 // })
 
+
+
+
+// re-usable
 
 // let gfs, gridBucket;
 // const conn = mongoose.connection;
