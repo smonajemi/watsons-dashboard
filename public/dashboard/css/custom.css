@@ -7,6 +7,9 @@ table.table {
     display: inline-table;
     width: 100%;
 }
+.card {
+    width: 100%;
+}
 @media only screen and (max-width: 600px) {
     table.table {
         display: block;
