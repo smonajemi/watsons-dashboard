@@ -3,7 +3,7 @@
     margin-right: 4px;
 }
 table.table {
-    table-layout: fixed;
+    table-layout: absolute;
     display: inline-table;
     width: 100%;
 }
