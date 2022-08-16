@@ -14,9 +14,23 @@
     </li>
 
     <hr class="sidebar-divider">
-    {{!-- <div class="sidebar-heading">
-        Uploaded Docs
-    </div> --}}
+       <li class="nav-item">
+        <a class="nav-link" onclick="homeFunction()" type="button">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+    {{#if isAdmin}}
+    <li class="nav-item">
+        <a class="nav-link" onclick="usersFunction()" type="button" >
+            <i class="fas fa-fw fa-user"></i>
+            <span>Users</span>
+        </a>
+    </li>
+    {{/if}}
+
+
+  
     {{!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">

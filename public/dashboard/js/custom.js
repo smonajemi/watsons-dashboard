@@ -282,6 +282,7 @@ $("#addRow_qrMenu").find("a[title='Delete']").click(function(e){
 const handleMenuTabs = (tab) => {
     switch (tab) {
       case 'foodMenu':
+        document.getElementById('menuModalForm').action = '/foodMenu'
         document.getElementById('foodMenuTableBody').style.display = 'initial'
 
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
@@ -289,8 +290,6 @@ const handleMenuTabs = (tab) => {
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
-                 
-        document.getElementById('menuModalForm').action = '/foodMenu'
       break;
       case 'cocktailMenu':
         document.getElementById('menuModalForm').action = '/cocktailMenu'
@@ -303,7 +302,6 @@ const handleMenuTabs = (tab) => {
         document.getElementById('qrSelectOptions').style.display = 'none'
       break;
       case 'beerMenu':
-        
         document.getElementById('menuModalForm').action = '/beer_wineMenu'
         document.getElementById('beerMenuTableBody').style.display = 'initial'
         document.getElementById('selectOptions').style.display = 'initial'
@@ -315,7 +313,6 @@ const handleMenuTabs = (tab) => {
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
-
       break;
       case 'qrMenu':
         document.getElementById('menuModalForm').action = '/qrMenu'
@@ -323,22 +320,20 @@ const handleMenuTabs = (tab) => {
         document.getElementById('selectOptions').style.display = 'initial'
         document.getElementById('validationCustom05').style.display = 'initial'
 
-        
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('validationCustom04').style.display = 'none'
       break
-      default:
+      default:                 
         document.getElementById('menuModalForm').action = '/foodMenu'
         document.getElementById('foodMenuTableBody').style.display = 'initial'
-        
+
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
         document.getElementById('beerMenuTableBody').style.display = 'none'
         document.getElementById('qrMenuTableBody').style.display = 'none'
         document.getElementById('selectOptions').style.display = 'none'
         document.getElementById('qrSelectOptions').style.display = 'none'
-        document.getElementById('validationCustom04').value = ''
       break;
     }
 }
@@ -477,4 +472,15 @@ function qrTypeMenuFunction() {
       }
     }
   }
+}
+
+
+const usersFunction = () => {
+  document.getElementById('usersTable').style.display = 'initial'
+  document.getElementById('menuTable').style.display = 'none'
+}
+
+const homeFunction = () => {
+  document.getElementById('menuTable').style.display = 'initial'
+  document.getElementById('usersTable').style.display = 'none'
 }

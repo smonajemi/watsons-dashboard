@@ -1,10 +1,10 @@
-{{#if isAdmin}}
+{{!-- {{#if isAdmin}}
 <div class="col-xl-8 col-lg-12">
-  <div id="exTab3" class="container">
-    {{else}}
+  <div id="exTab3" class="container"> --}}
+    {{!-- {{else}} --}}
     <div class="col-xl-12 col-lg-12">
       <div id="exTab3">
-        {{/if}}
+        {{!-- {{/if}} --}}
         <div class="card shadow mb-4">
           <div class="tab-content clearfix ">
             <ul class="nav justify-content-center" style="padding: 1em;">
@@ -17,57 +17,64 @@
               <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton"
                   onclick="handleMenuTabs('qrMenu');  return true;" type="button" data-toggle="tab">QR Menu</a></li>
             </ul>
-            <div class="card-body">
-              <div class="container_">
+          </div>
+        </div>
+      </div>
+          <div style="background-color: white;" class="m-2"> 
+            <div style="padding: 1em;" >    
+
                 <div id="foodMenuTableBody">
-                  <div class="form-outline mb-4">
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-                      aria-expanded="false" aria-controls="collapseExample">
-                      Filter
-                    </button>
-                    <div class="collapse" id="collapseExample" style="padding: 1em;">
-                      <div class="card card-body">
-                        <label class="form-label" for="datatable-search-input">Search By Name</label>
-                        <input type="text" id="myInput_food" onkeyup="foodMenuFunction()"
-                          placeholder="Search for names.." class="form-control">
-                      </div>
+                    <div class="form-outline mb-4">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Filter
+                      </button>
+                        <div class="collapse" id="collapseExample" style="padding: 1em;">
+                          <div class="card card-body">
+                            <label class="form-label" for="datatable-search-input">Search By Name</label>
+                            <input type="text" id="myInput_food" onkeyup="foodMenuFunction()"
+                              placeholder="Search for names.." class="form-control">
+                          </div>
+                        </div>
                     </div>
-                  </div>
-                  <table class="table table-bordered table-striped" id="addRow_foodMenu">
-                    <thead>
-                      <tr>
+            
+                    <table class="table table-bordered table-hover" id="addRow_foodMenu">
+                      <thead class="thead-dark">
+                        <tr>
                         <th class="col-md-2">Id</th>
                         <th class="col-md-3">Name</th>
                         <th class="col-sm-1">Price</th>
                         <th class="">Description</th>
-                        <th style="text-align:center;">
-                          <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
-                            <i class="fa fa-plus"></i>
-                          </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody id="table_body">
-                      {{#each foodMenuData.data}}
-                      <tr>
-                        <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
-                        <td class="">{{name}}</td>
-                        <td class="">{{price}}</td>
-                        <td class="">{{description}}</td>
-                        <td style="text-align:center; display: flex;">
-                          <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
-                            contenteditable='false'>
-                            <span id='span'><i class='fa fa-pencil'></i></span>
-                          </a>
-                          <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
-                            <span id='span'><i class='fa fa-trash'></i></span>
-                          </a>
-                        </td>
-                      </tr>
-                      {{/each}}
-                    </tbody>
-                  </table>
+                          <th scope="col" style="text-align:center;">
+                            <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
+                              <i class="fa fa-plus"></i>
+                            </a>
+                          </th>
+                  
+                        </tr>
+                      </thead>
+                      <tbody id="table_body">
+                        {{#each foodMenuData.data}}
+                        <tr>
+                          <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                          <td class="">{{name}}</td>
+                          <td class="">{{price}}</td>
+                          <td class="">{{description}}</td>
+                          <td style="text-align:center; display: flex;">
+                            <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals'
+                              contenteditable='false'>
+                              <span id='span'><i class='fa fa-pencil'></i></span>
+                            </a>
+                            <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
+                              <span id='span'><i class='fa fa-trash'></i></span>
+                            </a>
+                          </td>
+                        </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
                 </div>
+                
                 <div id="cocktailMenuTableBody">
                   <div class="form-outline mb-4">
                     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
@@ -82,8 +89,8 @@
                       </div>
                     </div>
                   </div>
-                  <table class="table table-bordered table-striped" id="addRow_cocktailMenu">
-                    <thead>
+                  <table class="table table-bordered table-hover" id="addRow_cocktailMenu">
+                    <thead class="thead-dark">
                       <tr>
                         <th class="col-md-2">Id</th>
                         <th class="col-md-3">Name</th>
@@ -117,6 +124,7 @@
                     </tbody>
                   </table>
                 </div>
+
                 <div id="beerMenuTableBody">
                   <div class="form-outline mb-4">
                     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
@@ -135,8 +143,8 @@
                       </div>
                     </div>
                   </div>
-                  <table class="table table-bordered table-striped" id="addRow_beerMenu">
-                    <thead>
+                  <table class="table table-bordered table-hover" id="addRow_beerMenu">
+                    <thead class="thead-dark">
                       <tr>
                         <th class="col-md-2">Id</th>
                         <th class="col-md-3">Name</th>
@@ -172,6 +180,7 @@
                     </tbody>
                   </table>
                 </div>
+
                 <div id="qrMenuTableBody">
                   <div class="form-outline mb-4">
                     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
@@ -190,8 +199,8 @@
                       </div>
                     </div>
                   </div>
-                  <table class="table table-bordered table-striped" id="addRow_qrMenu">
-                    <thead>
+                  <table class="table table-bordered table-hover" id="addRow_qrMenu">
+                    <thead class="thead-dark">
                       <tr>
                         <th class="col-md-2">Id</th>
                         <th class="col-md-3">Name</th>
@@ -229,10 +238,7 @@
                 </div>
 
               </div>
-            </div>
           </div>
-        </div>
-      </div>
     </div>
 
     <div class="modal fade" id="menuModals" tabindex="-1" role="dialog" aria-labelledby="menuModalsLabel"

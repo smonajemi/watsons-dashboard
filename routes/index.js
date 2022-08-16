@@ -22,7 +22,6 @@ router.get("/", isLoggedIn, (req, res, next) => {
   res.redirect(`/${req.session.user._id}`);
 });
 
-
 //Render adminPage
 router.get("/:userId", isLoggedIn, async (req, res) => {
   try {
