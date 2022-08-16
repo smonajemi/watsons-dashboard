@@ -1,22 +1,19 @@
-{{#if isAdmin}}
-<div class="col-xl-12 col-lg-12 container">
+{{#if isAdmin}} 
+<div class="col-xl-12 col-lg-12 container" >
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">List of users</h6>
         </div>
         <div class="card-body">
-            <table class="table table-bordered" id="addRow_userList">
+            <table class="table table-bordered table-responsive" id="addRow_userList" >
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">username</th>
+                        <th >#</th>
+                        <th class="">First</th>
+                        <th >Last</th>
+                        <th class="col">username</th>
                         <th style="text-align:center;">
-                            {{!-- <a type="button" class="btn btn-info add-row-userList">
-                                <i class="fa fa-plus"></i>
-                            </a> --}}
-                            Action
+                        Action
                         </th>
                     </tr>
                 </thead>
@@ -27,7 +24,7 @@
                         <td>{{firstName}}</td>
                         <td>{{lastName}}</td>
                         <td>{{username}}</td>
-                        <td style="text-align:center;">
+                        <td style="text-align:center; display: flex;">
 
 
                             {{#if isAdmin}}
