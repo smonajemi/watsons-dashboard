@@ -124,9 +124,8 @@ router.post('/:option', async (req, res, next) => {
 router.delete('/menu/item', async (req, res) => {
   try {
     const body = {...req.body}
-    const findTitle = await Menu.findOne({'data._id' : body.id.toString()})
-    await Menu.updateOne({title: findTitle.title},
-      { $pull: { data: { _id: body.id } } }
+     await Menu.findOneAndUpdate({'data._id' : body.id.toString()},
+        { $pull: { data: { _id: body.id } } }
     )
     res.status(200).end("OK");
   } catch (error) {
