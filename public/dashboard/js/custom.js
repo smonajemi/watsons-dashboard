@@ -19,7 +19,7 @@ $(document).ready( () => {
               }
       })
 
-      $('#name' && '#price' && '#description').change(
+      $('#name' && '#price').change(
         function(){
             if ($(this).val()) {
                 $('#saveModal').removeAttr('disabled'); 
@@ -110,7 +110,7 @@ $("#validationCustom04").on('change',function(event){
 $("#validationCustom05").on('change',function(event){
   const val1 = document.getElementById('name').value
   const val2 = document.getElementById('price').value
-  const typeArray = ['Scotch Single Malt & Blended', 'Canadian & American Whiskey', 'Tequila & Mezcal', 'Irish Whiskey', 'Cognac & Armagnac', 'Rum', 'Vodka', 'Gin' ]
+  const typeArray = ['Single Malt Scotch', 'Blended Scotch', 'Canadian Whiskey', 'American Whiskey', 'Japanese Whiskey', 'Tequila', 'Mezcal', 'Irish Whiskey', 'Cognac & Armagnac', 'Rum', 'Vodka', 'Gin' ]
   if(typeArray.includes($(this).find('option:selected').text())) {
     if (val1 && val2) {
       $("#saveModal").attr('disabled',false)
