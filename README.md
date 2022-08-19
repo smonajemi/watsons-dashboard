@@ -1,4 +1,7 @@
 # watsons-dashboard
 
-# About:
-Admin dashboard - https://watsons-dashboard.herokuapp.com
+# Admin:
+https://watsons-dashboard.herokuapp.com
+
+# Website
+https://watsonstoronto.com
