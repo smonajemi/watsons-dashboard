@@ -43,6 +43,7 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
     const qrMenu = await Menu.findOne({ title: 'qrMenu' })
     menu.qrCodeMenuData = JSON.stringify(qrMenu?.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
 
+    const qrOptions = ['Single Malt Scotch', 'Blended Scotch', 'Canadian Whiskey', 'American Whiskey', 'Japanese Whiskey', 'Tequila', 'Mezcal', 'Irish Whiskey', 'Cognac & Armagnac', 'Rum', 'Vodka', 'Gin' ]
     return res.render("dashboard", {
       title: "Dashboard",
       isDash: true,
@@ -52,7 +53,8 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
       foodMenuData: { data: JSON.parse(menu.foodMenuData) },
       beer_wineMenuData: { data: JSON.parse(menu.beer_wineMenuData) },
       qrCodeMenuData: { data: JSON.parse(menu.qrCodeMenuData) },
-      isAdmin: req.session.user.isAdmin
+      isAdmin: req.session.user.isAdmin,
+      qrOptions: qrOptions
     });
 
   } catch (error) {
