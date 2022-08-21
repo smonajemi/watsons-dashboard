@@ -6,8 +6,6 @@ const Menu = require('../modules/Menu')
 const MenuItem = require("../modules/MenuItem");
 require("dotenv/config");
 
-
-
 //Render Login
 router.get("/login", (req, res) => {
   res.render("pages/login", { title: "Login", isBody: "bg-gradient-primary" });
@@ -43,7 +41,18 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
     const qrMenu = await Menu.findOne({ title: 'qrMenu' })
     menu.qrCodeMenuData = JSON.stringify(qrMenu?.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
 
-    const qrOptions = ['Single Malt Scotch', 'Blended Scotch', 'Canadian Whiskey', 'American Whiskey', 'Japanese Whiskey', 'Tequila', 'Mezcal', 'Irish Whiskey', 'Cognac & Armagnac', 'Rum', 'Vodka', 'Gin' ]
+    const qrMenuTypes = qrMenu.data?.map(x => (x.type))
+    const qrOptions = qrMenuTypes.filter((c, index) => {
+      return qrMenuTypes.indexOf(c) === index;
+    });
+
+    const beerMenuTypes = beerMenu.data?.map(x => (x.type))
+    const beerMenuOptions = beerMenuTypes.filter((c, index) => {
+      return beerMenuTypes.indexOf(c) === index;
+    });
+
+
+  
     return res.render("dashboard", {
       title: "Dashboard",
       isDash: true,
@@ -54,7 +63,8 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
       beer_wineMenuData: { data: JSON.parse(menu.beer_wineMenuData) },
       qrCodeMenuData: { data: JSON.parse(menu.qrCodeMenuData) },
       isAdmin: req.session.user.isAdmin,
-      qrOptions: qrOptions
+      qrOptions: qrOptions,
+      beerMenuOptions: beerMenuOptions
     });
 
   } catch (error) {
@@ -121,6 +131,7 @@ router.post('/:option', async (req, res, next) => {
   }
 })
 
+
 // DELETE REQUESTS
 
 //DELETE item by id
@@ -164,83 +175,5 @@ router.use("*", (req, res) => {
 //   }
 //   next()
 // })
-
-
-
-
-// re-usable
-
-// let gfs, gridBucket;
-// const conn = mongoose.connection;
-// conn.once("open", () => {
-//   gridBucket = new mongoose.mongo.GridFSBucket(conn.db, {
-//     bucketName: "uploads",
-//   })
-//   gfs = Grid(conn.db, mongoose.mongo)
-//   gfs.collection("uploads")
-// })
-
-// GET REQUESTS
-//Find Menu
-// router.get("/getMenu/:option", (req, res) => {
-//   const param = req.params.option;
-//   // console.log(req.params)
-//   gfs.files.findOne(
-//     { metadata: param},
-//     { sort: { uploadDate: -1 } },
-//     (err, file) => {
-//       return (!file || file.length === 0) ? res.status(404).json({ message: "No file exists" }) : res.status(200).redirect(`/menu/${file.filename}`);
-//     }
-//   )
-// })
-
-//Render Menu
-// router.get("/menu/:filename", (req, res) => {
-//   if (!req.params.filename)
-//       {
-//         const param = req.params.option
-//         gfs.files.findOne(
-//           { metadata: param},
-//           { sort: { uploadDate: -1 } },
-//           (err, file) => {
-//              return (!file || file.length === 0) ? res.status(404).json({ message: "No file exists" }) : res.status(200).redirect(`/menu/${file.filename}`);
-//           }
-//         )
-//   }
-//   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-//     if (!file || file.length === 0)
-//       return res.status(404).json({ message: "No file exists" })
-//     if (file.contentType === "application/pdf") {
-//       const readStream = gridBucket.openDownloadStream(file._id)
-//       res.contentType("application/pdf")
-//       readStream.pipe(res)
-//     } else {
-//       res.status(404).json({ error: "server error" })
-//     }
-//   })
-// })
-
-// router.post("/menu", upload.single("file"), (req, res) => {
-//   const formFile = req.file;
-//   try {
-//     if (formFile.mimetype !== "application/pdf")
-//       return res.render("dashboard", {
-//         title: "Dashboard",
-//         errorMsg: "pdf files only",
-//       });
-//   } catch (error) {
-//     req.file = null;
-//     res.render("pages/error", { title: "Error" });
-//   }
-//   const str = req.file.metadata.replace("Menu", "");
-//   const metadata = str.charAt(0).toUpperCase() + str.slice(1);
-//   res.render("pages/success", {
-//     title: "Dashboard",
-//     user: req.session.user,
-//     menu: req.file.originalname,
-//     uploadedFile: metadata,
-//     isMenu: true,
-//   });
-// });
 
 module.exports = router;
