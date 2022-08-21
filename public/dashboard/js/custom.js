@@ -333,8 +333,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('menuModalForm').action = '/beer_wineMenu'
         document.getElementById('beerMenuTableBody').style.display = 'initial'
         document.getElementById('selectOptions').style.display = 'initial'
-        document.getElementById('validationCustom04').style.display = 'initial'
-        document.getElementById('price').type = 'text'
+        document.getElementById('validationCustom04').style.display = 'flex'
         
         document.getElementById('validationCustom05').style.display = 'none'
         document.getElementById('foodMenuTableBody').style.display = 'none'
@@ -346,7 +345,7 @@ const handleMenuTabs = (tab) => {
         document.getElementById('menuModalForm').action = '/qrMenu'
         document.getElementById('qrMenuTableBody').style.display = 'initial'
         document.getElementById('selectOptions').style.display = 'initial'
-        document.getElementById('validationCustom05').style.display = 'initial'
+        document.getElementById('validationCustom05').style.display = 'flex'
 
         document.getElementById('foodMenuTableBody').style.display = 'none'
         document.getElementById('cocktailMenuTableBody').style.display = 'none'
@@ -394,14 +393,11 @@ function foodMenuFunction() {
 }
 
 function cocktailMenuFunction() {
-  // Declare variables
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput_cocktail");
   filter = input.value.toUpperCase()
   table = document.getElementById("addRow_cocktailMenu");
   tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
@@ -416,14 +412,11 @@ function cocktailMenuFunction() {
 }
 
 function beerMenuFunction() {
-  // Declare variables
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput_beer");
   filter = input.value.toUpperCase()
   table = document.getElementById("addRow_beerMenu");
   tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
@@ -437,14 +430,11 @@ function beerMenuFunction() {
   }
 }
 function beerTypeMenuFunction() {
-  // Declare variables
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput_beer_type");
   filter = input.value.toUpperCase()
   table = document.getElementById("addRow_beerMenu");
   tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[4];
     if (td) {
@@ -459,14 +449,12 @@ function beerTypeMenuFunction() {
 }
 
 function qrMenuFunction() {
-  // Declare variables
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput_qr");
   filter = input.value.toUpperCase()
   table = document.getElementById("addRow_qrMenu");
   tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
@@ -481,14 +469,12 @@ function qrMenuFunction() {
 }
 
 function qrTypeMenuFunction() {
-  // Declare variables
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput_qr_type");
   filter = input.value.toUpperCase()
   table = document.getElementById("addRow_qrMenu");
   tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[4];
     if (td) {
@@ -511,4 +497,24 @@ const usersFunction = () => {
 const homeFunction = () => {
   document.getElementById('menuTable').style.display = 'initial'
   document.getElementById('usersTable').style.display = 'none'
+}
+
+const onBeerDisabled = () => {
+  if (document.getElementById('typeBeerCheckbox').checked == true){
+    document.getElementById('typeBeerSelect').disabled = true
+    document.getElementById('typeBeerInput').disabled = false
+  } else{
+    document.getElementById('typeBeerInput').disabled = true
+    document.getElementById('typeBeerSelect').disabled = false
+  }
+}
+
+const onQrDisabled = () => {
+  if (document.getElementById('typeCheckbox').checked == true){
+    document.getElementById('typeSelect').disabled = true
+    document.getElementById('typeInput').disabled = false
+  } else{
+    document.getElementById('typeInput').disabled = true
+    document.getElementById('typeSelect').disabled = false
+  }
 }

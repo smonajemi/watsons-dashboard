@@ -263,22 +263,48 @@
 
               <div class="form-group open" id="selectOptions">
                 <label for="name" class="col-form-label">Type</label>
-                <select class="form-control " id="validationCustom04" name="type" title="Select type" required>
-                  <option selected disabled value="">Select</option>
-                  <option value="beer">Beer</option>
-                  <option value="red">Red</option>
-                  <option value="white">White</option>
-                  <option value="sparkling">Sparkling</option>
-                </select>
-                <select class="form-control selectpicker" id="validationCustom05" name="type" title="Select type" required>
-                  <option selected disabled value="">Select</option>
-                    {{#each qrOptions}}
-                      <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
+                  <div class="form-row" id="validationCustom04" >
+                    <div class="col">
+                      <select class="form-control selectpicker" name="type" title="Select type" required id="typeBeerSelect">
+                        <option selected disabled value="">Select</option>
+                          {{#each beerMenuOptions}}
+                            <option value="{{this}}">{{this}}</option>
+                          {{/each}}
+                      </select>
+                    </div>
+                    <div class="col">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input type="checkbox" aria-label="Checkbox for following text input" id="typeBeerCheckbox" onclick="onBeerDisabled()">
+                        </div>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Text input with checkbox" id="typeBeerInput" disabled="true" name="type">
+                    </div>          
+                    </div>              
+                </div>
               </div>
 
-              <br>
+                 <div class="form-row" id="validationCustom05" >
+                    <div class="col">
+                      <select class="form-control selectpicker" name="type" title="Select type" required id="typeSelect">
+                        <option selected disabled value="">Select</option>
+                          {{#each qrOptions}}
+                            <option value="{{this}}">{{this}}</option>
+                          {{/each}}
+                      </select>
+                    </div>
+                    <div class="col">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input type="checkbox" aria-label="Checkbox for following text input" id="typeCheckbox" onclick="onQrDisabled()">
+                        </div>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Text input with checkbox" id="typeInput" disabled="true" name="type">
+                    </div>          
+                    </div>              
+                </div>
               <div class="form-group">
                 <label for="name" class="col-form-label">Name</label>
                 <input type="text" name="name" id="name" class="form-control" required>
@@ -295,7 +321,6 @@
                 <label for="description" class="col-form-label">Id</label>
                 <input type="text" name="_id" id="id" class="form-control" readonly="readonly">
               </div>
-
 
               <div class="modal-footer actions">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
