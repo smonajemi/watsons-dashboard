@@ -23,7 +23,6 @@ router.get("/", isLoggedIn, (req, res, next) => {
 //Render adminPage
 router.get("/:userId", isLoggedIn, async (req, res) => {
   try {
-    // _id: { $nin: req.params.userId } 
     const users = await User.find({});
     const usersData = JSON.stringify(users)
     const menu = {
