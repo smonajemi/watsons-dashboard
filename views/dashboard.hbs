@@ -1,2 +1,14 @@
-{{>sidebar}}
-{{>content}}
+{{>sideNav}}
+<div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+        {{>memberProfile}}
+        {{#if isMenuTab}} 
+            {{>tabs/menuTab}}
+        {{/if}}
+         {{#if isUserTab}} 
+            {{>tabs/userTab}}
+        {{/if}}
+    </div>
+    {{>modals/logoutModal}}
+    
+</div>
