@@ -76,11 +76,11 @@ router.post("/password/:userId", (req, res, next) => {
       if (err) throw new Error(err);
       if (!user) {
         req.session.reset();
-       return res.status(404).redirect("login");
+       return res.status(404).redirect("/login");
       }
   
       if (password != rePassword)
-        return res.status(404).render("pages/updatePassword", {
+        return res.status(404).render("/pages/updatePassword", {
           title: "Update Password",
           errorMsg: "Passwords do not match",
           user: {data: user, userId: user._id.toString()},
@@ -93,7 +93,7 @@ router.post("/password/:userId", (req, res, next) => {
         if (err) throw new Error(err);
         return res
           .status(200)
-          .render("pages/success", {
+          .render("/pages/success", {
             title: "Dashboard",
             user: req.session.user,
             isPassword: true,
@@ -118,7 +118,7 @@ function isLoggedIn(req, res, next) {
   if (req.session.user) {
     return !req.session.user.role ? res.status(401).redirect('/authenticate/verification') : next()
   }
-  return res.redirect('login')
+  return res.redirect('/login')
 }
 
 module.exports = router;
