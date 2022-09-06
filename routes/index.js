@@ -17,7 +17,7 @@ router.get("/register", (req, res) => {
 
 //Redirect homePage
 router.get("/", isLoggedIn, (req, res, next) => {
-  res.redirect(`/${req.session.user._id}`);
+  res.redirect(`/menu-table/${req.session.user._id}`);
 });
 
 router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
@@ -47,7 +47,6 @@ router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
       return beerMenuTypes.indexOf(c) === index;
     });
 
-    console.log(req.query.qrMenu)
   
     return res.render("dashboard", {
       title: "Menu Table",
