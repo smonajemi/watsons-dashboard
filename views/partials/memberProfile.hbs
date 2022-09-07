@@ -1,26 +1,26 @@
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                <i class="fa fa-bars"></i>
-            </button>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown no-arrow mx-1">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <span class="d-lg-inline text-gray-600 small">{{user.firstName}} {{user.lastName}}</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="userDropdown">
-                        <a class="dropdown-item" id="alertsDropdown" role="button"  aria-haspopup="true" aria-expanded="false" href="users/password/{{user._id}}">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Update Password
-                        </a>
-                        <a class="dropdown-item" href="#" id="alertsDropdown" role="button" href="#" data-toggle="modal"
-                            data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
-                        </a>
-                    </div>
-                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="alertsDropdown">
-            </ul>
-        </nav>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="d-lg-inline text-gray-600 small">{{user.firstName}} {{user.lastName}}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="userDropdown">
+                <a class="dropdown-item" id="alertsDropdown" role="button"  aria-haspopup="true" aria-expanded="false" href="users/password/{{user._id}}">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Update Password
+                </a>
+                <a class="dropdown-item" href="#" id="alertsDropdown" role="button" href="#" data-toggle="modal"
+                    data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                </a>
+            </div>
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+    </ul>
+</nav>

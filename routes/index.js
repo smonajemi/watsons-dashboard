@@ -17,14 +17,11 @@ router.get("/register", (req, res) => {
 
 //Redirect homePage
 router.get("/", isLoggedIn, (req, res, next) => {
-  res.redirect(`/${req.session.user._id}`);
+  res.redirect(`/menu-table/${req.session.user._id}?type=qrMenu`);
 });
 
-//Render adminPage
-router.get("/:userId", isLoggedIn, async (req, res) => {
+router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
   try {
-    const users = await User.find({});
-    const usersData = JSON.stringify(users)
     const menu = {
       cocktailMenuData: null,
       foodMenuData: null,
@@ -50,18 +47,16 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
       return beerMenuTypes.indexOf(c) === index;
     });
 
-
   
     return res.render("dashboard", {
-      title: "Dashboard",
-      isDash: true,
+      title: "Menu Table",
+      isMenuTab: true,
+      isAdmin: req.session.user?.isAdmin,
       user: req.session.user,
-      users: { data: JSON.parse(usersData) },
       cocktailMenuData: { data: JSON.parse(menu.cocktailMenu) },
       foodMenuData: { data: JSON.parse(menu.foodMenuData) },
       beer_wineMenuData: { data: JSON.parse(menu.beer_wineMenuData) },
       qrCodeMenuData: { data: JSON.parse(menu.qrCodeMenuData) },
-      isAdmin: req.session.user.isAdmin,
       qrOptions: qrOptions,
       beerMenuOptions: beerMenuOptions
     });
@@ -71,11 +66,40 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
   }
 });
 
+router.get("/user-table/:userId", isLoggedIn, async (req, res) => {
+  try {
+    const users = await User.find({});
+    const usersData = JSON.stringify(users)
+    return res.render("dashboard", {
+      title: "User Table",
+      isUserTab: true,
+      users: { data: JSON.parse(usersData) },
+      isAdmin: req.session.user?.isAdmin,
+      user: req.session.user});
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+});
+
+//Render adminPage
+router.get("/:userId", isLoggedIn, async (req, res) => {
+  try {
+    return res.render("dashboard", {
+      title: "Dashboard",
+      isDash: true,
+      isAdmin:req.session.user?.isAdmin,
+      user: req.session.user});
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+});
+
 // POST REQUESTS
 
 // POST/UPDATE Menu
-router.post('/:option', async (req, res, next) => {
+router.post('/:option', isLoggedIn,  async (req, res, next) => {
   const body = { ...req.body, menuTitle: req.params.option }
+  const queryType = req.params.option.includes('beer_wineMenu') ? 'beerMenu' : req.params.option;
   if (!body._id) {
     delete body._id
   }
@@ -88,7 +112,7 @@ router.post('/:option', async (req, res, next) => {
         data: [body],
       })
       await newMenu.save()
-      return res.redirect('/')
+      return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
     } else {
       Menu.findOne({ title: req.params.option }, async (err, menu) => {
         let items = menu.data;
@@ -98,7 +122,7 @@ router.post('/:option', async (req, res, next) => {
           await Menu.updateOne({ title: req.params.option },
             { $push: { data: newMenuItem } }
           )
-          return res.redirect('/')
+          return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
         } else {
 
           for (i = 0; i < items.length; i++) {
@@ -117,7 +141,7 @@ router.post('/:option', async (req, res, next) => {
                 if (err) throw err;
                 console.info("item updated", data);
               });
-              return res.redirect('/')
+              return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
             }
           }
         }
@@ -152,14 +176,14 @@ function isLoggedIn(req, res, next) {
   if (req.session.user) {
     return !req.session.user.role ? res.redirect('/authenticate/verification') : next()
   }
-  return res.redirect('login')
+  return res.redirect('/login')
 
   // res.render('pages/verification', {title: 'Verification', isBody: 'bg-gradient-primary'})
 }
 
 //Redirect 404
 router.use("*", (req, res) => {
-  res.render("pages/error", { title: "Error" });
+  res.render("/pages/error", { title: "Error" });
 });
 
 // /** RULES OF API */

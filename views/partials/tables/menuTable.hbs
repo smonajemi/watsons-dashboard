@@ -1,0 +1,329 @@
+    <div class="col-xl-12 col-lg-12" style="padding: 0 2em;">
+      <div class="card shadow mb-4">
+        <div class="tab-content clearfix ">
+
+          <ul class="nav justify-content-center tabs" style="padding: 1em;" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link btn btn-outline-info fancyButton active" id="pills-qrMenu-tab"
+                onclick="handleMenuTabs('qrMenu');" data-bs-toggle="pill" data-bs-target="#pills-qrMenu" type="button"
+                role="tab" aria-controls="pills-qrMenu" aria-selected="false">QR Menu</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link btn btn-outline-info fancyButton" id="pills-beerMenu-tab"
+                onclick="handleMenuTabs('beerMenu')" data-bs-toggle="pill" data-bs-target="#pills-beerMenu"
+                type="button" role="tab" aria-controls="pills-beerMenu" aria-selected="false">Beer &amp; Wine
+                Menu</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link btn btn-outline-info fancyButton" id="pills-foodMenu-tab"
+                onclick="handleMenuTabs('foodMenu');" data-bs-toggle="pill" data-bs-target="#pills-foodMenu"
+                type="button" role="tab" aria-controls="pills-foodMenu" aria-selected="true">Food Menu</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link btn btn-outline-info fancyButton" id="pills-cocktailMenu-tab"
+                onclick="handleMenuTabs('cocktailMenu')" data-bs-toggle="pill" data-bs-target="#pills-cocktailMenu"
+                type="button" role="tab" aria-controls="pills-cocktailMenu" aria-selected="false">Cocktail Menu</button>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div style="padding: 1em;">
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-qrMenu" role="tabpanel"
+                aria-labelledby="pills-qrMenu-tab">
+                <div class="form-outline mb-4">
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    Filter
+                  </button>
+                  <div class="collapse" id="collapseExample" style="padding: 1em;">
+                    <div class="card card-body">
+                      <label class="form-label" for="datatable-search-input">Search By Name</label>
+                      <input type="text" id="myInput_qr" onkeyup="qrMenuFunction()" placeholder="Search for names.."
+                        class="form-control">
+                      <br>
+                      <label class="form-label" for="datatable-search-input">Search By Type</label>
+                      <input type="text" id="myInput_qr_type" onkeyup="qrTypeMenuFunction()"
+                        placeholder="Search for types.." class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover table-responsive" id="addRow_qrMenu">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th class="col-md-2">Id</th>
+                      <th class="col-md-3">Name</th>
+                      <th class="col-sm-1">Price</th>
+                      <th class="">Description</th>
+                      <th class="col-md-2">Type</th>
+                      <th style="text-align:center;">
+                        <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
+                          <i class="fa fa-plus"></i>
+                        </a>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_body">
+                    {{#each qrCodeMenuData.data}}
+                    <tr>
+                      <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                      <td class="">{{name}}</td>
+                      <td class="">{{price}}</td>
+                      <td class="">{{description}}</td>
+                      <td class="">{{type}}</td>
+                      <td style="text-align:center;">
+                        <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false'
+                          style="margin-bottom: .2em;">
+                          <span id='span'><i class='fa fa-pencil'></i></span>
+                        </a>
+                        <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
+                          <span id='span'><i class='fa fa-trash'></i></span>
+                        </a>
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane fade" id="pills-beerMenu" role="tabpanel" aria-labelledby="pills-beerMenu-tab">
+                <div class="form-outline mb-4">
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    Filter
+                  </button>
+                  <div class="collapse" id="collapseExample" style="padding: 1em;">
+                    <div class="card card-body">
+                      <label class="form-label" for="datatable-search-input">Search By Name</label>
+                      <input type="text" id="myInput_beer" onkeyup="beerMenuFunction()" placeholder="Search for names.."
+                        class="form-control">
+                      <br>
+                      <label class="form-label" for="datatable-search-input">Search By Type</label>
+                      <input type="text" id="myInput_beer_type" onkeyup="beerTypeMenuFunction()"
+                        placeholder="Search for types.." class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover table-responsive" id="addRow_beerMenu">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th class="col-md-2">Id</th>
+                      <th class="col-md-3">Name</th>
+                      <th class="col-sm-1">Price</th>
+                      <th class="">Description</th>
+                      <th class="col-md-2">Type</th>
+                      <th style="text-align:center;">
+                        <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
+                          <i class="fa fa-plus"></i>
+                        </a>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_body">
+                    {{#each beer_wineMenuData.data}}
+                    <tr>
+                      <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                      <td class="">{{name}}</td>
+                      <td class="">{{price}}</td>
+                      <td class="">{{description}}</td>
+                      <td class="">{{type}}</td>
+                      <td style="text-align:center;">
+                        <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false'
+                          style="margin-bottom: .2em;">
+                          <span id='span'><i class='fa fa-pencil'></i></span>
+                        </a>
+                        <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
+                          <span id='span'><i class='fa fa-trash'></i></span>
+                        </a>
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane fade" id="pills-foodMenu" role="tabpanel" aria-labelledby="pills-foodMenu-tab">
+                <div class="form-outline mb-4">
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    Filter
+                  </button>
+                  <div class="collapse" id="collapseExample" style="padding: 1em;">
+                    <div class="card card-body">
+                      <label class="form-label" for="datatable-search-input">Search By Name</label>
+                      <input type="text" id="myInput_food" onkeyup="foodMenuFunction()" placeholder="Search for names.."
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+
+                <table class="table table-bordered table-hover table-responsive" id="addRow_foodMenu">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th class="col-md-2">Id</th>
+                      <th class="col-md-3">Name</th>
+                      <th class="col-sm-1">Price</th>
+                      <th class="">Description</th>
+                      <th class="col-md-2" style="text-align:center;">
+                        <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
+                          <i class="fa fa-plus"></i>
+                        </a>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_body">
+                    {{#each foodMenuData.data}}
+                    <tr>
+                      <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                      <td class="id">{{name}}</td>
+                      <td class="">{{price}}</td>
+                      <td class="">{{description}}</td>
+                      <td style="text-align:center;">
+                        <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false'
+                          style="margin-bottom: .2em;">
+                          <span id='span'><i class='fa fa-pencil'></i></span>
+                        </a>
+                        <a class='btn btn-danger' title='Delete'>
+                          <span id='span'><i class='fa fa-trash'></i></span>
+                        </a>
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane fade" id="pills-cocktailMenu" role="tabpanel"
+                aria-labelledby="pills-cocktailMenu-tab">
+                <div class="form-outline mb-4">
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    Filter
+                  </button>
+                  <div class="collapse" id="collapseExample" style="padding: 1em;">
+                    <div class="card card-body">
+                      <label class="form-label" for="datatable-search-input">Search By Name</label>
+                      <input type="text" id="myInput_cocktail" onkeyup="cocktailMenuFunction()"
+                        placeholder="Search for names.." class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover table-responsive" id="addRow_cocktailMenu">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th class="col-md-2">Id</th>
+                      <th class="col-md-3">Name</th>
+                      <th class="col-sm-1">Price</th>
+                      <th class="">Description</th>
+                      <th style="text-align:center;">
+                        <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
+                          <i class="fa fa-plus"></i>
+                        </a>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_body">
+                    {{#each cocktailMenuData.data}}
+                    <tr>
+                      <td style="text-align:center;" id="{{_id}}">{{_id}}</td>
+                      <td class="">{{name}}</td>
+                      <td class="">{{price}}</td>
+                      <td class="">{{description}}</td>
+                      <td style="text-align:center;">
+                        <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false'
+                          style="margin-bottom: .2em;">
+                          <span id='span'><i class='fa fa-pencil'></i></span>
+                        </a>
+                        <a class='btn btn-danger' title='Delete' onclick='onDelete("{{_id}}", "{{menuTitle}}")'>
+                          <span id='span'><i class='fa fa-trash'></i></span>
+                        </a>
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="menuModals" tabindex="-1" role="dialog" aria-labelledby="menuModalsLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content"></div>
+      </div>
+      <div class="modal-dialog">
+        <div class="modal-content"></div>
+      </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="menuModalsLabel">Update Menu Items</h4>
+            <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
+              </span><span class="sr-only">Close</span>
+            </button>
+          </div>
+
+          <div class="modal-body" id="modalBody">
+            <form class="needs-validation" name="modalForm" action="/qrMenu" method="post" id="menuModalForm"
+              novalidate>
+              <div class="form-group" id="selectOptions">
+                <label for="name" class="col-form-label">Type</label>
+                <div class="form-row" id="validationCustom04">
+                  <div class="col">
+                    <select class="form-control selectpicker" name="type" title="Select type" required id="type">
+                      <option selected disabled value="">Select</option>
+                      <div id="selectBeerOptions">
+                        {{#each beerMenuOptions}}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                      </div>
+                      <div id="selectQrOptions">
+                        {{#each qrOptions}}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                      </div>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input type="checkbox" aria-label="Checkbox for following text input" id="typeCheckBox"
+                            onclick="onDisabled()">
+                        </div>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Text input with checkbox" id="typeInput"
+                        disabled="true" name="type">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name" class="col-form-label">Name</label>
+                <input type="text" name="name" id="name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="price" class="col-form-label">Price</label>
+                <input type="text" step="0.01" name="price" id="price" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="description" class="col-form-label">Description</label>
+                <input type="text" name="description" id="description" class="form-control">
+              </div>
+              <div class="form-group" style="display: none;">
+                <label for="description" class="col-form-label">Id</label>
+                <input type="text" name="_id" id="id" class="form-control" readonly="readonly">
+              </div>
+
+              <div class="modal-footer actions">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="saveModal" disabled="true"
+                  onclick="onSaveModalItem();">Save changes</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
