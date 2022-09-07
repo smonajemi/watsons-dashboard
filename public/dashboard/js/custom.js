@@ -366,31 +366,40 @@ $("#addRow_qrMenu").find("a[title='Delete']").click(function(e){
 // }
 
 const handleMenuTabs = (tab) => {
+  const url = new URL(window.location);
   switch (tab) {
     case 'foodMenu':
-      // history.pushState('url',"",'/food_menu')
+      // history.pushState(`${url}`,"",`/${tab}`)
+      url.searchParams.set('type', tab);
+      window.history.pushState({}, '', url);
       document.getElementById('menuModalForm').action = '/foodMenu'
       document.getElementById('selectOptions').style.display = 'none'
     break;
     case 'cocktailMenu':
-
+      url.searchParams.set('type', tab);
+      window.history.pushState({}, '', url);
       document.getElementById('menuModalForm').action = '/cocktailMenu'
       document.getElementById('selectOptions').style.display = 'none'
     break;
     case 'beerMenu':
-  
+      url.searchParams.set('type', tab);
+      window.history.pushState({}, '', url);
       document.getElementById('menuModalForm').action = '/beer_wineMenu'
       document.getElementById('selectOptions').style.display = 'block'
       document.getElementById('selectQrOptions').style.display = 'none'
+
     break;
     case 'qrMenu':
-
+      url.searchParams.set('type', tab);
+      window.history.pushState({}, '', url);
       document.getElementById('menuModalForm').action = '/qrMenu'
       document.getElementById('selectOptions').style.display = 'block'
       document.getElementById('selectBeerOptions').style.display = 'none'
 
     break
-    default:                 
+    default:         
+      url.searchParams.set('type', 'foodMenu');
+      window.history.pushState({}, '', url);     
       document.getElementById('menuModalForm').action = '/foodMenu'
       document.getElementById('selectBeerOptions').style.display = 'none'
       document.getElementById('selectQrOptions').style.display = 'none'
@@ -542,3 +551,57 @@ const onDisabled = () => {
 
   }
 }
+
+
+
+$(document).ready(function(){
+  const params = new URLSearchParams(window.location.search)
+  const type = params.get('type')
+
+  // $(".tabs").on("click", function (e) {
+  //   var target = $(e.target).attr("data-bs-target");
+  //   if (target != null)
+  //   var tab = target.split('#')[1];
+  //  });
+   
+  switch (type) {
+      case 'cocktailMenu':
+        var cocktailMenuTab = document.getElementById(`pills-${type}-tab`);
+        cocktailMenuTab.classList.add("active");
+        var cocktailMenu = document.getElementById(`pills-${type}`);
+        cocktailMenu.classList.add("show");
+        cocktailMenu.classList.add("active");
+      break;
+      case 'beerMenu':
+        var beerMenuTab = document.getElementById(`pills-${type}-tab`);
+        beerMenuTab.classList.add("active");
+        var beerMenu = document.getElementById(`pills-${type}`);
+        beerMenu.classList.add("show");
+        beerMenu.classList.add("active");
+      break;
+      case 'foodMenu':
+        var foodMenuTab = document.getElementById(`pills-${type}-tab`);
+        foodMenuTab.classList.add("active");
+        var foodMenu = document.getElementById(`pills-${type}`);
+        foodMenu.classList.add("show");
+        foodMenu.classList.add("active");
+      break;
+  
+    case 'qrMenu':
+      var qrMenuTab = document.getElementById(`pills-${type}-tab`);
+      qrMenuTab.classList.add("active");
+      var qrMenu = document.getElementById(`pills-${type}`);
+      qrMenu.classList.add("show");
+      qrMenu.classList.add("active");
+      break;
+  }
+
+    if (type != 'qrMenu') {
+      var el1 = document.getElementById('pills-qrMenu-tab');
+      el1.classList.remove("active");
+      var el2 = document.getElementById('pills-qrMenu');
+      el2.classList.remove("show");
+      el2.classList.remove("active");
+    }
+
+});

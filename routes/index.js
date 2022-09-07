@@ -21,6 +21,8 @@ router.get("/", isLoggedIn, (req, res, next) => {
 });
 
 router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
+  
+  console.log(req.query)
   try {
     const menu = {
       cocktailMenuData: null,
@@ -92,55 +94,6 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
-
-
-  // try {
-    // const users = await User.find({});
-    // const usersData = JSON.stringify(users)
-  //   const menu = {
-  //     cocktailMenuData: null,
-  //     foodMenuData: null,
-  //     beer_wineMenuData: null,
-  //     qrCodeMenuData: null
-  //   }
-  //   const cocktailMenu = await Menu.findOne({ title: 'cocktailMenu' })
-  //   menu.cocktailMenu = JSON.stringify(cocktailMenu?.data) || null
-  //   const foodMenu = await Menu.findOne({ title: 'foodMenu' })
-  //   menu.foodMenuData = JSON.stringify(foodMenu?.data) || null
-  //   const beerMenu = await Menu.findOne({ title: 'beer_wineMenu' })
-  //   menu.beer_wineMenuData = JSON.stringify(beerMenu.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
-  //   const qrMenu = await Menu.findOne({ title: 'qrMenu' })
-  //   menu.qrCodeMenuData = JSON.stringify(qrMenu?.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
-
-  //   const qrMenuTypes = qrMenu.data?.map(x => (x.type))
-  //   const qrOptions = qrMenuTypes.filter((c, index) => {
-  //     return qrMenuTypes.indexOf(c) === index;
-  //   });
-
-  //   const beerMenuTypes = beerMenu.data?.map(x => (x.type))
-  //   const beerMenuOptions = beerMenuTypes.filter((c, index) => {
-  //     return beerMenuTypes.indexOf(c) === index;
-  //   });
-
-
-  
-  //   return res.render("dashboard", {
-  //     title: "Dashboard",
-  //     isDash: true,
-  //     user: req.session.user,
-  //     users: { data: JSON.parse(usersData) },
-  //     cocktailMenuData: { data: JSON.parse(menu.cocktailMenu) },
-  //     foodMenuData: { data: JSON.parse(menu.foodMenuData) },
-  //     beer_wineMenuData: { data: JSON.parse(menu.beer_wineMenuData) },
-  //     qrCodeMenuData: { data: JSON.parse(menu.qrCodeMenuData) },
-  //     isAdmin: req.session.user.isAdmin,
-  //     qrOptions: qrOptions,
-  //     beerMenuOptions: beerMenuOptions
-  //   });
-
-  // } catch (error) {
-  //   res.status(404).send({ message: error.message });
-  // }
 });
 
 // POST REQUESTS

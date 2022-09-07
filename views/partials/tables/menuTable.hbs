@@ -1,23 +1,8 @@
-{{!-- {{#if isAdmin}}
-<div class="col-xl-8 col-lg-12">
-  <div id="exTab3" class="container"> --}}
-    {{!-- {{else}} --}}
     <div class="col-xl-12 col-lg-12" style="padding: 0 2em;">
-
-      {{!-- {{/if}} --}}
       <div class="card shadow mb-4">
         <div class="tab-content clearfix ">
-          {{!-- <ul class="nav justify-content-center" style="padding: 1em;">
-            <li class="nav-item active"><a class="nav-link btn btn-outline-info fancyButton active"
-                onclick="handleMenuTabs('foodMenu');" type="button" data-toggle="tab">Food Menu</a></li>
-            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton"
-                onclick="handleMenuTabs('cocktailMenu')" type="button" data-toggle="tab">Cocktail Menu</a></li>
-            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton"
-                onclick="handleMenuTabs('beerMenu')" type="button" data-toggle="tab">Beer &amp; Wine Menu</a></li>
-            <li class="nav-item"><a class="nav-link btn btn-outline-info fancyButton"
-                onclick="handleMenuTabs('qrMenu');  return true;" type="button" data-toggle="tab">QR Menu</a></li>
-          </ul> --}}
-          <ul class="nav justify-content-center" style="padding: 1em;" id="pills-tab" role="tablist">
+
+          <ul class="nav justify-content-center tabs" style="padding: 1em;" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link btn btn-outline-info fancyButton active" id="pills-qrMenu-tab"
                 onclick="handleMenuTabs('qrMenu');" data-bs-toggle="pill" data-bs-target="#pills-qrMenu" type="button"
@@ -39,12 +24,8 @@
                 onclick="handleMenuTabs('cocktailMenu')" data-bs-toggle="pill" data-bs-target="#pills-cocktailMenu"
                 type="button" role="tab" aria-controls="pills-cocktailMenu" aria-selected="false">Cocktail Menu</button>
             </li>
-
-
           </ul>
-
         </div>
-
         <div class="card-body">
           <div style="padding: 1em;">
             <div class="tab-content" id="pills-tabContent">
