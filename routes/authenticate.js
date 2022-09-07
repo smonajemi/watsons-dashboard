@@ -89,7 +89,7 @@ router.post("/register", async (req, res) => {
         transporter.sendMail(mailOptions)
         transporter.sendMail(verificationEmail)
 
-        return res.redirect(`/menu-table/${req.session.user._id}?type=qrMenu`);
+        return res.redirect(`/${req.session.user._id}`);
     } catch (error) {
           return res.render('pages/register', {title: 'Sign Up', isBody: 'bg-gradient-primary', errorMsg: `cannot register user`})
      }
@@ -120,7 +120,7 @@ router.post("/login", (req, res) => {
             if (err) throw new Error(err)
             if (isMatch) {
               req.session.user = user
-              return res.redirect(`/menu-table/${req.session.user._id}?type=qrMenu`);
+              return res.redirect(`/${req.session.user._id}`);
             } else {
               res.render("pages/login", {
                 title: "Login",
