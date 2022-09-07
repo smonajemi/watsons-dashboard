@@ -20,7 +20,7 @@ router.get("/", isLoggedIn, (req, res, next) => {
   res.redirect(`/${req.session.user._id}`);
 });
 
-router.get("/menu-table/:userId",  async (req, res) => {
+router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
   
   try {
     const menu = {
