@@ -3,8 +3,8 @@
     margin-right: 4px;
 }
 table.table {
-    table-layout: absolute;
-    display: inline-table;
+    /* table-layout: absolute;
+    display: inline-table; */
     width: 100%;
 }
 @media only screen and (max-width: 600px) {
