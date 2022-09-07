@@ -17,10 +17,11 @@ router.get("/register", (req, res) => {
 
 //Redirect homePage
 router.get("/", isLoggedIn, (req, res, next) => {
-  res.redirect(`/menu-table/${req.session.user._id}?type=qrMenu`);
+  res.redirect(`/${req.session.user._id}`);
 });
 
 router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
+  
   try {
     const menu = {
       cocktailMenuData: null,
@@ -174,16 +175,16 @@ router.delete('/menu/item', async (req, res) => {
 //Helper Function - Authenticated
 function isLoggedIn(req, res, next) {
   if (req.session.user) {
-    return !req.session.user.role ? res.redirect('/authenticate/verification') : next()
+    return !req.session.user.role ? res.redirect('authenticate/verification') : next()
   }
-  return res.redirect('/login')
+  return res.redirect('login')
 
   // res.render('pages/verification', {title: 'Verification', isBody: 'bg-gradient-primary'})
 }
 
 //Redirect 404
 router.use("*", (req, res) => {
-  res.render("/pages/error", { title: "Error" });
+  res.render("pages/error", { title: "Error" });
 });
 
 // /** RULES OF API */
