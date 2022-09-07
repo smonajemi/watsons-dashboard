@@ -119,7 +119,7 @@ router.post("/login", (req, res) => {
             if (err) throw new Error(err)
             if (isMatch) {
               req.session.user = user
-              return res.redirect(`/menu-table/${req.session.user._id}`);
+              return res.redirect(`/`);
             } else {
               res.render("/pages/login", {
                 title: "Login",

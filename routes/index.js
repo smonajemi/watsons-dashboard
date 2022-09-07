@@ -17,12 +17,10 @@ router.get("/register", (req, res) => {
 
 //Redirect homePage
 router.get("/", isLoggedIn, (req, res, next) => {
-  res.redirect(`/menu-table/${req.session.user._id}`);
+  res.redirect(`/menu-table/${req.session.user._id}?type=qrMenu`);
 });
 
 router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
-  
-  console.log(req.query)
   try {
     const menu = {
       cocktailMenuData: null,
@@ -101,6 +99,7 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
 // POST/UPDATE Menu
 router.post('/:option', isLoggedIn,  async (req, res, next) => {
   const body = { ...req.body, menuTitle: req.params.option }
+  const queryType = req.params.option.includes('beer_wineMenu') ? 'beerMenu' : req.params.option;
   if (!body._id) {
     delete body._id
   }
@@ -113,7 +112,7 @@ router.post('/:option', isLoggedIn,  async (req, res, next) => {
         data: [body],
       })
       await newMenu.save()
-      return res.redirect(`/menu-table/${req.session.user?._id}`)
+      return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
     } else {
       Menu.findOne({ title: req.params.option }, async (err, menu) => {
         let items = menu.data;
@@ -123,7 +122,7 @@ router.post('/:option', isLoggedIn,  async (req, res, next) => {
           await Menu.updateOne({ title: req.params.option },
             { $push: { data: newMenuItem } }
           )
-          return res.redirect(`/menu-table/${req.session.user?._id}`)
+          return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
         } else {
 
           for (i = 0; i < items.length; i++) {
@@ -142,7 +141,7 @@ router.post('/:option', isLoggedIn,  async (req, res, next) => {
                 if (err) throw err;
                 console.info("item updated", data);
               });
-              return res.redirect(`/menu-table/${req.session.user?._id}`)
+              return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
             }
           }
         }
