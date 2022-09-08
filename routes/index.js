@@ -177,9 +177,7 @@ function isLoggedIn(req, res, next) {
   if (req.session.user) {
     return !req.session.user.role ? res.redirect('authenticate/verification') : next()
   }
-  return res.redirect('login')
-
-  // res.render('pages/verification', {title: 'Verification', isBody: 'bg-gradient-primary'})
+  return res.redirect('/login')
 }
 
 //Redirect 404

@@ -113,12 +113,11 @@ router.delete('/:userId', async (req, res) => {
   return res.status(200).json({message: 'deleted', user})
 })
 
-
 function isLoggedIn(req, res, next) {
   if (req.session.user) {
-    return !req.session.user.role ? res.status(401).redirect('/authenticate/verification') : next()
+    return !req.session.user.role ? res.status(401).redirect('authenticate/verification') : next()
   }
-  return res.redirect('login')
+  return res.redirect('/login')
 }
 
 module.exports = router;
