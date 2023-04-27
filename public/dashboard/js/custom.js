@@ -1,5 +1,7 @@
 $(document).ready(() => {
-  // $('input:submit').attr('disabled',true);
+  // Disable the submit button when the page loads
+  $('input:submit').attr('disabled',true);
+
   $('input:file').change(
     function () {
       if ($(this).val()) {
@@ -9,10 +11,27 @@ $(document).ready(() => {
         $('input:submit').attr('disabled', false);
       }
     });
+  $('input:text').change(
+    function () {
+      if ($(this).val()) {
+        $('input:submit').removeAttr('disabled');
+      }
+      else {
+        $('input:submit').attr('disabled', true);
+      }
+    })
+
+    $('#name, #price, #description, #type').on('input', function () {
+      const name = $('#name').val();
+      const price = $('#price').val();
+      const description = $('#description').val();
+      const type = $('#type').val();
+
+      const isDisabled = !(name && price && description && type);
+      $('#saveModal').attr('disabled', isDisabled);
+    });
 
 
-
-  $('#submit').attr('disabled', false);
   $('#cancel').attr('disabled', false);
 
 });
@@ -77,9 +96,10 @@ $(function () {
 $("#validationCustom04").on('change', function (event) {
   const val1 = document.getElementById('name').value
   const val2 = document.getElementById('price').value
+  const val3 = document.getElementById('description').value
   const typeArray = ['beer', 'red', 'white', 'sparkling']
   if (typeArray.includes($(this).find('option:selected').text().toLowerCase())) {
-    if (val1 && val2) {
+    if (val1 && val2 && val3) {
       $("#saveModal").attr('disabled', false)
     }
     else {
@@ -92,9 +112,10 @@ $("#validationCustom04").on('change', function (event) {
 $("#validationCustom05").on('change', function (event) {
   const val1 = document.getElementById('name').value
   const val2 = document.getElementById('price').value
+  const val3 = document.getElementById('description').value
   const typeArray = ['Single Malt Scotch', 'Blended Scotch', 'Canadian Whiskey', 'American Whiskey', 'Japanese Whiskey', 'Tequila', 'Mezcal', 'Irish Whiskey', 'Cognac & Armagnac', 'Rum', 'Vodka', 'Gin']
   if (typeArray.includes($(this).find('option:selected').text())) {
-    if (val1 && val2) {
+    if (val1 || val2 || val3) {
       $("#saveModal").attr('disabled', false)
     }
     else {

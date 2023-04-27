@@ -40,7 +40,7 @@ router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
 
     const qrMenuTypes = qrMenu.data?.map(x => (x.type))
     const qrOptions = qrMenuTypes.filter((c, index) => {
-      return qrMenuTypes.indexOf(c) === index;
+      return (c !== '' && c !== undefined ) && qrMenuTypes.indexOf(c) === index;
     });
 
     const beerMenuTypes = beerMenu.data?.map(x => (x.type))
@@ -48,7 +48,6 @@ router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
       return beerMenuTypes.indexOf(c) === index;
     });
 
-  
     return res.render("dashboard", {
       title: "Menu Table",
       isMenuTab: true,
