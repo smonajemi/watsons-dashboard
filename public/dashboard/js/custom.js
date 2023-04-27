@@ -27,7 +27,7 @@ $(document).ready(() => {
       const description = $('#description').val();
       const type = $('#type').val();
 
-      const isDisabled = !(name && price && description && type);
+      const isDisabled = !(name && price && type);
       $('#saveModal').attr('disabled', isDisabled);
     });
 
