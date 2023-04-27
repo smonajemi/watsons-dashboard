@@ -9,15 +9,6 @@ $(document).ready(() => {
         $('input:submit').attr('disabled', false);
       }
     });
-  $('input:text').change(
-    function () {
-      if ($(this).val()) {
-        $('input:submit').removeAttr('disabled');
-      }
-      else {
-        $('input:submit').attr('disabled', true);
-      }
-    })
 
 
 
