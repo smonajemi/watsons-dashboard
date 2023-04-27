@@ -19,15 +19,6 @@ $(document).ready(() => {
       }
     })
 
-  $('#name' && '#price').change(
-    function () {
-      if ($(this).val()) {
-        $('#saveModal').removeAttr('disabled');
-      }
-      else {
-        $('#saveModal').attr('disabled', true);
-      }
-    })
 
 
   $('#submit').attr('disabled', false);
