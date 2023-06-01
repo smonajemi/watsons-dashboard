@@ -1,6 +1,7 @@
 $(document).ready(() => {
+  
   // Disable the submit button when the page loads
-  $('input:submit').attr('disabled',true);
+  // $('input:submit').attr('disabled',true);
 
   $('input:file').change(
     function () {
@@ -21,17 +22,22 @@ $(document).ready(() => {
       }
     })
 
-    $('#name, #price, #description, #type').on('input', function () {
+    $('#name, #price, #description, #type, #myPass_re, #myPass').on('input', function () {
+      const myPass_r =  $('#myPass_re').val();
+      const myPass =  $('#myPass').val();
       const name = $('#name').val();
       const price = $('#price').val();
       const description = $('#description').val();
       const type = $('#type').val();
 
-      const isDisabled = !(name && price && type);
+      const isDisabled = !(type || name && price);
       $('#saveModal').attr('disabled', isDisabled);
+      const isSaved = !(myPass_r && myPass)
+      $('#save').attr('disabled', isSaved);
     });
 
-
+  
+  $('#submit').attr('disabled', false);
   $('#cancel').attr('disabled', false);
 
 });
