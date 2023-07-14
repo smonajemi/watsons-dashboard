@@ -12,12 +12,14 @@ const usersRouter = require('./routes/users')
 const http = require("http")
 const HTTP_PORT = process.env.PORT || 3000
 const crypto = require('crypto')
-
+const bodyParser = require("body-parser")
 require('dotenv').config()
 // Connect MongoDB - Database
 connectDB()
 http.createServer(app).listen(HTTP_PORT, onHttpStart)
 
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(crypto.randomBytes(25000).toString("hex")))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(clientSessions({

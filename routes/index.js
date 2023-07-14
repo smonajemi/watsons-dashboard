@@ -97,63 +97,61 @@ router.get("/:userId", isLoggedIn, async (req, res) => {
 // POST REQUESTS
 
 // POST/UPDATE Menu
-router.post('/:option', isLoggedIn,  async (req, res, next) => {
-  const body = { ...req.body, menuTitle: req.params.option }
+router.post('/:option', isLoggedIn, async (req, res, next) => {
+  const body = { ...req.body, menuTitle: req.params.option };
   const queryType = req.params.option.includes('beer_wineMenu') ? 'beerMenu' : req.params.option;
+  
   if (!body._id) {
-    delete body._id
+    delete body._id;
   }
+  
   try {
-    const findMenu = await Menu.findOne({ title: req.params.option })
+    const findMenu = await Menu.findOne({ title: req.params.option });
+    
     if (!findMenu) {
       const newMenu = new Menu({
         title: req.params.option,
         author: req.session.user?.username || 'admin',
         data: [body],
-      })
-      await newMenu.save()
-      return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
+      });
+      
+      await newMenu.save();
+      return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`);
     } else {
-      Menu.findOne({ title: req.params.option }, async (err, menu) => {
-        let items = menu.data;
-        const menuitemId = body._id
-        if (!menuitemId) {
-          const newMenuItem = new MenuItem(body)
-          await Menu.updateOne({ title: req.params.option },
-            { $push: { data: newMenuItem } }
-          )
-          return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
-        } else {
-
-          for (i = 0; i < items.length; i++) {
-            if (items[i]._id.toString() === menuitemId) {
-              if (menu.title === 'beer_wineMenu' || menu.title === 'qrMenu') {
-                items[i].type = body.type;
-                items[i].name = body.name;
-                items[i].price = body.price;
-                items[i].description = body.description;
-              } else {
-                items[i].name = body.name;
-                items[i].price = body.price;
-                items[i].description = body.description;
-              }
-              await menu.save((err, data) => {
-                if (err) throw err;
-                console.info("item updated", data);
-              });
-              return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`)
+      const menu = await Menu.findOne({ title: req.params.option });
+      const items = menu.data;
+      const menuItemId = body._id;
+      
+      if (!menuItemId) {
+        const newMenuItem = new MenuItem(body);
+        await Menu.updateOne(
+          { title: req.params.option },
+          { $push: { data: newMenuItem } }
+        );
+        
+        return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`);
+      } else {
+        for (let i = 0; i < items.length; i++) {
+          if (items[i]._id.toString() === menuItemId) {
+            if (menu.title === 'beer_wineMenu' || menu.title === 'qrMenu') {
+              items[i].type = body.type;
             }
+            
+            items[i].name = body.name;
+            items[i].price = body.price;
+            items[i].description = body.description;
+            
+            await menu.save();
+            console.info("item updated", menu);
+            return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`);
           }
         }
-
-      })
+      }
     }
-
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
-})
-
+});
 
 // DELETE REQUESTS
 

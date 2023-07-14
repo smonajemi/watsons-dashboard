@@ -28,6 +28,19 @@ router.get("/password/:userId", isLoggedIn, (req, res) => {
     isBody: "bg-gradient-primary",
   });
 });
+router.get("/resetPassword/:userId", async (req, res) => {
+  try {
+    const user = await User.findOne({_id: req.params.userId})
+    if (!user) return res.send('not found')
+   return res.render("pages/updatePassword", {
+      title: "Update Password",
+      user: {data: user, userId: user._id},
+      isBody: "bg-gradient-primary",
+    });
+  } catch (error) {
+    return res.status(400).send(error.message)
+  }
+});
 
 // create user
 router.post("/", async (req, res) => {
@@ -114,7 +127,7 @@ router.delete('/:userId', async (req, res) => {
 })
 
 function isLoggedIn(req, res, next) {
-  if (req.session.user) {
+  if (req?.session?.user) {
     return !req.session.user.role ? res.status(401).redirect('authenticate/verification') : next()
   }
   return res.redirect('/login')

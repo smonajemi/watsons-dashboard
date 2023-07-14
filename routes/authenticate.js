@@ -95,6 +95,46 @@ router.post("/register", async (req, res) => {
      }
     })
 
+router.post("/resetPassword", async (req, res) => {
+  const USER_EMAIL = process.env.USER_EMAIL
+  const USER_PASS = process.env.USER_PASS
+  const currentUser = req.body
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user: USER_EMAIL,
+          pass: USER_PASS.toString()         
+      },
+      from: USER_EMAIL, 
+      tls: {
+          rejectUnauthorized: false
+        }
+      });
+
+      const findUser = await User.findOne({email: currentUser.email})
+      if (!findUser) { return res.status(404).render('pages/resetPassword', {title: 'Reset Password!', isBody: 'bg-gradient-primary', errorMsg: `user not found!`})}
+          // Send verification code to admin
+          const host = req.get('host')
+          const url = host.includes('local') ? "http://" : "https://" 
+          const link = url + host + '/' + `users/resetPassword/${findUser?._id}`
+          const mailOptions = {  
+               from: USER_EMAIL,
+               to: currentUser.email,
+               subject: `Reset Password - ${findUser?.username}`,
+               html: `
+                 <h3>${findUser?.firstName} ${findUser?.lastName}, you have requested to reset your password</h3>
+                 <h5>Your username: ${(findUser.username)} - Please <a href="${link}">update password</h5>           
+               ` 
+             }
+          transporter.sendMail(mailOptions)
+          return res.status(200).render('pages/resetPassword', {title: 'Reset Password!', isBody: 'bg-gradient-primary', resetSuccessful: "Email Sent!"})
+  } catch (error) {
+    return res.status(400).render('pages/resetPassword', {title: 'Reset Password!', isBody: 'bg-gradient-primary', errorMsg: error.message})
+  }   
+})
+
 // POST REQUESTS
 router.post("/login", (req, res) => {
   const username = req.body.username
