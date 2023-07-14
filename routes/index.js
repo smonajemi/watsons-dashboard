@@ -15,10 +15,16 @@ router.get("/register", (req, res) => {
   res.render("pages/register", { title: "Sign Up", isBody: "bg-gradient-primary" });
 });
 
+router.get("/resetPassword", (req, res, next) => {
+  res.render("pages/resetPassword", { title: "Reset Password", isBody: "bg-gradient-primary" });
+});
+
 //Redirect homePage
 router.get("/", isLoggedIn, (req, res, next) => {
   res.redirect(`/${req.session.user._id}`);
 });
+
+
 
 router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
   
