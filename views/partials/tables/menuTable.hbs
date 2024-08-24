@@ -162,6 +162,7 @@
                       <th class="col-md-3">Name</th>
                       <th class="col-sm-1">Price</th>
                       <th class="">Description</th>
+                       <th class="col-md-2">Type</th>
                       <th class="col-md-2" style="text-align:center;">
                         <a type="button" class='btn-info btn-lg' data-toggle='modal' data-target='#menuModals'>
                           <i class="fa fa-plus"></i>
@@ -176,6 +177,7 @@
                       <td class="id">{{name}}</td>
                       <td class="">{{price}}</td>
                       <td class="">{{description}}</td>
+                      <td class="">{{type}}</td>
                       <td style="text-align:center;">
                         <a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false'
                           style="margin-bottom: .2em;">
@@ -306,6 +308,10 @@
               <div class="form-group">
                 <label for="price" class="col-form-label">Price</label>
                 <input type="text" step="0.01" name="price" id="price" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="type" class="col-form-label">Type</label>
+                <input type="text" name="type" id="type" class="form-control" required>
               </div>
               <div class="form-group">
                 <label for="description" class="col-form-label">Description</label>
