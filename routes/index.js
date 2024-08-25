@@ -146,6 +146,7 @@ router.post('/:option', isLoggedIn, async (req, res, next) => {
             items[i].name = body.name;
             items[i].price = body.price;
             items[i].description = body.description;
+            items[i].type = body.type;
             
             await menu.save();
             console.info("item updated", menu);
