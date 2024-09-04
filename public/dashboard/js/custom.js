@@ -456,6 +456,7 @@ $(document).ready(function () {
     case 'foodMenu':
       document.getElementById('menuModalForm').action = '/foodMenu'
       document.getElementById('selectOptions').style.display = 'none'
+      document.getElementById('select-beer-options').style.display = 'none'
 
       var foodMenuTab = document.getElementById(`pills-${type}-tab`);
       foodMenuTab.classList.add("active");
@@ -467,7 +468,9 @@ $(document).ready(function () {
     case 'cocktailMenu':
       document.getElementById('menuModalForm').action = '/cocktailMenu'
       document.getElementById('selectOptions').style.display = 'none'
-
+      document.getElementById('select-beer-options').style.display = 'none'
+      document.getElementById('select-food-options').style.display = 'none'
+      
       var cocktailMenuTab = document.getElementById(`pills-${type}-tab`);
       cocktailMenuTab.classList.add("active");
       var cocktailMenu = document.getElementById(`pills-${type}`);

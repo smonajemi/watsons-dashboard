@@ -24,8 +24,6 @@ router.get("/", isLoggedIn, (req, res, next) => {
   res.redirect(`/${req.session.user._id}`);
 });
 
-
-
 router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
   
   try {
@@ -35,10 +33,11 @@ router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
       beer_wineMenuData: null,
       qrCodeMenuData: null
     }
+
     const cocktailMenu = await Menu.findOne({ title: 'cocktailMenu' })
     menu.cocktailMenu = JSON.stringify(cocktailMenu?.data) || null
     const foodMenu = await Menu.findOne({ title: 'foodMenu' })
-    menu.foodMenuData = JSON.stringify(foodMenu?.data) || null
+    menu.foodMenuData = JSON.stringify(foodMenu.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
     const beerMenu = await Menu.findOne({ title: 'beer_wineMenu' })
     menu.beer_wineMenuData = JSON.stringify(beerMenu.data?.sort((a, b) => -1 * b.type?.localeCompare(a.type))) || null
     const qrMenu = await Menu.findOne({ title: 'qrMenu' })
@@ -68,12 +67,7 @@ router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
       isAdmin: req.session.user?.isAdmin,
       user: req.session.user,
       cocktailMenuData: { data: JSON.parse(menu.cocktailMenu) },
-      foodMenuData: { 
-        data: JSON.parse(menu.foodMenuData).map(item => ({
-          ...item,
-          type: item.type.charAt(0).toUpperCase() + item.type.slice(1),
-        })),
-      },
+      foodMenuData: { data: JSON.parse(menu.foodMenuData) },
       beer_wineMenuData: { data: JSON.parse(menu.beer_wineMenuData) },
       qrCodeMenuData: { data: JSON.parse(menu.qrCodeMenuData) },
       qrOptions: qrOptions,
@@ -160,7 +154,7 @@ router.post('/:option', isLoggedIn, async (req, res, next) => {
             items[i].name = body.name;
             items[i].price = body.price;
             items[i].description = body.description;
-            items[i].type = body.type;
+            items[i].type = body.type; // TO BE UPDATED
             
             await menu.save();
             console.info("item updated", menu);
