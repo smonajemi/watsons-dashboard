@@ -176,8 +176,8 @@ $(".add-row-userList").click(function () {
 
 $(".add-row-foodMenu").click(function () {
   $("#addRow_foodMenu").find("tbody tr:first").length
-    ? $("#addRow_foodMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='type'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center;' ><a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false' style='margin-bottom: .2em;'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' ><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>")
-    : $("#addRow_foodMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='type'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center;'><a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false' style='margin-bottom: .2em;'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' ><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");
+    ? $("#addRow_foodMenu").find("tbody tr:first").before("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center;' ><a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false' style='margin-bottom: .2em;'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' ><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>")
+    : $("#addRow_foodMenu").find("tbody").after("<tr><td data-field='name'></td><td data-field='price'></td><td data-field='description'></td><td data-field='id' style='text-align:center;'></td><td data-field='action' style='text-align:center;'><a class='btn btn-primary' data-toggle='modal' data-target='#menuModals' contenteditable='false' style='margin-bottom: .2em;'> <span id='span'><i class='fa fa-pencil'></i></span></a><a class='btn btn-danger' title='Delete' ><span id='span'><i class='fa fa-trash'></i></span></a></td></tr>");
   editTable();
   setTimeout(function () {
     $("#addRow_foodMenu").find("tbody tr:first td:last a[title='Edit']").click();
@@ -380,39 +380,46 @@ const handleMenuTabs = (tab) => {
     case 'foodMenu':
       url.searchParams.set('type', tab);
       window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/foodMenu'
-      document.getElementById('selectOptions').style.display = 'none'
+      document.getElementById('menuModalForm').action = '/foodMenu';
+      document.getElementById('select-food-options').style.display = 'block';
+      document.getElementById('select-beer-options').style.display = 'none';
+      document.getElementById('selectOptions').style.display = 'none';
       break;
     case 'cocktailMenu':
       url.searchParams.set('type', tab);
       window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/cocktailMenu'
-      document.getElementById('selectOptions').style.display = 'none'
+      document.getElementById('menuModalForm').action = '/cocktailMenu';
+      document.getElementById('selectOptions').style.display = 'none';
+      document.getElementById('select-food-options').style.display = 'none';
+      document.getElementById('select-beer-options').style.display = 'none';
       break;
     case 'beerMenu':
       url.searchParams.set('type', tab);
       window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/beer_wineMenu'
-      document.getElementById('selectOptions').style.display = 'block'
-      document.getElementById('selectQrOptions').style.display = 'none'
-
+      document.getElementById('menuModalForm').action = '/beer_wineMenu';
+      document.getElementById('select-beer-options').style.display = 'block';
+      document.getElementById('select-food-options').style.display = 'none';
+      document.getElementById('selectOptions').style.display = 'none';
       break;
     case 'qrMenu':
       url.searchParams.set('type', tab);
       window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/qrMenu'
-      document.getElementById('selectOptions').style.display = 'block'
-      document.getElementById('selectBeerOptions').style.display = 'none'
-      break
+      document.getElementById('menuModalForm').action = '/qrMenu';
+      document.getElementById('selectOptions').style.display = 'block';
+      document.getElementById('select-food-options').style.display = 'none';
+      document.getElementById('select-beer-options').style.display = 'none';
+      break;
     default:
       url.searchParams.set('type', 'qrMenu');
       window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/qrMenu'
-      document.getElementById('selectOptions').style.display = 'block'
-      document.getElementById('selectBeerOptions').style.display = 'none'
+      document.getElementById('menuModalForm').action = '/qrMenu';
+      document.getElementById('selectOptions').style.display = 'block';
+      document.getElementById('select-food-options').style.display = 'none';
+      document.getElementById('select-beer-options').style.display = 'none';
       break;
   }
 }
+
 
 $(document).ready(function () {
   const params = new URLSearchParams(window.location.search)
@@ -427,7 +434,9 @@ $(document).ready(function () {
     case 'qrMenu':
       document.getElementById('menuModalForm').action = '/qrMenu'
       document.getElementById('selectOptions').style.display = 'block'
-      document.getElementById('selectBeerOptions').style.display = 'none'
+      document.getElementById('select-beer-options').style.display = 'none'
+      document.getElementById('select-food-options').style.display = 'none'
+
 
       var qrMenuTab = document.getElementById(`pills-${type}-tab`);
       qrMenuTab.classList.add("active");

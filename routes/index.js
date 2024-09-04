@@ -54,17 +54,31 @@ router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
       return beerMenuTypes.indexOf(c) === index;
     });
 
+    const foodMenuTypes = foodMenu.data?.map(x => {
+      return x.type.charAt(0).toUpperCase() + x.type.slice(1);
+    });
+    const foodMenuOptions = foodMenuTypes.filter((c, index) => {
+      return foodMenuTypes.indexOf(c) === index;
+    });
+    
+
     return res.render("dashboard", {
       title: "Menu Table",
       isMenuTab: true,
       isAdmin: req.session.user?.isAdmin,
       user: req.session.user,
       cocktailMenuData: { data: JSON.parse(menu.cocktailMenu) },
-      foodMenuData: { data: JSON.parse(menu.foodMenuData) },
+      foodMenuData: { 
+        data: JSON.parse(menu.foodMenuData).map(item => ({
+          ...item,
+          type: item.type.charAt(0).toUpperCase() + item.type.slice(1),
+        })),
+      },
       beer_wineMenuData: { data: JSON.parse(menu.beer_wineMenuData) },
       qrCodeMenuData: { data: JSON.parse(menu.qrCodeMenuData) },
       qrOptions: qrOptions,
-      beerMenuOptions: beerMenuOptions
+      beerMenuOptions: beerMenuOptions,
+      foodMenuOptions: foodMenuOptions
     });
 
   } catch (error) {
