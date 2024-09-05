@@ -269,87 +269,90 @@
           <div class="modal-body" id="modalBody">
             <form class="needs-validation" name="modalForm" action="/qrMenu" method="post" id="menuModalForm"
               novalidate>
-              <div class="form-group" id="selectOptions">
-                <label for="name" class="col-form-label">Type</label>
-                <div class="form-row" id="validationCustom04">
-                  <div class="col">
-                    <select class="form-control selectpicker" name="type" title="Select type" required id="type">
-                      <option selected disabled value="">Select</option>
-                      <div id="selectQrOptions">
-                        {{#each qrOptions}}
-                        <option value="{{this}}">{{this}}</option>
-                        {{/each}}
-                      </div>
-                    </select>
-                  </div>
-                  <div class="col">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <input type="checkbox" aria-label="Checkbox for following text input" id="typeCheckBox"
-                            onclick="onDisabled()">
-                        </div>
-                      </div>
-                      <input type="text" class="form-control" aria-label="Text input with checkbox" id="typeInput"
-                        disabled="true" name="type">
-                    </div>
-                  </div>
-                </div>
-              </div>
-             <div class="form-group" id="select-food-options">
-                <label for="name" class="col-form-label">Type</label>
-                <div class="form-row" id="validationCustom04">
-                  <div class="col">
-                    <select class="form-control selectpicker" name="type" title="Select type" required id="type">
-                      <option selected disabled value="">Select</option>
-                        <div id="selectFoodOptions">
-                        {{#each foodMenuOptions}}
-                        <option value="{{this}}">{{this}}</option>
-                        {{/each}}
-                      </div>
-                    </select>
-                  </div>
-                  <div class="col">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <input type="checkbox" aria-label="Checkbox for following text input" id="typeCheckBox"
-                            onclick="onDisabled()">
-                        </div>
-                      </div>
-                      <input type="text" class="form-control" aria-label="Text input with checkbox" id="typeInput"
-                        disabled="true" name="type">
-                    </div>
-                  </div>
-                </div>
-              </div>
-                <div class="form-group" id="select-beer-options">
-                <label for="name" class="col-form-label">Type</label>
-                <div class="form-row" id="validationCustom04">
-                  <div class="col">
-                    <select class="form-control selectpicker" name="type" title="Select type" required id="type">
-                      <option selected disabled value="">Select</option>
-                      <div id="selectBeerOptions">
-                        {{#each beerMenuOptions}}
-                        <option value="{{this}}">{{this}}</option>
-                        {{/each}}
-                      </div>
-                    </select>
-                  </div>
-                  <div class="col">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <input type="checkbox" aria-label="Checkbox for following text input" id="typeCheckBox"
-                            onclick="onDisabled()">
-                        </div>
-                      </div>
-                      <input type="text" class="form-control" aria-label="Text input with checkbox" id="typeInput"
-                        disabled="true" name="type">
-                    </div>
-                  </div>
-                </div>
-              </div>
+   <div class="form-group" id="select-qr-options">
+  <label for="name" class="col-form-label">Type</label>
+  <div class="form-row" id="validationCustom04">
+    <div class="col">
+      <select class="form-control selectpicker" name="type" title="Select type" required id="qrType">
+        <option selected disabled value="">Select</option>
+        <div id="selectQrOptions">
+          {{#each qrOptions}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </div>
+      </select>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" aria-label="Checkbox for following text input" id="qrTypeCheckBox"
+              onclick="onDisabled('qr')">
+          </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Text input with checkbox" id="qrTypeInput"
+          disabled="true" name="type">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-group" id="select-food-options">
+  <label for="name" class="col-form-label">Type</label>
+  <div class="form-row" id="validationCustom04">
+    <div class="col">
+      <select class="form-control selectpicker" name="type" title="Select type" required id="foodType">
+        <option selected disabled value="">Select</option>
+        <div id="selectFoodOptions">
+          {{#each foodMenuOptions}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </div>
+      </select>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" aria-label="Checkbox for following text input" id="foodTypeCheckBox"
+              onclick="onDisabled('food')">
+          </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Text input with checkbox" id="foodTypeInput"
+          disabled="true" name="type">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-group" id="select-beer-options">
+  <label for="name" class="col-form-label">Type</label>
+  <div class="form-row" id="validationCustom04">
+    <div class="col">
+      <select class="form-control selectpicker" name="type" title="Select type" required id="beerType">
+        <option selected disabled value="">Select</option>
+        <div id="selectBeerOptions">
+          {{#each beerMenuOptions}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </div>
+      </select>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" aria-label="Checkbox for following text input" id="beerTypeCheckBox"
+              onclick="onDisabled('beer')">
+          </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Text input with checkbox" id="beerTypeInput"
+          disabled="true" name="type">
+      </div>
+    </div>
+  </div>
+</div>
+
               <div class="form-group">
                 <label for="name" class="col-form-label">Name</label>
                 <input type="text" name="name" id="name" class="form-control" required>

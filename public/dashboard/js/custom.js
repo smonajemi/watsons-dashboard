@@ -325,8 +325,8 @@ $("#addRow_qrMenu").find("a[title='Delete']").click(function (e) {
 //         document.getElementById('cocktailMenuTableBody').style.display = 'none'
 //         document.getElementById('beerMenuTableBody').style.display = 'none'
 //         document.getElementById('qrMenuTableBody').style.display = 'none'
-//         document.getElementById('selectOptions').style.display = 'none'
-//         document.getElementById('qrSelectOptions').style.display = 'none'
+//         document.getElementById('select-qr-options').style.display = 'none'
+//         document.getElementById('qrselect-qr-options').style.display = 'none'
 //       break;
 //       case 'cocktailMenu':
 //         document.getElementById('menuModalForm').action = '/cocktailMenu'
@@ -335,25 +335,25 @@ $("#addRow_qrMenu").find("a[title='Delete']").click(function (e) {
 //         document.getElementById('foodMenuTableBody').style.display = 'none'
 //         document.getElementById('beerMenuTableBody').style.display = 'none'
 //         document.getElementById('qrMenuTableBody').style.display = 'none'
-//         document.getElementById('selectOptions').style.display = 'none'
-//         document.getElementById('qrSelectOptions').style.display = 'none'
+//         document.getElementById('select-qr-options').style.display = 'none'
+//         document.getElementById('qrselect-qr-options').style.display = 'none'
 //       break;
 //       case 'beerMenu':
 //         document.getElementById('menuModalForm').action = '/beer_wineMenu'
 //         document.getElementById('beerMenuTableBody').style.display = 'initial'
-//         document.getElementById('selectOptions').style.display = 'initial'
+//         document.getElementById('select-qr-options').style.display = 'initial'
 //         document.getElementById('validationCustom04').style.display = 'flex'
 
 //         document.getElementById('validationCustom05').style.display = 'none'
 //         document.getElementById('foodMenuTableBody').style.display = 'none'
 //         document.getElementById('cocktailMenuTableBody').style.display = 'none'
 //         document.getElementById('qrMenuTableBody').style.display = 'none'
-//         document.getElementById('qrSelectOptions').style.display = 'none'
+//         document.getElementById('qrselect-qr-options').style.display = 'none'
 //       break;
 //       case 'qrMenu':
 //         document.getElementById('menuModalForm').action = '/qrMenu'
 //         document.getElementById('qrMenuTableBody').style.display = 'initial'
-//         document.getElementById('selectOptions').style.display = 'initial'
+//         document.getElementById('select-qr-options').style.display = 'initial'
 //         document.getElementById('validationCustom05').style.display = 'flex'
 
 //         document.getElementById('foodMenuTableBody').style.display = 'none'
@@ -368,8 +368,8 @@ $("#addRow_qrMenu").find("a[title='Delete']").click(function (e) {
 //         document.getElementById('cocktailMenuTableBody').style.display = 'none'
 //         document.getElementById('beerMenuTableBody').style.display = 'none'
 //         document.getElementById('qrMenuTableBody').style.display = 'none'
-//         document.getElementById('selectOptions').style.display = 'none'
-//         document.getElementById('qrSelectOptions').style.display = 'none'
+//         document.getElementById('select-qr-options').style.display = 'none'
+//         document.getElementById('qrselect-qr-options').style.display = 'none'
 //       break;
 //     }
 // }
@@ -383,13 +383,13 @@ const handleMenuTabs = (tab) => {
       document.getElementById('menuModalForm').action = '/foodMenu';
       document.getElementById('select-food-options').style.display = 'block';
       document.getElementById('select-beer-options').style.display = 'none';
-      document.getElementById('selectOptions').style.display = 'none';
+      document.getElementById('select-qr-options').style.display = 'none';
       break;
     case 'cocktailMenu':
       url.searchParams.set('type', tab);
       window.history.pushState({}, '', url);
       document.getElementById('menuModalForm').action = '/cocktailMenu';
-      document.getElementById('selectOptions').style.display = 'none';
+      document.getElementById('select-qr-options').style.display = 'none';
       document.getElementById('select-food-options').style.display = 'none';
       document.getElementById('select-beer-options').style.display = 'none';
       break;
@@ -399,13 +399,13 @@ const handleMenuTabs = (tab) => {
       document.getElementById('menuModalForm').action = '/beer_wineMenu';
       document.getElementById('select-beer-options').style.display = 'block';
       document.getElementById('select-food-options').style.display = 'none';
-      document.getElementById('selectOptions').style.display = 'none';
+      document.getElementById('select-qr-options').style.display = 'none';
       break;
     case 'qrMenu':
       url.searchParams.set('type', tab);
       window.history.pushState({}, '', url);
       document.getElementById('menuModalForm').action = '/qrMenu';
-      document.getElementById('selectOptions').style.display = 'block';
+      document.getElementById('select-qr-options').style.display = 'block';
       document.getElementById('select-food-options').style.display = 'none';
       document.getElementById('select-beer-options').style.display = 'none';
       break;
@@ -413,7 +413,7 @@ const handleMenuTabs = (tab) => {
       url.searchParams.set('type', 'qrMenu');
       window.history.pushState({}, '', url);
       document.getElementById('menuModalForm').action = '/qrMenu';
-      document.getElementById('selectOptions').style.display = 'block';
+      document.getElementById('select-qr-options').style.display = 'block';
       document.getElementById('select-food-options').style.display = 'none';
       document.getElementById('select-beer-options').style.display = 'none';
       break;
@@ -433,7 +433,7 @@ $(document).ready(function () {
   switch (type) {
     case 'qrMenu':
       document.getElementById('menuModalForm').action = '/qrMenu'
-      document.getElementById('selectOptions').style.display = 'block'
+      document.getElementById('select-qr-options').style.display = 'block'
       document.getElementById('select-beer-options').style.display = 'none'
       document.getElementById('select-food-options').style.display = 'none'
 
@@ -455,7 +455,7 @@ $(document).ready(function () {
 
     case 'foodMenu':
       document.getElementById('menuModalForm').action = '/foodMenu'
-      document.getElementById('selectOptions').style.display = 'none'
+      document.getElementById('select-qr-options').style.display = 'none'
       document.getElementById('select-beer-options').style.display = 'none'
 
       var foodMenuTab = document.getElementById(`pills-${type}-tab`);
@@ -467,7 +467,7 @@ $(document).ready(function () {
 
     case 'cocktailMenu':
       document.getElementById('menuModalForm').action = '/cocktailMenu'
-      document.getElementById('selectOptions').style.display = 'none'
+      document.getElementById('select-qr-options').style.display = 'none'
       document.getElementById('select-beer-options').style.display = 'none'
       document.getElementById('select-food-options').style.display = 'none'
       
@@ -621,15 +621,20 @@ const homeFunction = () => {
   document.getElementById('usersTable').style.display = 'none'
 }
 
-const onDisabled = () => {
-  if (document.getElementById('typeCheckBox').checked == true) {
-    document.getElementById('type').disabled = true
-    document.getElementById('typeInput').disabled = false
-  } else {
-    document.getElementById('typeInput').disabled = true
-    document.getElementById('type').disabled = false
+const onDisabled = (type) => {
+  const checkBox = document.getElementById(`${type}TypeCheckBox`);
+  const select = document.getElementById(`${type}Type`);
+  const input = document.getElementById(`${type}TypeInput`);
 
+  if (checkBox.checked) {
+    select.disabled = true;
+    input.disabled = false;
+  } else {
+    input.disabled = true;
+    select.disabled = false;
   }
 }
+
+
 
 
