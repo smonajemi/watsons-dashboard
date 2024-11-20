@@ -9,6 +9,8 @@ const connectDB = require("./db/connection")
 const authenticationRouter = require('./routes/authenticate')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
+const pdfUploadRouter = require('./routes/uploadRouter')
+
 const http = require("http")
 const HTTP_PORT = process.env.PORT || 3000
 const crypto = require('crypto')
@@ -36,6 +38,7 @@ app.use(express.urlencoded({ extended: false }))
 // Get Routers
 app.use('/authenticate', authenticationRouter)
 app.use('/users', usersRouter)
+app.use("/upload", pdfUploadRouter);
 app.use('/', indexRouter)
 
 
