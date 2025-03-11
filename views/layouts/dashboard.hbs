@@ -18,16 +18,19 @@
 
   <title>{{title}}</title>
 
-  <!-- Security Policy to Secure the Page -->
+  <!-- Fixed Content Security Policy -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self'; 
     script-src 'self' https://kit.fontawesome.com https://ajax.googleapis.com https://cdn.jsdelivr.net;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://ka-f.fontawesome.com;
+    font-src 'self' https://ka-f.fontawesome.com https://fonts.gstatic.com;
+    connect-src 'self' https://ka-f.fontawesome.com;
     img-src 'self' data:;
     object-src 'none';
     upgrade-insecure-requests;
   " />
 
+  <!-- Stylesheets -->
   <link href="/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet" />
   <link href="/dashboard/css/successPage.css" rel="stylesheet" type="text/css">
@@ -39,25 +42,39 @@
 
 </head>
 
-<body id="page-top" class={{isBody}}>
+<body id="page-top" class="{{isBody}}">
   <div id="wrapper">
     {{{body}}}
   </div>
 
-  <script src="/dashboard/vendor/jquery/jquery.min.js"></script>
-  <script src="/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://kit.fontawesome.com/b98a764abd.js" crossorigin="anonymous"></script>
-  <script src="/dashboard/js/sb-admin-2.min.js"></script>
-  <script src="/dashboard/js/custom.js"></script>
-  <script src="extensions/editable/bootstrap-table-editable.js"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
-          integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7ie3L0bWl5L4e5z5F5X5a5J5P5k5z5L5M5V5" 
-          crossorigin="anonymous"></script>
-
+  <!-- JavaScript Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
           integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
           crossorigin="anonymous"></script>
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/b98a764abd.js" crossorigin="anonymous"></script>
+
+  <!-- Local Scripts -->
+  <script src="/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/dashboard/js/sb-admin-2.min.js"></script>
+
+  <!-- Editable Table Fix -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.1/extensions/editable/bootstrap-table-editable.min.js"></script>
+
+  <!-- Custom Script Fix -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const targetElement = document.querySelector("#your-element-id");
+      if (targetElement) {
+        targetElement.style.display = "block";
+      }
+    });
+  </script>
+
+  <!-- Custom Scripts -->
+  <script src="/dashboard/js/custom.js"></script>
 
 </body>
 
