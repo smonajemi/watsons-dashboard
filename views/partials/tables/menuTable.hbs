@@ -8,13 +8,13 @@
             onclick="handleMenuTabs('qrMenu');" data-bs-toggle="pill" data-bs-target="#pills-qrMenu" type="button"
             role="tab" aria-controls="pills-qrMenu" aria-selected="false">QR Menu</button>
         </li>
-        <li class="nav-item" role="presentation">
+        {{!-- <li class="nav-item" role="presentation">
           <button class="nav-link btn btn-outline-info fancyButton" id="pills-beerMenu-tab"
             onclick="handleMenuTabs('beerMenu')" data-bs-toggle="pill" data-bs-target="#pills-beerMenu" type="button"
             role="tab" aria-controls="pills-beerMenu" aria-selected="false">Beer &amp; Wine
             Menu</button>
-        </li>
-        <li class="nav-item" role="presentation">
+        </li> --}}
+        {{!-- <li class="nav-item" role="presentation">
           <button class="nav-link btn btn-outline-info fancyButton" id="pills-foodMenu-tab"
             onclick="handleMenuTabs('foodMenu');" data-bs-toggle="pill" data-bs-target="#pills-foodMenu" type="button"
             role="tab" aria-controls="pills-foodMenu" aria-selected="true">Food Menu</button>
@@ -23,7 +23,7 @@
           <button class="nav-link btn btn-outline-info fancyButton" id="pills-cocktailMenu-tab"
             onclick="handleMenuTabs('cocktailMenu')" data-bs-toggle="pill" data-bs-target="#pills-cocktailMenu"
             type="button" role="tab" aria-controls="pills-cocktailMenu" aria-selected="false">Cocktail Menu</button>
-        </li>
+        </li> --}}
       </ul>
     </div>
     <div class="card-body">
@@ -303,7 +303,7 @@
             <label for="name" class="col-form-label">Type</label>
             <div class="form-row" id="validationCustom04">
               <div class="col">
-                <select class="form-control selectpicker" name="type" title="Select type" required id="qrType">
+                <select class="form-control selectpicker" name="type" title="Select type" required id="type">
                   <option selected disabled value="">Select</option>
                   <div id="selectQrOptions">
                     {{#each qrOptions}}
@@ -327,46 +327,16 @@
             </div>
           </div>
 
-          <div class="form-group" id="select-food-options">
-            <label for="name" class="col-form-label">Type</label>
-            <div class="form-row" id="validationCustom04">
-              <div class="col">
-                <select class="form-control selectpicker" name="type" title="Select type" required id="foodType">
-                  <option selected disabled value="">Select</option>
-                  <div id="selectFoodOptions">
-                    {{#each foodMenuOptions}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                  </div>
-                </select>
-              </div>
-              <div class="col">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <input type="checkbox" aria-label="Checkbox for following text input" id="foodTypeCheckBox"
-                        onclick="onDisabled('food')">
-                    </div>
-                  </div>
-                  <input type="text" class="form-control" aria-label="Text input with checkbox" id="foodTypeInput"
-                    disabled="true" name="type">
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div class="form-group" id="select-beer-options">
             <label for="name" class="col-form-label">Type</label>
             <div class="form-row" id="validationCustom04">
               <div class="col">
-                <select class="form-control selectpicker" name="type" title="Select type" required id="beerType">
-                  <option selected disabled value="">Select</option>
-                  <div id="selectBeerOptions">
-                    {{#each beerMenuOptions}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                  </div>
-                </select>
+                <select class="form-control selectpicker" name="type" title="Select type" required id="type">
+                <option selected disabled value="">Select</option>
+                {{#each beerMenuOptions}}
+                  <option value="{{this}}">{{this}}</option>
+                {{/each}}
+              </select>
               </div>
               <div class="col">
                 <div class="input-group mb-3">

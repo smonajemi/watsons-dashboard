@@ -4,21 +4,26 @@ const crypto = require('crypto');
 const { GridFsStorage } = require('multer-gridfs-storage');
 require('dotenv').config();
 
-// Configure GridFsStorage for food PDFs
+// Separate bucket for food PDFs
 const foodPdfStorage = new GridFsStorage({
-  url: process.env.DB_CONNECTION, // MongoDB connection string
+  url: process.env.DB_CONNECTION, 
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
     if (file.mimetype === 'application/pdf') {
       return new Promise((resolve, reject) => {
         crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
+          if (err) return reject(err);
+
+        // const now = new Date();
+        // const hours = now.getHours().toString().padStart(2, '0');
+        // const minutes = now.getMinutes().toString().padStart(2, '0');
+        // const militaryTime = `${hours}${minutes}`;
+        // const filename = `${militaryTime}${path.extname(file.originalname)}`;
+
           const filename = `${buf.toString('hex')}${path.extname(file.originalname)}`;
           const fileInfo = {
             filename,
-            bucketName: 'food-pdf', // Separate bucket for food PDFs
+            bucketName: 'food-pdf', 
             metadata: req.body.selectControl,
             aliases: { author: req.session?.user?.username || 'Admin - Sina' },
           };
@@ -26,37 +31,35 @@ const foodPdfStorage = new GridFsStorage({
         });
       });
     }
-    return null; // Skip unsupported file types
+    return null; // unsupported file types
   },
 });
 
-// Configure GridFsStorage for cocktail PDFs
+// Separate bucket for cocktail PDFs
 const cocktailPdfStorage = new GridFsStorage({
-  url: process.env.DB_CONNECTION, // MongoDB connection string
+  url: process.env.DB_CONNECTION, 
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
     if (file.mimetype === 'application/pdf') {
       return new Promise((resolve, reject) => {
         crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
+          if (err) return reject(err);
           const filename = `${buf.toString('hex')}${path.extname(file.originalname)}`;
           const fileInfo = {
             filename,
-            bucketName: 'cocktail-pdf', // Separate bucket for cocktail PDFs
+            bucketName: 'cocktail-pdf', 
             metadata: req.body.selectControl,
-            aliases: { author: req.session?.user?.username || 'Admin - Sina' },
+            aliases: { author: req.session?.user?.username || 'Admin' },
           };
           resolve(fileInfo);
         });
       });
     }
-    return null; // Skip unsupported file types
+    return null; // unsupported file types
   },
 });
 
-// Multer middleware for handling file uploads
+// handling file uploads
 const foodPdfUpload = multer({ storage: foodPdfStorage });
 const cocktailPdfUpload = multer({ storage: cocktailPdfStorage });
 

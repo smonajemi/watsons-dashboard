@@ -25,10 +25,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(crypto.randomBytes(25000).toString("hex")))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(clientSessions({
-  cookieName: "session", // this is the object name that will be added to 'req'
+  cookieName: "session", 
   secret: crypto.randomBytes(25000).toString("hex"), 
-  duration: 15 * 60 * 1000, // duration of the session in milliseconds (15 minutes)
-  activeDuration: 1000 * 60 // the session will be extended by this many as each request (1 minute)
+  duration: 15 * 120 * 1000, // duration of the session in milliseconds (15 minutes)
+  activeDuration: 1000 * 120 // the session will be extended by this many as each request (1 minute)
 }))
 
 app.use(logger('dev'))

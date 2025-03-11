@@ -374,61 +374,46 @@ $("#addRow_qrMenu").find("a[title='Delete']").click(function (e) {
 //     }
 // }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const type = urlParams.get("type");
+
+  // Hide/show sections based on type
+  if (type === "qrMenu") {
+    document.getElementById("select-qr-options").style.display = "block";
+    document.getElementById("select-beer-options").style.display = "none";
+  } else if (type === "beerMenu") {
+    document.getElementById("select-qr-options").style.display = "none";
+    document.getElementById("select-beer-options").style.display = "block";
+  } else {
+    // Default: hide both
+    document.getElementById("select-qr-options").style.display = "none";
+    document.getElementById("select-beer-options").style.display = "none";
+  }
+});
+
+// Function to handle menu tab clicks
 const handleMenuTabs = (tab) => {
   const url = new URL(window.location);
-  switch (tab) {
-    case 'foodMenu':
-      url.searchParams.set('type', tab);
-      window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/foodMenu';
-      document.getElementById('select-food-options').style.display = 'block';
-      document.getElementById('select-beer-options').style.display = 'none';
-      document.getElementById('select-qr-options').style.display = 'none';
-      break;
-    case 'cocktailMenu':
-      url.searchParams.set('type', tab);
-      window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/cocktailMenu';
-      document.getElementById('select-qr-options').style.display = 'none';
-      document.getElementById('select-food-options').style.display = 'none';
-      document.getElementById('select-beer-options').style.display = 'none';
-      break;
-    case 'beerMenu':
-      url.searchParams.set('type', tab);
-      window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/beer_wineMenu';
-      document.getElementById('select-beer-options').style.display = 'block';
-      document.getElementById('select-food-options').style.display = 'none';
-      document.getElementById('select-qr-options').style.display = 'none';
-      break;
-    case 'qrMenu':
-      url.searchParams.set('type', tab);
-      window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/qrMenu';
-      document.getElementById('select-qr-options').style.display = 'block';
-      document.getElementById('select-food-options').style.display = 'none';
-      document.getElementById('select-beer-options').style.display = 'none';
-      break;
-    default:
-      url.searchParams.set('type', 'qrMenu');
-      window.history.pushState({}, '', url);
-      document.getElementById('menuModalForm').action = '/qrMenu';
-      document.getElementById('select-qr-options').style.display = 'block';
-      document.getElementById('select-food-options').style.display = 'none';
-      document.getElementById('select-beer-options').style.display = 'none';
-      break;
+  url.searchParams.set("type", tab);
+  window.history.pushState({}, "", url);
+
+  if (tab === "beerMenu") {
+    document.getElementById("menuModalForm").action = "/beer_wineMenu";
+    document.getElementById("select-beer-options").style.display = "block";
+    document.getElementById("select-qr-options").style.display = "none";
+  } else if (tab === "qrMenu") {
+    document.getElementById("menuModalForm").action = "/qrMenu";
+    document.getElementById("select-qr-options").style.display = "block";
+    document.getElementById("select-beer-options").style.display = "none";
   }
-}
+};
+
 
 
 $(document).ready(function () {
   const params = new URLSearchParams(window.location.search)
   const type = params.get('type')
-  // $(".tabs").on("click", function (e) {
-  //   var target = $(e.target).attr("data-bs-target");
-  //   if (target != null)
-  //   var tab = target.split('#')[1];
-  //  });
 
   switch (type) {
     case 'qrMenu':

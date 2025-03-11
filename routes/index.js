@@ -50,7 +50,7 @@ router.get("/menu-table/:userId", isLoggedIn, async (req, res) => {
 
     const beerMenuTypes = beerMenu.data?.map(x => (x.type))
     const beerMenuOptions = beerMenuTypes.filter((c, index) => {
-      return beerMenuTypes.indexOf(c) === index;
+      return (c !== '' && c !== undefined ) && beerMenuTypes.indexOf(c) === index;
     });
 
     const foodMenuTypes = foodMenu.data?.map(x => {
@@ -154,10 +154,9 @@ router.post('/:option', isLoggedIn, async (req, res, next) => {
             items[i].name = body.name;
             items[i].price = body.price;
             items[i].description = body.description;
-            items[i].type = body.type; // TO BE UPDATED
+            items[i].type = body.type;
             
             await menu.save();
-            console.info("item updated", menu);
             return res.redirect(`/menu-table/${req.session.user?._id}?type=${queryType}`);
           }
         }
