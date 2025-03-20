@@ -9,37 +9,22 @@
                 <thead class="thead-dark">
                     <tr>
                         <th class="col-sm-1">#</th>
-                        <th class="col-sm-2">First</th>
-                        <th class="col-sm-3">Last</th>
-                        <th class="col-sm-4">username</th>
-                        <th class="col-sm-1">Role</th>
-                        <th class="col-sm-1" style="text-align:center;">
-                        Action
-                        </th>
+                        <th class="col-sm-1">First</th>
+                        <th class="col-sm-1">Last</th>
+                        <th class="col-sm-1">username</th>
+                        <th class="col-sm-3">Last login</th>
+                        <th class="col-sm-3">Updated</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each users.data}}
                     <tr>
-                        <td>{{@index}}</td>
+                        <td>{{increment @index}}</td>
                         <td>{{firstName}}</td>
                         <td>{{lastName}}</td>
                         <td>{{username}}</td>
-                        <td>{{role}}</td>
-                        <td style="text-align:center; display: flex;">
-                            {{#if isAdmin}}
-                            <b> N/A</b>
-                            {{else}}
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="fa fa-plus"
-                                    aria-hidden="true"></i></a>
-                            <a class="edit" title="Edit" data-toggle="modal" data-target="#userHandlePasswordModal" onclick='onChangeUserPassword("{{_id}}")'><i
-                                    class="fa fa-edit"></i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip" onclick='onDeleteUser("{{_id}}")'><i
-                                    class="fa fa-trash"></i>
-                            </a>
-
-                            {{/if}}
-                        </td>
+                        <td>{{lastLog}}</td>
+                        <td>{{updateAt}}</td>
                     </tr>
                     {{else}}
                     <tr>

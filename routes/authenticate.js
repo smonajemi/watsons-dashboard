@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs")
 const User = require("../modules/User")
 const nodemailer = require('nodemailer')
 const validator = require('validator')
+const moment = require('moment')
 require('dotenv').config()
 
 
@@ -136,48 +137,54 @@ router.post("/resetPassword", async (req, res) => {
 })
 
 // POST REQUESTS
-router.post("/login", (req, res) => {
-  const username = req.body.username
-  const password = req.body.password
-  if (username === "" || password === "")
-    return res.render("pages/login", {
-      title: "Login",
-      errorMsg: "missing credentials",
-      isBody: 'bg-gradient-primary'
-    })
-  User.findOne({ username: username }, (err, user) => {
-    try {
-      if (err) throw new Error(err)
-      if (!user)
-        return res.render("pages/login", {
+router.post("/login", async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (username === "" || password === "") {
+      return res.render("pages/login", {
           title: "Login",
-          errorMsg: "user not found",
+          errorMsg: "Missing credentials",
           isBody: 'bg-gradient-primary'
-        })
-      if (user) {
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-          try {
-            if (err) throw new Error(err)
-            if (isMatch) {
-              req.session.user = user
-              return res.redirect(`/${req.session.user._id}`);
-            } else {
-              res.render("pages/login", {
-                title: "Login",
-                errorMsg: "invalid password",
-                isBody: 'bg-gradient-primary'
-              })
-            }
-          } catch (error) {
-            res.json({ message: error.message })
-          }
-        })
+      });
+  }
+
+  try {
+      const user = await User.findOne({ username });
+
+      if (!user) {
+          return res.render("pages/login", {
+              title: "Login",
+              errorMsg: "User not found",
+              isBody: 'bg-gradient-primary'
+          });
       }
-    } catch (error) {
-      res.json({ message: error.message })
-    }
-  })
-})
+
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (isMatch) {
+        user.lastLog = moment().format("dddd, MMMM DD, YYYY");
+
+        await user.save();
+
+        console.log("user.lastLog (formatted):", user.lastLog);
+
+        req.session.user = user;
+          return res.redirect(`/${user._id}`);
+      } else {
+          return res.render("pages/login", {
+              title: "Login",
+              errorMsg: "Invalid password",
+              isBody: 'bg-gradient-primary'
+          });
+      }
+  } catch (error) {
+      res.json({ message: error.message });
+  }
+});
+
+
+
 
 router.post("/logout", (req, res) => {
   req.session.reset()
