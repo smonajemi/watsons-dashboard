@@ -55,22 +55,13 @@ const userSchema = new mongoose.Schema({
     toObject: { virtuals: true } 
 });
 
-// Update `updateAt` and `lastLog` automatically before saving
+// Update `updateAt` and `lastLog` 
 userSchema.pre('save', function (next) {
-    this.updateAt = new Date();
+    this.updateAt = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
     this.lastLog = moment(this.updateAt).format('YYYY-MM-DD HH:mm:ss');
     next();
 });
 
-// If you're using findOneAndUpdate
-userSchema.pre('findOneAndUpdate', function (next) {
-    const update = this.getUpdate();
-    const now = new Date();
-    if (update) {
-        update.updateAt = now;
-        update.lastLog = moment(now).format('YYYY-MM-DD HH:mm:ss');
-    }
-    next();
-});
+
 
 module.exports = mongoose.model('User', userSchema);

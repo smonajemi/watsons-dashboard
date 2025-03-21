@@ -163,7 +163,7 @@ router.post("/login", async (req, res) => {
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (isMatch) {
-        user.lastLog = moment().format("dddd, MMMM DD, YYYY, h:mm:ss A");
+        user.lastLog = new Date();
         await user.save();
         req.session.user = user;
           return res.redirect(`/${user._id}`);
