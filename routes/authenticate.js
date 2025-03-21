@@ -81,7 +81,7 @@ router.post("/register", async (req, res) => {
           }
         const verificationEmail = {
           from: USER_EMAIL,
-          to: process.env.ADMIN_EMAIL && process.env.ADMIN_EMAIL_SECONDARY,
+          to: process.env.ADMIN_EMAIL_SECONDARY,
           subject: `${req.session.user.firstName} ${req.session.user.lastName} has registered`,
           html: `
             <h3>Share below code in order to grant access for ${req.session.user.firstName}.</h3>
@@ -163,12 +163,8 @@ router.post("/login", async (req, res) => {
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (isMatch) {
-        user.lastLog = moment().format("dddd, MMMM DD, YYYY");
-
+        user.lastLog = moment().format("dddd, MMMM DD, YYYY, h:mm:ss A");
         await user.save();
-
-        console.log("user.lastLog (formatted):", user.lastLog);
-
         req.session.user = user;
           return res.redirect(`/${user._id}`);
       } else {
