@@ -608,18 +608,22 @@ const homeFunction = () => {
 
 const onDisabled = (type) => {
   const checkBox = document.getElementById(`${type}TypeCheckBox`);
-  const select = document.getElementById(`${type}Type`);
-  const input = document.getElementById(`${type}TypeInput`);
+  const select   = document.getElementById(`${type}TypeSelect`);
+  const input    = document.getElementById(`${type}TypeInput`);
+  const hidden   = document.getElementById(`${type}TypeFinal`);
 
   if (checkBox.checked) {
-    select.disabled = true;
+    // enable custom
     input.disabled = false;
+    input.focus();
+    hidden.value = input.value;
   } else {
+    // enable dropdown
     input.disabled = true;
-    select.disabled = false;
+    hidden.value = select.value;
   }
-}
 
-
-
-
+  // Keep hidden synced when user types or selects
+  input.addEventListener("input", () => { if (checkBox.checked) hidden.value = input.value; });
+  select.addEventListener("change", () => { if (!checkBox.checked) hidden.value = select.value; });
+};
